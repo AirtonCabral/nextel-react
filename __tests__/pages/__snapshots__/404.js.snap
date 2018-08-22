@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagina de 404 Renderiza corretamente 1`] = `
+<div
+  style={
+    Object {
+      "paddingLeft": 50,
+    }
+  }
+>
+  <h1>
+    Página não encontrada :(
+  </h1>
+  <h2>
+    <span
+      role="img"
+    >
+      🚑 
+    </span>
+    Volte para o seu 
+    <Connect(ConnectedLink)
+      to="/dashboard"
+    >
+      dashboard
+    </Connect(ConnectedLink)>
+  </h2>
+</div>
+`;

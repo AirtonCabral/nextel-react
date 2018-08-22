@@ -1,0 +1,104 @@
+@import './_vars.scss';
+
+.app-main {
+    // position: relative;
+    // left: 0;
+    // margin-left: 230px;
+    // min-height: 100%;
+}
+
+.headerBar {
+    background-color: #FF5722;
+    color: white;
+    height: 40px;
+    min-height: 40px!important;
+}
+
+.tabs {
+    background-color:white;
+    button {
+        border: 1px solid #80808017;
+        border-top: none;
+    }
+    .MuiTab-selected-122 {
+        color: black !important;
+    }
+    .TabIndicator-colorPrimary-130 {
+        background-color: $primary !important;
+    }
+}
+
+.alice-carousel{
+    padding: 0px;
+    .alice-carousel__wrapper {
+        border: none;
+    }
+    .alice-carousel__dots {
+        position: relative;
+        bottom: 0px;
+        z-index: 100;
+        .__active {
+            background-color: $primary;
+        }
+    }
+    .midiaCard {
+        padding-top: 45%;
+    }
+    #cardOriginal {
+        margin: 10px;
+        height: auto;
+        hr {
+            opacity: 0.1;
+        }
+        .contentCard {
+            h3 {
+                color: $primary;
+                text-transform: uppercase;
+                margin-bottom: -5px;
+            }
+        }
+        .cardPoints {
+            padding: 0;
+            background: #80808021;
+            margin: -10px 12px;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+        .points {
+            font-size: 5rem;
+            position: relative;
+            top: -30px;
+            left: 10%;
+            line-height: 0px;
+            letter-spacing: -10px;
+            span {
+                font-size: 18px;
+                margin-left: 8px;
+                letter-spacing: initial;
+            }
+        }
+        .contentCard {
+            .detailsButton {
+                position: relative;
+                color: $primary;
+                border: 1px solid $primary!important;
+                min-height: 30px!important;
+                font-size: 12px;
+                padding: 4px 25px;
+                left: 60%;
+                &:hover {
+                    background-color: $primary;
+                    color: white;
+                }
+            }
+        }
+    }
+    .switchedit {
+        .span {
+            color: #4bb20d;
+        }
+    }
+    .MuiSwitch-checked-150 + .MuiSwitch-bar-154 {
+        background-color: #4bb20d !important;
+    }
+}

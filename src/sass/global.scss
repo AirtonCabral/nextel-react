@@ -1,0 +1,71 @@
+
+// Diversas apresentações do Quicksand
+@font-face {
+    font-family: 'AvenirNextCondensed';
+    src: url('./../fonts/AvenirNextCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AvenirNextCondensed';
+    src: url('./../fonts/AvenirNextCondensed-UltraLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AvenirNextCondensed';
+    src: url('./../fonts/AvenirNextCondensed-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+* {
+    font-family: 'AvenirNextCondensed', sans-serif;
+}
+
+body { margin:0; } 
+
+.w-100 {
+    width: 100%;
+}
+
+.modal.lightbox {
+    .modal-header {
+        position: absolute;
+        right: 0;
+        border-width: 0;
+
+        .close {
+            color: #fff;
+            opacity: 1;
+        }
+    }
+    .modal-content {
+        padding: 20px;
+    }
+}
+
+.Toastify__toast {
+    font-size: 14px;
+    width: 180px;
+    height: 40px;
+    min-height: 40px;
+    padding-left: 13px;
+}
+
+.Toastify__toast-container.notification {
+    width: 180px;
+    height: 40px;
+}
+
+.Toastify__toast-container.notification .Toastify__progress-bar {
+    height: 3px;
+}
+
+.Toastify__toast--success {
+    background-color: #271c6a;
+}
+
+.Toastify__toast--error {
+    background-color: #be4747;
+}

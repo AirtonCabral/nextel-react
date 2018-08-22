@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagina de login Relata erro quando campos vazios são enviados 1`] = `null`;
+
+exports[`Pagina de login Renderiza corretamente quando offline 1`] = `
+<div
+  id="login"
+>
+  <div
+    className="bg-login"
+  />
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        id="wrapper-form"
+      >
+        <img
+          className="icon-login img-responsive"
+          src="test-file-stub"
+        />
+        <h2
+          className="title-login"
+        >
+          Conecte-se
+        </h2>
+        <p
+          className="text-login"
+        >
+          Se ainda não tem uma conta, registre-se aqui. 
+          <br />
+          Se já tem, basta entrar com os dados abaixo.
+        </p>
+        <form>
+          <div
+            className="form-group form-group-lg has-feedback"
+          >
+            <input
+              className="form-control"
+              disabled={true}
+              id="formBasicEmail"
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Email"
+              type="text"
+              value={undefined}
+            />
+          </div>
+          <div
+            className="form-group form-group-lg has-feedback"
+          >
+            <input
+              className="form-control"
+              disabled={true}
+              id="formBasicPassword"
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Senha"
+              type="password"
+              value={undefined}
+            />
+          </div>
+          <button
+            className="w-100 button-login btn btn-lg btn-default"
+            disabled={true}
+            type="button"
+          >
+            SERVIÇO INDISPONÍVEL
+          </button>
+        </form>
+        <a
+          className="forgot-password"
+          href=""
+        >
+          Esqueceu sua senha?
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Pagina de login Renderiza corretamente quando online 1`] = `
+<div
+  id="login"
+>
+  <div
+    className="bg-login"
+  />
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        id="wrapper-form"
+      >
+        <img
+          className="icon-login img-responsive"
+          src="test-file-stub"
+        />
+        <h2
+          className="title-login"
+        >
+          Conecte-se
+        </h2>
+        <p
+          className="text-login"
+        >
+          Se ainda não tem uma conta, registre-se aqui. 
+          <br />
+          Se já tem, basta entrar com os dados abaixo.
+        </p>
+        <form>
+          <div
+            className="form-group form-group-lg has-feedback"
+          >
+            <input
+              className="form-control"
+              disabled={false}
+              id="formBasicEmail"
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Email"
+              type="text"
+              value={undefined}
+            />
+          </div>
+          <div
+            className="form-group form-group-lg has-feedback"
+          >
+            <input
+              className="form-control"
+              disabled={false}
+              id="formBasicPassword"
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="Senha"
+              type="password"
+              value={undefined}
+            />
+          </div>
+          <button
+            className="w-100 button-login btn btn-lg btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            ENTRAR
+          </button>
+        </form>
+        <a
+          className="forgot-password"
+          href=""
+        >
+          Esqueceu sua senha?
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
