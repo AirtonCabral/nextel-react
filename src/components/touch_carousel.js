@@ -3,10 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import "react-alice-carousel/lib/alice-carousel.css";
 import AliceCarousel from 'react-alice-carousel';
 import DefaultCard from './../components/default_card'
+import Cp from '@material-ui/core/CircularProgress';
 
-const styles = theme => ({
-
-});
+const styles = {
+    
+};
 
 const responsive = {
     0: { items: 1 },
@@ -17,34 +18,39 @@ const responsive = {
 
 function TouchCarousel(props) {
 
-    let items = [];
+    let cards = [];
+    let totalCards = props.itens.length;
+    let userProducts = props.userProducts;
 
-    if ('itens' in props) {
-        items = props.itens.map((item, i) => (
-            <div key={`key-${i}`} className="yours-custom-class">
-                <DefaultCard data={item} handleSwitch={props.handleSwitch} openDetails={props.openDetails} />
-            </div>
-        ))
+    if (totalCards === 0) {
+        return(<Cp size={18} thickness={5} />)
     }
-
-    // items = [1, 2, 3, 4, 5, 6, 7, 8].map((item, i) => (
-    //     <div key={`key-${i}`} className="yours-custom-class">
-    //         <DefaultCard />
-    //     </div>
-    // ))
+    else {
+        cards = props.itens.map((dataCard, i) => {
+            return (
+                <div key={`key-${i}`} className="yours-custom-class">
+                    <DefaultCard
+                        userProducts={userProducts}
+                        data={dataCard}
+                        handleSwitch={props.handleSwitch}
+                        openDetails={props.openDetails} />
+                </div>
+            )
+        })
+        return (
+            <div>
+                <AliceCarousel
+                    infinite={false}
+                    items={cards}
+                    startIndex={0}
+                    mouseDragEnabled={true}
+                    buttonsDisabled={true}
+                    responsive={responsive}
+                />
+            </div>
+        );
+    }
     
-    return (
-        <div>
-            <AliceCarousel
-                infinite={false}
-                items={items}
-                startIndex={0}
-                mouseDragEnabled={true}
-                buttonsDisabled={true}
-                responsive={responsive}
-            />
-        </div>
-    );
 }
 
 export default withStyles(styles)(TouchCarousel);

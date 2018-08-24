@@ -1,11 +1,13 @@
-import { SIGNIN, SIGNOUT, ATTEMPT_CONNECTION, SERVICES } from '../actions/types';
+import { SIGNIN, SIGNOUT, ATTEMPT_CONNECTION, PRODUCTS } from '../actions/types';
 
 const initialState = {
+    token: null,
     online: false,
     msisdn: null,
-    pontos: null,
-    token: null,
-    services: [],
+    total: 0,
+    current: null,
+    user_products: [],
+    products: [],
 }
 
 export default (state = initialState, action) => {
@@ -20,19 +22,23 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 msisdn: action.msisdn,
-                pontos: action.pontos,
-            }
-        case SERVICES:
-            return {
-                ...state,
-                services: action.services,
+                user_id: action.user_id,
+                total: action.total,
+                user_products: action.products,
+                hold: action.hold,
+                status: action.status,
             }
         case SIGNOUT:
             return {
                 ...state,
                 token: null,
                 msisdn: null,
-                pontos: null,
+                total: null,
+            }
+        case PRODUCTS:
+            return {
+                ...state,
+                products: action.products,
             }
         default:
             return state

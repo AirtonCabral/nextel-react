@@ -54,10 +54,12 @@ store.subscribe(() => {
 // SessionStorage
 store.subscribe(() => {
     const state = store.getState()
-    saveStateToSession({
-        map: state.map,
-        professionals: state.professionals,
-        specialties: state.specialties,
-    })
+    // saveStateToSession({
+    //     map: state.map,
+    //     professionals: state.professionals,
+    //     specialties: state.specialties,
+    // })
 })
 export default store
+
+

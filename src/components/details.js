@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import { withStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -29,9 +29,9 @@ const styles = {
         color: 'white',
         '&$colorChecked': {
             color: '#4eb50c',
-            '& + $colorBar': {
-                backgroundColor: '#4eb50c',
-            },
+            // '& + $colorBar': {
+            //     backgroundColor: '#4eb50c',
+            // },
         },
     }
 };
@@ -40,78 +40,98 @@ const responsive = {
     0: { items: 1 }
 };
 
-const details = (props) => {
-    return (
-        <div>
-        <Grid container style={styles.paper} className='details'>
-            <Grid xs={3} >
-                <img src='https://picsum.photos/170/130' alt='imagem do conteudo ' />
+class Details extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: false
+        }
+    }
+
+    componentDidMount() {
+
+    }
+
+    render() {
+        return (
+            <div>
+            <Grid container style={styles.paper} className='details'>
+                <Grid>
+                    <img src={this.props.details.IMG.IMGLOGO} style={{width:'100px', height:'100px'}} alt='imagem do conteudo ' />
+                </Grid>
+                <Grid >
+                    <CardContent className='contentCard'>
+                        <Typography gutterBottom variant="subheading">
+                            {this.props.details.produto}
+                        </Typography>
+                        <Typography variant='body2'>
+                            {this.props.details.tags}
+                        </Typography>
+                        <hr />
+                        <Typography variant="caption">
+                            {this.props.details.RESUMO}
+                        </Typography>
+                        <hr />
+                    </CardContent>
+                </Grid>
+                <Grid>
+                    <CardActions className="cardPoints">
+                    <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        onChange={(event)=>{
+                                            this.setState({ selected: event.target.checked }, () => {
+                                                
+                                            });
+                                        }}
+                                        value='selected'
+                                        checked={this.state.selected}
+                                        // aria-label="LoginSwitch"
+                                        // color="primary"
+                                        // style={{
+                                        //     checked: classes.colorChecked
+                                        // }}
+                                    />
+                                }
+                            />
+                        </FormGroup>
+                    </CardActions>
+                    {/* <label className='points'>
+                        {this.props.details.pontos} <span>pts</span>
+                    </label> */}
+                </Grid>
+                <Grid>
+                    <AliceCarousel
+                        infinite={false}
+                        startIndex={0}
+                        mouseDragEnabled={true}
+                        buttonsDisabled={true}
+                        responsive={responsive}>
+                                <img src='https://picsum.photos/170/300' />
+                                <img src='https://picsum.photos/170/300' />
+                                <img src='https://picsum.photos/170/300' />
+                                <img src='https://picsum.photos/170/300' />
+                    </AliceCarousel>
+                </Grid>
+                {/* <Grid>
+                    <Tabs
+                        //onChange={this.handleChange}
+                        scrollable
+                        scrollButtons="on"
+                        indicatorColor="primary"
+                        textColor="primary"
+                        className='tabs'
+                    >
+                        <Tab label="Entretenimento" />
+                        <Tab label="Conteúdo de TV" />
+                    </Tabs>
+                </Grid> */}
             </Grid>
-            <Grid  xs={6} >
-                <CardContent className='contentCard'>
-                    <Typography gutterBottom variant="subheading">
-                        {props.details.produto}
-                    </Typography>
-                    <Typography variant='heading'>
-                        {props.details.tags}
-                    </Typography>
-                    <hr />
-                    <Typography variant="caption">
-                        Os melhores desenhos infantis para você e seu filho assistirem 24 horas por dia, quando e onde quiser.
-                    </Typography>
-                    <hr />
-                </CardContent>
-            </Grid>
-            <Grid xs={3} >
-                <CardActions className="cardPoints">
-                <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                // onChange={props.handleChange}
-                                //onClick={((e) => props.handleSwitch(e, this.props.data))}
-                                aria-label="LoginSwitch"
-                                color="Green"
-                                classes={{
-                                    checked: styles.colorChecked
-                                }}/>
-                            }
-                        />
-                    </FormGroup>
-                </CardActions>
-                <label className='points'>
-                    {props.details.pontos} <span>pts</span>
-                </label>
-            </Grid>
-            <Grid item xs={3}>
-                <AliceCarousel
-                    infinite={false}
-                    startIndex={0}
-                    mouseDragEnabled={true}
-                    buttonsDisabled={true}
-                    responsive={responsive}>
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
-                </AliceCarousel>
-            </Grid>
-            <Grid item xs={9}>
-                <Tabs
-                    //onChange={this.handleChange}
-                    scrollable
-                    scrollButtons="on"
-                    indicatorColor="primary"
-                    textColor="primary"
-                    className='tabs'
-                >
-                    <Tab label="Entretenimento" />
-                    <Tab label="Conteúdo de TV" />
-                </Tabs>
-            </Grid>
-        </Grid>
-        </div>
-    );
+            </div>
+        )
+    }
 }
 
-export default details;
+export default withStyles(styles)(Details);

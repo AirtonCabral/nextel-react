@@ -1,7 +1,8 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { attemptConnection, signIn, signOut, getServices } from '../actions/a_auth'
+import { startConnection, signIn, signOut, getProducts } from '../actions/a_auth'
+import { addToPortfolio, removeToPortfolio, startPortfolio } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
 import Modal from '@material-ui/core/Modal';
@@ -48,8 +49,8 @@ const styles = {
 };
 
 export class Home extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
 
         let msisdn = null;
         if (props.location.search) {
@@ -67,7 +68,7 @@ export class Home extends React.Component {
             modalData:[],
             ready: false,
             messages: 'Iniciando',
-            errors: {},
+            errors: null,
             count: 27,
             limitCount: 70,
             services: [],
@@ -79,7 +80,7 @@ export class Home extends React.Component {
     componentDidMount() {
         this.setState({ messages: 'Autenticando...'}, ()=> {
 
-            this.props.attemptConnection('drweb', 'c62J3rZovtw', this.state.msisdn)
+            this.props.startConnection('drweb', 'c62J3rZovtw', this.state.msisdn)
                 .then(() => {
                     if (this.props.token && this.state.msisdn) {
                         
@@ -90,26 +91,44 @@ export class Home extends React.Component {
                                 this.setState({
                                     messages: 'Carregando Lista de Serviços',
                                 }, ()=>{
-                                    this.props.getServices(this.props.token)
+                                    this.props.getProducts(this.props.token)
                                     .then(() => {
-                                            
+                                        
                                         let message = ''
-                                        if (this.props.services.length > 0) {
+                                        if (this.props.lista_produtos.length > 0) {
                                             message = 'Lista Carregada!'
+                                            
+                                            // START PORTFOLIO DEFAULT
+                                            this.props.usuario_produtos_inicialmente.map((v,i)=>{
+                                                // GETTING THE RIGHT OBJECT
+                                                this.props.lista_produtos.map((_v,_i)=>{
+                                                    if (_v.ID === v) {
+                                                        // got it!
+                                                        this.props.addToPortfolio(_v);
+                                                    }
+                                                });
+                                            });
+                                            
+                                            this.setState({ messages: message}, ()=>{
+    
+                                                // START PROJECT
+                                                setTimeout(() => {
+                                                    this.setState({
+                                                        ready: true
+                                                    });
+
+                                                }, 1000);
+    
+                                            });
                                         }
                                         else {
                                             message = 'Erro ao carregar lista de serviços'
+                                            // ERROR
+                                            this.setState({
+                                                messages: message,
+                                                errors: true
+                                            });
                                         }
-                                        this.setState({ messages: message}, ()=>{
-
-                                            // START PROJECT
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    ready: true
-                                                });
-                                            }, 1000);
-
-                                        });
 
                                     })
                                 });
@@ -117,6 +136,7 @@ export class Home extends React.Component {
                             else{
                                 this.setState({
                                     messages: 'Erro. Verifique o MSISDN.',
+                                    errors: true
                                 });
                             }
                             
@@ -124,27 +144,15 @@ export class Home extends React.Component {
     
                     }
                     else {
-                        this.setState({ messages: 'Problemas com autenticação :('});
+                        this.setState({ 
+                            messages: 'Problemas com autenticação :(',
+                            errors: true
+                        });
                     }
     
             })
 
         });
-
-        const services =[]
-        this.props.services.map( (elem,index) => {
-            var idCounter = index;
-            elem.selected = true;
-            elem.id = idCounter;
-            return services.push(elem);
-        })
-        this.setState({ services: services});
-        var points = this.props.services.reduce( function( prevVal, elem ) {
-            return prevVal + elem.pontos;
-        }, 0 );
-        this.setState({count: points});
-
-        this.handleSwitch = this.handleSwitch.bind(this)
     }
 
     handleOpen = () => {
@@ -154,131 +162,142 @@ export class Home extends React.Component {
     handleClose = () => {
         this.setState({ modalToggle: false });
     };
+
     openDetails = (e,data) => {
         console.log(data);
-        this.setState({ modalDetails: true});
-        this.setState({ modalData: data });
-        console.log(this.state.modalDetails);
-        console.log(this.state.modalData);
+        this.setState({
+            modalData: data,
+            modalDetails: true
+        });
+        // console.log(this.state.modalDetails);
+        // console.log(this.state.modalData);
     };
 
     closeDetails = () => {
         this.setState({ modalDetails: false });
     };
 
-    calcCount = () => {
-        if(this.state.count > this.state.limitCount){
-            return 100;
-        } else {
-            return this.state.count * 100 / this.state.limitCount;
+    handleSwitch = (checked, value) => {
+        if (checked) {
+            this.props.addToPortfolio(value);
         }
-    }
-
-    handleSwitch = (e, data) => {
-        let oldState = this.state.services;
-        let oldPoints = this.state.count;
-        let bleh = data;
-        oldState[bleh.id].selected = !oldState[bleh.id].selected;
-        if(oldState[bleh.id].selected){
-            oldPoints =  oldPoints + bleh.pontos;
-        }else{
-            oldPoints =  oldPoints - bleh.pontos;
+        else {
+            this.props.removeToPortfolio(value);
         }
-        this.setState({ services: oldState })
-        this.setState({ count: oldPoints })
-        console.log(data.pontos);
-        console.log(oldState);
-        this.calcCount();
     }
     
     render() {
-        return (
-            <div style={{}}>
-                {this.state.ready &&
-                <Modal open={this.state.modalDetails}
-                    onClose={this.closeDetails}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description" >
-                    <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
-                </Modal>}
 
-                {this.state.ready && <MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" />}
+        if (!this.state.ready) {
+            return(
+                <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
+            )
+        }
+        else {
+            
+            // console.log('PONTOS TOTAIS -->', this.props.pontos_totais);
+            // console.log('PONTOS UTILIZADOS -->', this.props.pontos_utilizados);
+            // console.log('PRODUTOS DO USUARIO (start) -->', this.props.usuario_produtos_inicialmente);
+            // console.log('PRODUTOS DO USUARIO (current) -->', this.props.usuario_produtos);
+            // console.log('PRODUTOS GERAIS -->', this.props.lista_produtos);
+            // console.log('STATUS ONLINE -->', this.props.online);
+            // console.log('TOKEN -->', this.props.token);
+            // console.log('MSISDN -->', this.props.msisdn);
 
-                {this.state.ready &&
-                <TabContainer itens={this.state.services}
-                            openDetails ={this.openDetails}
-                            handleSwitch={this.handleSwitch}/>}
+            return(
+                <div style={{}}>
+                    
+                    <MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" />
 
-                {!this.state.ready && <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} messages={this.state.messages} />}
+                    <TabContainer
+                        openDetails ={this.openDetails}
+                        handleSwitch={this.handleSwitch} />
 
-                {this.state.ready && <Footer count={this.state.count} limitCount={this.state.limitCount} calcCount={this.calcCount()}/>}
+                    <Footer />
 
-                {this.state.ready && <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={this.state.modalToggle}
-                    onClose={this.handleClose}
-                >
-                    <Grid container style={styles.paper} className='modalStart'>
-                        <Grid item xs={12} className='header'>
-                            <label className='title'>SEJA BEM VINDO!</label>
-                            <p className='subtitle'>VAMOS COMEÇAR?</p>
-                            <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
-                            e escoher o que mais interessa a você.</label>
+                    <Modal 
+                        open={this.state.modalDetails}
+                        onClose={this.closeDetails}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description" >
+                            <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
+                    </Modal>
+                    
+                    <Modal
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        // open={this.state.modalToggle}
+                        open={false}
+                        onClose={this.handleClose}>
+
+                        <Grid container style={styles.paper} className='modalStart'>
+                            <Grid item xs={12} className='header'>
+                                <label className='title'>SEJA BEM VINDO!</label>
+                                <p className='subtitle'>VAMOS COMEÇAR?</p>
+                                <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
+                                e escoher o que mais interessa a você.</label>
+                            </Grid>
+                            <Grid item xs={12} sm={5} className='controlPoints'>
+                                <label>Aqui você controla seus pontos<br/>
+                                Você começa com (20 pontos)<br/>
+                                dependendo do seu contrato.
+                                </label>
+                                <Grid item xs={12}>
+                                    <CircularProgress className='circularProgress'  variant="static" value={80} />
+                                    <Grid item className="pointsProgress">
+                                        <label><span>14</span>/20<br/></label>
+                                        <label className='points'>pontos</label>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm={7}>
+                                <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
+                                <Grid item xs={12} className="myservices">
+                                    <Grid item>
+                                        <img src='https://picsum.photos/50' alt='' />
+                                    </Grid>
+                                    {/* <Grid item direction="row" justify="flex-start" className="descriptService"> */}
+                                    <Grid item className="descriptService">
+                                        <label> LOOK</label><br />
+                                        <i className="fas fa-tv"></i> <span>Conteudo de TV</span>
+                                    </Grid>
+                                    <Grid item className="pointsService">
+                                        <label><span>3</span>pts</label>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button variant="contained" color="primary" size="large"
+                                onClick={this.handleClose}>Entendi</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={5} className='controlPoints'>
-                            <label>Aqui você controla seus pontos<br/>
-                            Você começa com (20 pontos)<br/>
-                            dependendo do seu contrato.
-                            </label>
-							<Grid item xs={12}>
-								<CircularProgress className='circularProgress'  variant="static" value={80} />
-								<Grid item className="pointsProgress">
-									<label><span>14</span>/20<br/></label>
-									<label className='points'>pontos</label>
-								</Grid>
-							</Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={7}>
-                            <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
-							<Grid item xs={12} className="myservices">
-								<Grid item>
-									<img src='https://picsum.photos/50' alt='' />
-								</Grid>
-								<Grid item direction="row" justify="flex-start" className="descriptService">
-									<label> LOOK</label><br />
-									<i className="fas fa-tv"></i> <span>Conteudo de TV</span>
-								</Grid>
-								<Grid item className="pointsService">
-									<label><span>3</span>pts</label>
-								</Grid>
-							</Grid>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button variant="contained" color="primary" size="large"
-                            onClick={this.handleClose}>Entendi</Button>
-                        </Grid>
-                    </Grid>
-                </Modal>}
+                    </Modal>
 
-            </div>
-        )
+                </div>
+            )
+        }
     }
 }
 
 const mapStateToProps = state => ({
-    online: state.auth.online,
-    token: state.auth.token,
-    msisdn: state.auth.msisdn,
-    pontos: state.auth.pontos,
-    services: state.auth.services,
+    online:                             state.auth.online,
+    token:                              state.auth.token,
+    msisdn:                             state.auth.msisdn,
+    lista_produtos:                     state.auth.products,
+    pontos_totais:                      state.auth.total,
+    usuario_produtos_inicialmente:      state.auth.user_products,
+    usuario_produtos:                   state.portfolio.selected,
+    pontos_utilizados:                  state.portfolio.total,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    attemptConnection,
-    getServices,
+    startConnection,
     signIn,
+    getProducts,
     signOut,
+    addToPortfolio,
+    removeToPortfolio,
+    // startPortfolio,
 }, dispatch)
 
 export default connect(

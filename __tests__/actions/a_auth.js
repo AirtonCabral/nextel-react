@@ -23,7 +23,7 @@ describe('Verificador de conectividade com webservice', () => {
             post: () => new Promise(resolve => resolve({ codErro: 9990, msgErro: 'Usuário não encontrado' })),
         }))
 
-        return store.dispatch(actions.attemptConnection())
+        return store.dispatch(actions.startConnection())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions)
             })
@@ -39,7 +39,7 @@ describe('Verificador de conectividade com webservice', () => {
             post: () => new Promise(resolve => resolve({})),
         }))
 
-        return store.dispatch(actions.attemptConnection())
+        return store.dispatch(actions.startConnection())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions)
             })
@@ -55,7 +55,7 @@ describe('Verificador de conectividade com webservice', () => {
             post: () => new Promise((resolve) => { throw resolve }),
         }))
 
-        return store.dispatch(actions.attemptConnection())
+        return store.dispatch(actions.startConnection())
             .then(() => {
                 expect(store.getActions()).toEqual(expectedActions)
             })
