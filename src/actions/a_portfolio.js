@@ -1,32 +1,39 @@
-import { ADD_PRODUCT, REMOVE_PRODUCT, START_PORTFOLIO } from './types';
+import { API } from '@doctorweb/endpoints';
+import { remoteApi, endpoints } from '../resources/urls';
+import { PRODUCTS, PRODUCTS_TAB_SELECTED } from './types';
 
-export const addToPortfolio = (value) => (dispatch) => {
-
-    // recebe o item para ser adicionado
-    // captura valor pontos do item: value.pontos
-    // incrementar o valor no props.current
-    
-    dispatch({
-        type: ADD_PRODUCT,
-        payload: value
+export const getProducts = (auth) => (dispatch) => {
+    let headers = {
+        'Authorization': 'Bearer ' +auth
+    }
+    const server = new API(remoteApi, null, null, headers)
+    return server.get(endpoints.nextel.products)
+    .then((data) => {
+        var arr = [];
+        if ('svaProdutosID' in data) {
+            for (var key in data.svaProdutosID) {
+                arr.push(data.svaProdutosID[key]);
+            }
+        }
+        dispatch({
+            type: PRODUCTS,
+            products: arr,
+        })
     })
-
+    .catch((error) => {
+        // Avisa o usuário que não eu certo.
+        console.log('catch error', error)
+        dispatch({
+            type: PRODUCTS,
+            products: [],
+        })
+    })
 }
 
-export const removeToPortfolio = (value) => (dispatch) => {
-
+export const setProductsToShow = (index, title) => (dispatch) => {
     dispatch({
-        type: REMOVE_PRODUCT,
-        payload: value
+        type: PRODUCTS_TAB_SELECTED,
+        tab_selected_index: index,
+        tab_selected_title: title,
     })
-
 }
-
-// export const startPortfolio = (package) => (dispatch) => {
-
-//     dispatch({
-//         type: ADD_PRODUCT,
-//         payload: value
-//     })
-
-// }

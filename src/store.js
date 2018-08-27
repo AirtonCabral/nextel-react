@@ -15,8 +15,8 @@ export const history = createHistory()
 
 const localState = loadState()
 const sessionState = loadStateFromSession()
-const initialState = { ...localState, ...sessionState }
-// const initialState = {}
+// const initialState = { ...localState, ...sessionState }
+const initialState = {}
 
 const enhancers = []
 const middleware = [

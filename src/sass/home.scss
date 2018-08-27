@@ -1,5 +1,21 @@
 @import 'vars';
 
+.cardLoaderContainer {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
+.cardContainer {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 150px;
+}
+
+.cardItem {
+	margin-top: 20px;
+}
+
 .modalStart {
 	text-align: center;
 	color: $neutral;

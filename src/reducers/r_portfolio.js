@@ -1,36 +1,24 @@
-import { ADD_PRODUCT, REMOVE_PRODUCT } from '../actions/types';
+import { PRODUCTS, PRODUCTS_TAB_SELECTED } from '../actions/types';
 
 const initialState = {
-    total: 0,
-    current: null,
-    selected: [],
+    products: [],
+    tab_selected_index: 0,
+    tab_selected_title: '',
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        
-        case ADD_PRODUCT:
-            let increment_arr = [...state.selected]
-            increment_arr.push(action.payload)
+        case PRODUCTS:
             return {
-                total: state.total + action.payload.pontos,
-                current: action.payload.pontos,
-                selected: increment_arr
+                ...state,
+                products: action.products,
             }
-
-        case REMOVE_PRODUCT:
-            let decrement_arr = []
-            state.selected.map((v,i)=>{
-                if (v.ID !== action.payload.ID) {
-                    decrement_arr.push(v);
-                }
-            });
+        case PRODUCTS_TAB_SELECTED:
             return {
-                total: state.total - action.payload.pontos,
-                current: action.payload.pontos,
-                selected: decrement_arr
+                ...state,
+                tab_selected_index: action.tab_selected_index,
+                tab_selected_title: action.tab_selected_title,
             }
-        
         default:
             return state
     }

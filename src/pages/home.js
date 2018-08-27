@@ -1,8 +1,9 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startConnection, signIn, signOut, getProducts } from '../actions/a_auth'
-import { addToPortfolio, removeToPortfolio, startPortfolio } from '../actions/a_portfolio'
+import { startConnection } from '../actions/a_auth'
+import { signIn, addToPortfolio, removeToPortfolio  } from '../actions/a_user'
+import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
 import Modal from '@material-ui/core/Modal';
@@ -14,10 +15,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ConnectionStatus from './../components/connection_status';
 import MenuAppBar from './../components/menu_app_bar';
 import TabContainer from './../components/tabs_app';
+import CardsProducts from './../components/cards_products'
 import Footer from './../components/footer';
 import Details from './../components/details';
-
-import { MenuItem } from '@material-ui/core/Menu';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -48,77 +48,85 @@ const styles = {
     },
 };
 
+var msisdn_received = null;
+
 export class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        let msisdn = null;
+        // let msisdn = null;
         if (props.location.search) {
             let value = props.location.search;
-            msisdn = value.split('=')[1];
-        }
-        else {
-            msisdn = 'nenhum';
+            msisdn_received = value.split('=')[1];
         }
 
         this.state = {
-            consoleToggle: false,
+            // consoleToggle: false,
             modalToggle: true,
             modalDetails: false,
             modalData:[],
             ready: false,
             messages: 'Iniciando',
             errors: null,
-            count: 27,
-            limitCount: 70,
-            services: [],
-            bleh:[],
-            msisdn
+            // count: 27,
+            // limitCount: 70,
+            // services: [],
+            // bleh:[],
+            // msisdn
         };
     }
 
     componentDidMount() {
-        this.setState({ messages: 'Autenticando...'}, ()=> {
 
-            this.props.startConnection('drweb', 'c62J3rZovtw', this.state.msisdn)
+        let status_message = '';
+
+        if (msisdn_received) {
+            status_message = 'Autenticando...';
+        }
+        else {
+            status_message = 'MSISDN Não encontrado :(';
+            this.setState({
+                messages: status_message,
+                errors: true
+            });
+            return;
+        }
+
+        this.setState({ messages: status_message}, ()=> {
+
+            this.props.startConnection('drweb', 'c62J3rZovtw', msisdn_received) // >>>>> auth
                 .then(() => {
-                    if (this.props.token && this.state.msisdn) {
+                    
+                    if (this.props.token && this.props.msisdn) {
                         
-                        this.props.signIn(this.props.token, this.state.msisdn)
+                        this.props.signIn(this.props.token, this.props.msisdn)// >>>>> signin
                         .then(() => {
                             
-                            if (this.props.msisdn) {
+                            if (this.props.assinantesID) {
                                 this.setState({
                                     messages: 'Carregando Lista de Serviços',
                                 }, ()=>{
-                                    this.props.getProducts(this.props.token)
+                                    this.props.getProducts(this.props.token)// >>>>> get products
                                     .then(() => {
                                         
                                         let message = ''
-                                        if (this.props.lista_produtos.length > 0) {
+                                        if (this.props.products.length > 0) {
                                             message = 'Lista Carregada!'
-                                            
                                             // START PORTFOLIO DEFAULT
-                                            this.props.usuario_produtos_inicialmente.map((v,i)=>{
-                                                // GETTING THE RIGHT OBJECT
-                                                this.props.lista_produtos.map((_v,_i)=>{
+                                            this.props.svaProdutosID.map((v,i)=>{
+                                                this.props.products.map((_v,_i)=>{
                                                     if (_v.ID === v) {
-                                                        // got it!
-                                                        this.props.addToPortfolio(_v);
+                                                        this.props.addToPortfolio({..._v});
                                                     }
                                                 });
                                             });
-                                            
                                             this.setState({ messages: message}, ()=>{
-    
                                                 // START PROJECT
                                                 setTimeout(() => {
                                                     this.setState({
                                                         ready: true
                                                     });
-
                                                 }, 1000);
-    
                                             });
                                         }
                                         else {
@@ -129,19 +137,16 @@ export class Home extends React.Component {
                                                 errors: true
                                             });
                                         }
-
                                     })
                                 });
                             }
                             else{
                                 this.setState({
-                                    messages: 'Erro. Verifique o MSISDN.',
+                                    messages: 'Erro ao carregar usuário.',
                                     errors: true
                                 });
                             }
-                            
                         })
-    
                     }
                     else {
                         this.setState({ 
@@ -149,9 +154,7 @@ export class Home extends React.Component {
                             errors: true
                         });
                     }
-    
             })
-
         });
     }
 
@@ -187,46 +190,36 @@ export class Home extends React.Component {
     }
     
     render() {
-
         if (!this.state.ready) {
             return(
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
             )
         }
         else {
-            
-            // console.log('PONTOS TOTAIS -->', this.props.pontos_totais);
-            // console.log('PONTOS UTILIZADOS -->', this.props.pontos_utilizados);
-            // console.log('PRODUTOS DO USUARIO (start) -->', this.props.usuario_produtos_inicialmente);
-            // console.log('PRODUTOS DO USUARIO (current) -->', this.props.usuario_produtos);
-            // console.log('PRODUTOS GERAIS -->', this.props.lista_produtos);
-            // console.log('STATUS ONLINE -->', this.props.online);
-            // console.log('TOKEN -->', this.props.token);
-            // console.log('MSISDN -->', this.props.msisdn);
-
             return(
-                <div style={{}}>
+                <div>
                     
                     <MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" />
 
-                    <TabContainer
-                        openDetails ={this.openDetails}
-                        handleSwitch={this.handleSwitch} />
+                    <TabContainer />
+
+                    <CardsProducts />
+                    {/* // openDetails ={this.openDetails}
+                    // handleSwitch={this.handleSwitch} /> */}
 
                     <Footer />
 
-                    <Modal 
+                    {/* <Modal 
                         open={this.state.modalDetails}
                         onClose={this.closeDetails}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description" >
                             <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
-                    </Modal>
+                    </Modal> */}
                     
-                    <Modal
+                    {/* <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
-                        // open={this.state.modalToggle}
                         open={false}
                         onClose={this.handleClose}>
 
@@ -256,7 +249,6 @@ export class Home extends React.Component {
                                     <Grid item>
                                         <img src='https://picsum.photos/50' alt='' />
                                     </Grid>
-                                    {/* <Grid item direction="row" justify="flex-start" className="descriptService"> */}
                                     <Grid item className="descriptService">
                                         <label> LOOK</label><br />
                                         <i className="fas fa-tv"></i> <span>Conteudo de TV</span>
@@ -271,7 +263,7 @@ export class Home extends React.Component {
                                 onClick={this.handleClose}>Entendi</Button>
                             </Grid>
                         </Grid>
-                    </Modal>
+                    </Modal> */}
 
                 </div>
             )
@@ -280,24 +272,23 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    online:                             state.auth.online,
-    token:                              state.auth.token,
-    msisdn:                             state.auth.msisdn,
-    lista_produtos:                     state.auth.products,
-    pontos_totais:                      state.auth.total,
-    usuario_produtos_inicialmente:      state.auth.user_products,
-    usuario_produtos:                   state.portfolio.selected,
-    pontos_utilizados:                  state.portfolio.total,
+    online:             state.auth.online,
+    token:              state.auth.token,
+    msisdn:             state.auth.msisdn,
+    assinantesID:       state.user.assinantesID,
+    pontos:             state.user.pontos,
+    renovar:            state.user.renovar,
+    svaProdutosID:      state.user.svaProdutosID,
+    user_products:      state.user.user_products,
+    products:           state.portfolio.products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     startConnection,
     signIn,
     getProducts,
-    signOut,
     addToPortfolio,
     removeToPortfolio,
-    // startPortfolio,
 }, dispatch)
 
 export default connect(
