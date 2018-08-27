@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { startConnection } from '../actions/a_auth'
-import { signIn, addToPortfolio, removeToPortfolio  } from '../actions/a_user'
+import { signIn, addToPortfolio, removeToPortfolio } from '../actions/a_user'
 import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
@@ -28,9 +28,9 @@ function getModalStyle() {
     const left = 50 + rand();
 
     return {
-      top: `50%`,
-      left: `50%`,
-      transform: `translate(-${top}%, -${left}%)`,
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-${top}%, -${left}%)`,
     };
 }
 
@@ -64,7 +64,7 @@ export class Home extends React.Component {
             // consoleToggle: false,
             modalToggle: true,
             modalDetails: false,
-            modalData:[],
+            modalData: [],
             ready: false,
             messages: 'Iniciando',
             errors: null,
@@ -92,69 +92,69 @@ export class Home extends React.Component {
             return;
         }
 
-        this.setState({ messages: status_message}, ()=> {
+        this.setState({ messages: status_message }, () => {
 
             this.props.startConnection('drweb', 'c62J3rZovtw', msisdn_received) // >>>>> auth
                 .then(() => {
-                    
+
                     if (this.props.token && this.props.msisdn) {
-                        
+
                         this.props.signIn(this.props.token, this.props.msisdn)// >>>>> signin
-                        .then(() => {
-                            
-                            if (this.props.assinantesID) {
-                                this.setState({
-                                    messages: 'Carregando Lista de Serviços',
-                                }, ()=>{
-                                    this.props.getProducts(this.props.token)// >>>>> get products
-                                    .then(() => {
-                                        
-                                        let message = ''
-                                        if (this.props.products.length > 0) {
-                                            message = 'Lista Carregada!'
-                                            // START PORTFOLIO DEFAULT
-                                            this.props.svaProdutosID.map((v,i)=>{
-                                                this.props.products.map((_v,_i)=>{
-                                                    if (_v.ID === v) {
-                                                        this.props.addToPortfolio({..._v});
-                                                    }
-                                                });
-                                            });
-                                            this.setState({ messages: message}, ()=>{
-                                                // START PROJECT
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        ready: true
+                            .then(() => {
+
+                                if (this.props.assinantesID) {
+                                    this.setState({
+                                        messages: 'Carregando Lista de Serviços',
+                                    }, () => {
+                                        this.props.getProducts(this.props.token)// >>>>> get products
+                                            .then(() => {
+
+                                                let message = ''
+                                                if (this.props.products.length > 0) {
+                                                    message = 'Lista Carregada!'
+                                                    // START PORTFOLIO DEFAULT
+                                                    this.props.svaProdutosID.map((v, i) => {
+                                                        this.props.products.map((_v, _i) => {
+                                                            if (_v.ID === v) {
+                                                                this.props.addToPortfolio({ ..._v });
+                                                            }
+                                                        });
                                                     });
-                                                }, 1000);
-                                            });
-                                        }
-                                        else {
-                                            message = 'Erro ao carregar lista de serviços'
-                                            // ERROR
-                                            this.setState({
-                                                messages: message,
-                                                errors: true
-                                            });
-                                        }
-                                    })
-                                });
-                            }
-                            else{
-                                this.setState({
-                                    messages: 'Erro ao carregar usuário.',
-                                    errors: true
-                                });
-                            }
-                        })
+                                                    this.setState({ messages: message }, () => {
+                                                        // START PROJECT
+                                                        setTimeout(() => {
+                                                            this.setState({
+                                                                ready: true
+                                                            });
+                                                        }, 1000);
+                                                    });
+                                                }
+                                                else {
+                                                    message = 'Erro ao carregar lista de serviços'
+                                                    // ERROR
+                                                    this.setState({
+                                                        messages: message,
+                                                        errors: true
+                                                    });
+                                                }
+                                            })
+                                    });
+                                }
+                                else {
+                                    this.setState({
+                                        messages: 'Erro ao carregar usuário.',
+                                        errors: true
+                                    });
+                                }
+                            })
                     }
                     else {
-                        this.setState({ 
+                        this.setState({
                             messages: 'Problemas com autenticação :(',
                             errors: true
                         });
                     }
-            })
+                })
         });
     }
 
@@ -166,7 +166,7 @@ export class Home extends React.Component {
         this.setState({ modalToggle: false });
     };
 
-    openDetails = (e,data) => {
+    openDetails = (e, data) => {
         console.log(data);
         this.setState({
             modalData: data,
@@ -188,26 +188,23 @@ export class Home extends React.Component {
             this.props.removeToPortfolio(value);
         }
     }
-    
+
     render() {
         if (!this.state.ready) {
-            return(
+            return (
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
             )
         }
         else {
-            return(
+            return (
                 <div>
-                    
-                    <MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" />
 
-                    <TabContainer />
-
-                    <CardsProducts />
-                    {/* // openDetails ={this.openDetails}
-                    // handleSwitch={this.handleSwitch} /> */}
-
-                    <Footer />
+                    <div className='masterContainer'>
+                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        <div className='tabContainer'><TabContainer /></div>
+                        <div className='cardsConteiner'><CardsProducts /></div>
+                        <div className='footerContainer'><Footer /></div>
+                    </div>
 
                     {/* <Modal 
                         open={this.state.modalDetails}
@@ -216,7 +213,7 @@ export class Home extends React.Component {
                         aria-describedby="simple-modal-description" >
                             <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
                     </Modal> */}
-                    
+
                     {/* <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
@@ -272,15 +269,15 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    online:             state.auth.online,
-    token:              state.auth.token,
-    msisdn:             state.auth.msisdn,
-    assinantesID:       state.user.assinantesID,
-    pontos:             state.user.pontos,
-    renovar:            state.user.renovar,
-    svaProdutosID:      state.user.svaProdutosID,
-    user_products:      state.user.user_products,
-    products:           state.portfolio.products,
+    online: state.auth.online,
+    token: state.auth.token,
+    msisdn: state.auth.msisdn,
+    assinantesID: state.user.assinantesID,
+    pontos: state.user.pontos,
+    renovar: state.user.renovar,
+    svaProdutosID: state.user.svaProdutosID,
+    user_products: state.user.user_products,
+    products: state.portfolio.products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

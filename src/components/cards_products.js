@@ -10,9 +10,6 @@ export class CardsProducts extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            cardToShow: []
-        }
     }
 
     componentDidMount() {
@@ -83,10 +80,11 @@ export class CardsProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.portfolio.products,
-  tabSelected: state.portfolio.tab_selected_index,
-  tabTitle: state.portfolio.tab_selected_title,
-  svaProdutosID: state.user.svaProdutosID,
+    renovar: state.user.renovar,
+    products: state.portfolio.products,
+    tabSelected: state.portfolio.tab_selected_index,
+    tabTitle: state.portfolio.tab_selected_title,
+    svaProdutosID: state.user.svaProdutosID,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

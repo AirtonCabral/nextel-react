@@ -1,5 +1,32 @@
 @import 'vars';
 
+
+
+.masterContainer {
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+}
+
+.barContainer {
+	
+}
+
+.tabContainer {
+
+}
+
+.cardsContainer {
+
+}
+
+.footerContainer {
+	// display: flex;
+	// align-self: flex-end;
+}
+
+
+
 .cardLoaderContainer {
 	display: flex;
 	justify-content: center;
@@ -9,12 +36,25 @@
 .cardContainer {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 150px;
+	margin-bottom: 20px;
 }
 
 .cardItem {
 	margin-top: 20px;
 }
+
+
+.containerList {
+	margin: 0px;
+}
+
+
+
+
+
+
+
+
 
 .modalStart {
 	text-align: center;
