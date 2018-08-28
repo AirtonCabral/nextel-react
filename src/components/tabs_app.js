@@ -1,82 +1,84 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import TouchCarousel from './touch_carousel';
-import Modal from '@material-ui/core/Modal';
+import { setProductsToShow } from './../actions/a_portfolio'
 
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
 
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-const styles = theme => ({
+const styles = {
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    shadows: ["none"]
   },
-});
+}
 
-class ScrollableTabsButtonForce extends React.Component {
-  state = {
-    value: 0,
-  };
+export class TabContainer extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    // creating tabs categories
+    let output_tabs = []
+    this.props.products.map((v, i) => {
+      let hasItem = false;
+      output_tabs.map((_v, _i) => {
+        if (_v === v.tags) {
+          hasItem = true
+        }
+      });
+      if (!hasItem) {
+        output_tabs.push(v.tags)
+      }
+    });
+    output_tabs.push('todos') // adiciona aba
+    output_tabs.sort((a, b) => a.tags > b.tags);
+
+    this.state = {
+      tabSelected: this.props.tabSelected,
+      titleTabs: output_tabs
+    };
+  }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.props.setProductsToShow(value, this.state.titleTabs[value]);
+    this.setState({
+      tabSelected: value, // não confundir com 'props.tabSelected'
+    });
   };
 
   render() {
-    const { classes, itens } = this.props;
-    const { value } = this.state;
-
     return (
-      <div className={classes.root}>
+      <div style={styles.root}>
         <AppBar position="sticky" color="default">
           <Tabs
-            value={value}
+            value={this.state.tabSelected}
             onChange={this.handleChange}
             scrollable
             scrollButtons="on"
-            indicatorColor="primary"
-            textColor="primary"
-            className='tabs'
-          >
-            <Tab label="Entretenimento" />
-            <Tab label="Conteúdo de TV" />
-            <Tab label="Conexão" />
-            <Tab label="Facilidades" />
-            <Tab label="Telefonia" />
-            <Tab label="Segurança" />
+            // indicatorColor="primary"
+            // textColor="primary"
+            className='tabs'>
+            {this.state.titleTabs.map((item, i) => {
+              return <Tab key={i} label={item} />
+            })}
           </Tabs>
         </AppBar>
-        {value === 0 && <TouchCarousel itens={itens}
-                                        handleSwitch={this.props.handleSwitch}
-                                        openDetails={ this.props.openDetails} />}
-        {value === 1 && <TabContainer>Conteúdo de TV</TabContainer>}
-        {value === 2 && <TabContainer>Conexão</TabContainer>}
-        {value === 3 && <TabContainer>Facilidades</TabContainer>}
-        {value === 4 && <TabContainer>Telefonia</TabContainer>}
-        {value === 5 && <TabContainer>Segurança</TabContainer>}
       </div>
     );
   }
 }
 
-ScrollableTabsButtonForce.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({
+  products: state.portfolio.products,
+  tabSelected: state.portfolio.tab_selected_index,
+})
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setProductsToShow
+}, dispatch)
 
-export default withStyles(styles)(ScrollableTabsButtonForce);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(TabContainer)

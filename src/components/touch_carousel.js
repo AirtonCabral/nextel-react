@@ -32,7 +32,7 @@ function TouchCarousel(props) {
     //         <DefaultCard />
     //     </div>
     // ))
-    
+
     return (
         <div>
             <AliceCarousel

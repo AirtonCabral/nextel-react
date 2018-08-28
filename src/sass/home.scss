@@ -1,2 +1,158 @@
 @import 'vars';
 
+.masterContainer {
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+}
+
+.barContainer {
+	
+}
+
+.tabContainer {
+
+}
+
+.cardsContainer {
+
+}
+
+.footerContainer {
+	// display: flex;
+	// align-self: flex-end;
+}
+
+
+
+.cardLoaderContainer {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
+.cardContainer {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.cardItem {
+	margin-top: 20px;
+}
+
+
+.containerList {
+	margin: 0px;
+}
+
+
+
+
+
+
+
+
+
+.modalStart {
+	text-align: center;
+	color: $neutral;
+	width: 80% !important;
+	min-height: 70% !important;
+	height: auto !important;
+	.header {
+		.title {
+			color: $primary;
+			font-weight: normal;
+			margin-bottom: 5px;
+			font-size: 36px;
+		}
+		.subtitle {
+			margin: 0;
+			font-size: 24px;
+		}
+	}
+	button {
+		background-color: $primary;
+		width: 200px;
+		&:hover {
+			background-color: #a74418;
+		}
+	}
+
+	.controlPoints {
+		border-right: 1px solid #87878726;
+		height: 210px;
+		margin-bottom: 5px;
+		font-size: 14px;
+		.circularProgress {
+			color: #e15b1e;
+			box-shadow: inset 0px 0px 0px 9px #e15b1e4f;
+			border-radius: 50%;
+			width: 100px !important;
+			height: 100px !important;
+			margin-top: 20px;
+			transform: rotate(-17deg)!important;
+		}
+		.pointsProgress {
+			background-color: lightgray;
+			width: 75px;
+			height: 75px;
+			border-radius: 50%;
+			padding-top: 8px;
+			text-align: center;
+			margin-left: calc(-38px + 50%);
+			top: -93px;
+			position: relative;
+			span {
+				font-size: 30px;
+				color: black;
+			}
+			.points {
+				position: relative;
+				top: -10px;
+			}
+		}
+	}
+	.myservices {
+		display: flex;
+		border: 1px solid $primary;
+		height: 53px;
+		margin: 5px 30px;
+		img {
+			margin-right: 10px;
+		}
+		.descriptService {
+			width: 195px;
+			padding-top: 3px;
+			label {
+				float: left;
+				color: $primary;
+			}
+			i {
+				font-size: 13px;
+				float: left;
+				margin-right: 5px;
+				margin-top: 5px;
+			}
+			span {
+				float: left;
+				font-size: 0.9rem;
+			}
+		}
+		.pointsService {
+			width: 70%;
+			background-color: lightgray;
+			margin: 10px;
+			margin-left: 20px;
+			color: black;
+			label {
+				position: relative;
+				top: -23px;
+				span {
+					font-size: 54px;
+				}
+			}
+		}
+	}
+}

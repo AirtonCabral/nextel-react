@@ -32,6 +32,11 @@ function ConnectionStatus(props) {
         status = props.status;
     }
 
+    let error = false
+    if (props.error) {
+        error = props.error;
+    }
+
     let messages = 'Preparing to load';
     if (props.messages || props.messages !== '') {
         messages = props.messages;
@@ -41,7 +46,7 @@ function ConnectionStatus(props) {
         <div>
             <div className={classes.root}>
                 {status && <Icon size={24} name={'checked'} />}
-                {!status && <Cp className={classes.progress} size={18} style={{ color: colorMain }} thickness={5} />}
+                {!status && !error && <Cp className={classes.progress} size={18} style={{ color: colorMain }} thickness={5} />}
                 <div className={classes.textLoad}>
                     <p>{messages}</p>
                 </div>
