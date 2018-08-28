@@ -33,7 +33,7 @@ const styles = {
                 backgroundColor: '#4eb50c',
             },
         },
-    }
+    },
 };
 
 const responsive = {
@@ -41,14 +41,17 @@ const responsive = {
 };
 
 const details = (props) => {
+    let value = 0;
     return (
         <div>
         <Grid container style={styles.paper} className='details'>
             <Grid xs={3} >
-                <img src='https://picsum.photos/170/130' alt='imagem do conteudo ' />
+                <img src='https://picsum.photos/200/130' alt='imagem do conteudo '
+                className='imgProduto' />
             </Grid>
-            <Grid  xs={6} >
+            <Grid xs={5} >
                 <CardContent className='contentCard'>
+                <hr />
                     <Typography gutterBottom variant="subheading">
                         {props.details.produto}
                     </Typography>
@@ -59,20 +62,18 @@ const details = (props) => {
                     <Typography variant="caption">
                         Os melhores desenhos infantis para você e seu filho assistirem 24 horas por dia, quando e onde quiser.
                     </Typography>
-                    <hr />
                 </CardContent>
             </Grid>
-            <Grid xs={3} >
+            <Grid xs={4} >
                 <CardActions className="cardPoints">
                 <FormGroup>
                         <FormControlLabel
                             control={
                                 <Switch
-                                // onChange={props.handleChange}
+                                //onChange={props.handleChange}
                                 //onClick={((e) => props.handleSwitch(e, this.props.data))}
                                 aria-label="LoginSwitch"
-                                color="Green"
-                                classes={{
+                                className={{
                                     checked: styles.colorChecked
                                 }}/>
                             }
@@ -90,24 +91,36 @@ const details = (props) => {
                     mouseDragEnabled={true}
                     buttonsDisabled={true}
                     responsive={responsive}>
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
-                            <img src='https://picsum.photos/170/300' />
+                            <img src='https://picsum.photos/170/300' className='imgCaroussel'/>
+                            <img src='https://picsum.photos/170/300' className='imgCaroussel'/>
+                            <img src='https://picsum.photos/170/300' className='imgCaroussel'/>
+                            <img src='https://picsum.photos/170/300' className='imgCaroussel'/>
                 </AliceCarousel>
             </Grid>
             <Grid item xs={9}>
                 <Tabs
                     //onChange={this.handleChange}
+                    value={0}
                     scrollable
                     scrollButtons="on"
                     indicatorColor="primary"
                     textColor="primary"
                     className='tabs'
                 >
-                    <Tab label="Entretenimento" />
-                    <Tab label="Conteúdo de TV" />
+                    <Tab label="Vantagens" />
+                    <Tab label="Como usar" />
                 </Tabs>
+                <Grid item>
+                    <br />
+                    <label>Clique no link abaixo para fazer o download do aplicativo.
+                    <ul>
+                        <li>Abra o aplicativo e faça seu login com os dados de cadastro.</li>
+                        <li>Pronto! Agora é so aproveitar</li>
+                    </ul>
+                    BAIXAR APP <br />
+                    Clique aqui para fazer o downloaddo aplicativo. Aproveite!
+                    </label>
+                </Grid>
             </Grid>
         </Grid>
         </div>

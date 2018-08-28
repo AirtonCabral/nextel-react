@@ -85,7 +85,7 @@
                 min-height: 30px!important;
                 font-size: 12px;
                 padding: 4px 25px;
-                left: 60%;
+                left: calc(100% - 83px);
                 &:hover {
                     background-color: $primary;
                     color: white;
@@ -98,7 +98,7 @@
             color: #4bb20d;
         }
     }
-    .MuiSwitch-checked-150 + .MuiSwitch-bar-154 {
+    .MuiSwitch-bar-278{
         background-color: #4bb20d !important;
     }
 }

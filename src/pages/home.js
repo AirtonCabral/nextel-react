@@ -16,7 +16,7 @@ import TabContainer from './../components/tabs_app';
 import Footer from './../components/footer';
 import Details from './../components/details';
 
-import { MenuItem } from '@material-ui/core/Menu';
+import ListFirstModal from './../components/listFirstModal';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -82,17 +82,14 @@ export class Home extends React.Component {
             this.props.attemptConnection('drweb', 'c62J3rZovtw', this.state.msisdn)
                 .then(() => {
                     if (this.props.token && this.state.msisdn) {
-                        
                         this.props.signIn(this.props.token, this.state.msisdn)
                         .then(() => {
-                            
                             if (this.props.msisdn) {
                                 this.setState({
                                     messages: 'Carregando Lista de Serviços',
                                 }, ()=>{
                                     this.props.getServices(this.props.token)
                                     .then(() => {
-                                            
                                         let message = ''
                                         if (this.props.services.length > 0) {
                                             message = 'Lista Carregada!'
@@ -101,16 +98,13 @@ export class Home extends React.Component {
                                             message = 'Erro ao carregar lista de serviços'
                                         }
                                         this.setState({ messages: message}, ()=>{
-
                                             // START PROJECT
                                             setTimeout(() => {
                                                 this.setState({
                                                     ready: true
                                                 });
                                             }, 1000);
-
                                         });
-
                                     })
                                 });
                             }
@@ -119,16 +113,12 @@ export class Home extends React.Component {
                                     messages: 'Erro. Verifique o MSISDN.',
                                 });
                             }
-                            
                         })
-    
                     }
                     else {
                         this.setState({ messages: 'Problemas com autenticação :('});
                     }
-    
             })
-
         });
 
         const services =[]
@@ -178,6 +168,7 @@ export class Home extends React.Component {
         let oldState = this.state.services;
         let oldPoints = this.state.count;
         let bleh = data;
+        console.log(bleh);
         oldState[bleh.id].selected = !oldState[bleh.id].selected;
         if(oldState[bleh.id].selected){
             oldPoints =  oldPoints + bleh.pontos;
@@ -190,7 +181,7 @@ export class Home extends React.Component {
         console.log(oldState);
         this.calcCount();
     }
-    
+
     render() {
         return (
             <div style={{}}>
@@ -239,20 +230,9 @@ export class Home extends React.Component {
 								</Grid>
 							</Grid>
                         </Grid>
-                        <Grid item xs={12} sm={7}>
+                        <Grid item xs={12} sm={7} className=' servicosContratados'>
                             <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
-							<Grid item xs={12} className="myservices">
-								<Grid item>
-									<img src='https://picsum.photos/50' alt='' />
-								</Grid>
-								<Grid item direction="row" justify="flex-start" className="descriptService">
-									<label> LOOK</label><br />
-									<i className="fas fa-tv"></i> <span>Conteudo de TV</span>
-								</Grid>
-								<Grid item className="pointsService">
-									<label><span>3</span>pts</label>
-								</Grid>
-							</Grid>
+							<ListFirstModal />
                         </Grid>
                         <Grid item xs={12}>
                             <Button variant="contained" color="primary" size="large"

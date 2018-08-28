@@ -24,11 +24,11 @@ const styles = {
     card: {
     // maxWidth: 345,
         margin: '10px'
-        },
-        media: {
+    },
+    media: {
         height: 0,
         paddingTop: '50%', // 16:9
-        },
+    },
 };
 
 class DefaultCard extends React.Component {
