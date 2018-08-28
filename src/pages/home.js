@@ -5,7 +5,7 @@ import { attemptConnection, signIn, signOut, getServices } from '../actions/a_au
 import './../sass/home.scss'
 
 import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
