@@ -110,9 +110,9 @@ export class Home extends React.Component {
                                                 if (this.props.products.length > 0) {
                                                     message = 'Lista Carregada!'
                                                     // START PORTFOLIO DEFAULT
-                                                    this.props.svaProdutosID.map((v, i) => {
+                                                    this.props.sva_produtos_id.map((v, i) => {
                                                         this.props.products.map((_v, _i) => {
-                                                            if (_v.ID === v) {
+                                                            if (_v.id === v) {
                                                                 this.props.addToPortfolio({ ..._v });
                                                             }
                                                         });
@@ -272,7 +272,7 @@ const mapStateToProps = state => ({
     assinantesID: state.user.assinantesID,
     pontos: state.user.pontos,
     renovar: state.user.renovar,
-    svaProdutosID: state.user.svaProdutosID,
+    sva_produtos_id: state.user.sva_produtos_id,
     user_products: state.user.user_products,
     products: state.portfolio.products,
 })

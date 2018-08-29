@@ -1,11 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -32,84 +36,116 @@ const styles = {
     },
 };
 
-class DefaultCard extends React.Component {
+export class DefaultCard extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: false
+    renderNextDateAvailable() {
+        let nextDate_month = new Date().getMonth() + 2;
+        let nextDate_year = "/" + new Date().getFullYear();
+        if (nextDate_month < 10) {
+            nextDate_month = "0" + nextDate_month;
         }
+        let nextDate_day = "01/";
+        let nextDate_full = nextDate_day + nextDate_month + nextDate_year;
+        return (
+            nextDate_full
+        )
     }
-
-    componentDidMount() {
-        let isSelected = false;
-        this.props.userProducts.map((v, i) => {
-            if (this.props.data.ID === v) {
-                isSelected = true;
-            }
-        });
-
-        this.setState({
-            selected: isSelected
-        });
-    }
-
-    handleChange = (event) => {
-        this.setState({ selected: event.target.checked }, () => {
-            if ('handleSwitch' in this.props) {
-                this.props.handleSwitch(this.state.selected, this.props.data);
-            }
-        });
-    }
-
+    
     render() {
-        const { classes } = this.props;
+        const { classes, id } = this.props;
+        const data = this.props.products[id];
+        
+        // calculando total de pontos atual
+        let currentPonts = 0;
+        this.props.user_products.forEach(element => {
+            currentPonts += element.pontos;
+        });
+        
+        let cardPoints = data.pontos;
+        let remaningPoints = this.props.pontos - currentPonts;
+        let isSelected = false;
+        let isAvailable = true;
+        let tolltipStatusMessage = "";
+        let nextDateAvailable = this.renderNextDateAvailable();
+
+        // verifica se este card é um produto já seleciondo
+        this.props.user_products.forEach(element => {
+            if (element.id === data.id) {
+                isSelected = true;
+                // verifica se há carência para o user e bloqueia o card
+                if (this.props.renovar) {
+                    this.props.sva_produtos_id.forEach(element => {
+                        if (element === data.id) {
+                            isAvailable = false;
+                            tolltipStatusMessage = "Disponível a partir de " + nextDateAvailable;
+                        }
+                    });
+                }
+            }
+        });
+
+        // se não es†á previamente selecionado
+        // hora de verificar se tem saldo para este item
+        if (!isSelected) {
+            isAvailable = remaningPoints >= cardPoints ? true : false;
+            tolltipStatusMessage = isAvailable ? "" : "Pontos insuficientes";
+        }
         return (
             <div>
                 <Card className={classes.card} id='cardOriginal'>
                     <div style={styles.canvasContainer}>
                         <CardMedia
                             className={classes.media + ' midiaCard'}
-                            image={this.props.data.IMG.IMGDISPLAY}
-                            title={this.props.data.produto}
+                            image={data.img.display}
+                            title={data.produto}
                             style={styles.canvas}
                         />
                     </div>
                     <CardContent className='contentCard'>
                         <Typography gutterBottom variant="subheading">
-                            {this.props.data.produto}
+                            {data.produto}
                         </Typography>
                         <Typography variant='body2'>
-                            {this.props.data.tags}
+                            {data.tags}
                         </Typography>
                         <hr />
                         <Typography variant="caption">
-                            {this.props.data.RESUMO}
+                            {data.resumo}
                         </Typography>
                         <hr />
                         <Button className='detailsButton'
-                            onClick={((e) => this.props.openDetails(e, this.props.data))}>Detalhes</Button>
+                            onClick={((e) => this.props.openDetails(e, data))}>Detalhes</Button>
                     </CardContent>
                     <CardActions className="cardPoints">
                         <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        onChange={this.handleChange}
-                                        value='selected'
-                                        checked={this.state.selected}
-                                        aria-label="LoginSwitch"
-                                        color="primary"
-                                        classes={{
-                                            checked: classes.colorChecked
-                                        }}
-                                    />
-                                }
-                            />
+                            <Tooltip title={tolltipStatusMessage}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            onChange={() => {
+                                                if (isSelected) {
+                                                    this.props.removeToPortfolio(data);
+                                                }
+                                                else {
+                                                    this.props.addToPortfolio(data);
+                                                }
+                                            }}
+                                            value='selected'
+                                            checked={isSelected}
+                                            disabled={!isAvailable}
+                                            aria-label="LoginSwitch"
+                                            color="primary"
+                                            classes={{
+                                                checked: classes.colorChecked
+                                            }}
+                                        />
+                                    }
+                                />
+                            </Tooltip>
                         </FormGroup>
                     </CardActions>
                     <label className='points'>
-                        {this.props.data.pontos} <span>pts</span>
+                        {data.pontos} <span>pts</span>
                     </label>
                 </Card>
             </div>
@@ -118,4 +154,20 @@ class DefaultCard extends React.Component {
 
 }
 
-export default withStyles(styles)(DefaultCard);
+const mapStateToProps = state => ({
+    renovar: state.user.renovar,
+    pontos: state.user.pontos,
+    sva_produtos_id: state.user.sva_produtos_id,
+    user_products: state.user.user_products,
+    products: state.portfolio.products,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    addToPortfolio,
+    removeToPortfolio
+}, dispatch)
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withStyles(styles)(DefaultCard));

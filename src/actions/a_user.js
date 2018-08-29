@@ -22,7 +22,7 @@ export const signIn = (auth, msisdn) => (dispatch) => {
                 assinantesID: data.assinantesID,
                 pontos: data.pontos,
                 renovar: data.renovar,
-                svaProdutosID: arr_svaProdutosID,
+                sva_produtos_id: arr_svaProdutosID,
             })
         } else {
             // Joga o erro para o handler a baixo.
