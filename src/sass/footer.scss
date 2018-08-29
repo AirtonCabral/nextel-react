@@ -22,15 +22,17 @@
 
 .footerCenter {
 	display: flex;
-	justify-content: flex-start;
-	flex-grow: 1;
-	background-color: #354ABC;
     align-items: center;
-    padding-left: 5px;
+    flex-grow: 1;
+	// background-color: #354ABC;
 }
 
 .footerCenterContainer {
-	
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .footerRight {

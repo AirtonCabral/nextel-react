@@ -4,7 +4,7 @@ const initialState = {
     assinantesID: null,
     pontos: null,
     renovar: false,
-    svaProdutosID: {},
+    sva_produtos_id: {},
     user_products: []
 }
 
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
                 assinantesID: action.assinantesID,
                 pontos: action.pontos,
                 renovar: action.renovar,
-                svaProdutosID: action.svaProdutosID,
+                sva_produtos_id: action.sva_produtos_id,
             }
         case ADD_PRODUCT:
             let increment_arr = [...state.user_products]
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
         case REMOVE_PRODUCT:
             let decrement_arr = []
             state.user_products.map((v,i)=>{
-                if (v.ID !== action.payload.ID) {
+                if (v.id !== action.payload.id) {
                     decrement_arr.push(v);
                 }
             });

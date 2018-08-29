@@ -29,7 +29,17 @@
 }
 
 .alice-carousel{
-    padding: 0px;
+    
+    padding-left: 70px;
+    padding-right: 70px;
+
+    .alice-carousel__prev-btn, .alice-carousel__next-btn {
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        top: 50%;
+    }
+
     .alice-carousel__wrapper {
         border: none;
     }

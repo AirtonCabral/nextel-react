@@ -8,29 +8,6 @@ import CirProgress from '@material-ui/core/CircularProgress';
 
 export class CardsProducts extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
-    componentDidMount() {
-        
-    }
-
-    handleChange = (event, value) => {
-        this.handleCards(value);
-    }
-
-    handleCards(value) {
-        console.log('handleCards');
-        // let cardsTemp = [];
-        // this.props.products.map((v, i) => {
-        // });
-        // this.setState({
-        //   tabSelected: value,=
-        //   cardToShow: [...cardsTemp]
-        // });
-    }
-
     render() {
         if (this.props.products.length === 0) {
             return(
@@ -40,20 +17,13 @@ export class CardsProducts extends React.Component {
             );
         }
         else {
-            let cardToShow = []
+            let cardToShow = [];
+            // montando os cards gerais dos produtos
             this.props.products.map((item, i) => {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
-                        <div key={`key-${i}`} className="cardItem">
-                            <DefaultCard
-                                userProducts={this.props.svaProdutosID}
-                                data={item}
-                                handleSwitch={()=>{
-                                    console.log('handle switch');
-                                }}
-                                openDetails={()=>{
-                                    console.log('open details');
-                                }} />
+                        <div key={i} className="cardItem">
+                            <DefaultCard id={i} />
                         </div>
                     );
                 }
@@ -61,11 +31,11 @@ export class CardsProducts extends React.Component {
             return (
                 <div className="cardContainer">
                     <AliceCarousel
-                        infinite={true}
+                        mouseDragEnabled
+                        infinite
+                        keysControlDisabled
                         items={cardToShow}
                         startIndex={this.props.tabSelected}
-                        mouseDragEnabled={true}
-                        buttonsDisabled={true}
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1 },
                             570: { items: 2 },
@@ -80,15 +50,13 @@ export class CardsProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    renovar: state.user.renovar,
-    products: state.portfolio.products,
-    tabSelected: state.portfolio.tab_selected_index,
-    tabTitle: state.portfolio.tab_selected_title,
-    svaProdutosID: state.user.svaProdutosID,
+    products:           state.portfolio.products,
+    tabSelected:        state.portfolio.tab_selected_index,
+    tabTitle:           state.portfolio.tab_selected_title,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    // actions
+    
 }, dispatch)
 
 export default connect(
