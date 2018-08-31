@@ -18,7 +18,7 @@ root: {
 
 class CheckboxListSecondary extends React.Component {
 state = {
-    checked: [1],
+    checked: [1,2],
 };
 
 handleToggle = value => () => {

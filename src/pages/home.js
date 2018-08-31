@@ -7,19 +7,17 @@ import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
 import Modal from '@material-ui/core/Modal';
-// import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ConnectionStatus from './../components/connection_status';
 import MenuAppBar from './../components/menu_app_bar';
 import TabContainer from './../components/tabs_app';
 import CardsProducts from './../components/cards_products'
 import Footer from './../components/footer';
-import Details from './../components/details';
 
-import ListFirstModal from './../components/listFirstModal';
+import WelcomeModal from './../components/welcome';
+import Details from './../components/details';
+import NewsModal from './../components/news_modal';
+import ConfirmModal from './../components/confirm_modal';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -36,21 +34,7 @@ function getModalStyle() {
     };
 }
 
-const styles = {
-    paper: {
-        position: 'absolute',
-        width: 600,
-        height: 400,
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: '#FFFFFF',
-        //   boxShadow: theme.shadows[5],
-        padding: 10,
-    },
-};
-
-var msisdn_received = null;
+var msisdn_received = '5521981981981';
 
 export class Home extends React.Component {
     constructor(props) {
@@ -63,9 +47,9 @@ export class Home extends React.Component {
         }
 
         this.state = {
-            // consoleToggle: false,
+            //consoleToggle: false,
             modalToggle: true,
-            modalDetails: false,
+            typeContent: 0, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= 
             modalData: [],
             ready: false,
             messages: 'Iniciando',
@@ -156,7 +140,10 @@ export class Home extends React.Component {
     }
 
     handleOpen = () => {
-        this.setState({ modalToggle: true });
+        this.setState({ 
+            modalToggle: true,
+            typeContent: 0
+        });
     };
 
     handleClose = () => {
@@ -164,17 +151,16 @@ export class Home extends React.Component {
     };
 
     openDetails = (e, data) => {
-        console.log(data);
         this.setState({
+            modalToggle: true,
             modalData: data,
-            modalDetails: true
+            typeContent: 1
         });
-        // console.log(this.state.modalDetails);
-        // console.log(this.state.modalData);
+        console.log(this.state.modalData);
     };
 
     closeDetails = () => {
-        this.setState({ modalDetails: false });
+        this.setState({ modalToggle: false });
     };
 
     handleSwitch = (checked, value) => {
@@ -186,6 +172,22 @@ export class Home extends React.Component {
         }
     }
 
+    renderSwitch(param) {
+        switch(param) {
+            case 0:
+                return <WelcomeModal handleClose={this.handleClose} />;
+            case 1:
+                return <Details details={this.state.modalData} handleSwitch={this.handleSwitch} /> ;
+            case 2:
+                return <NewsModal handleClose={this.handleClose}/> ;
+            case 3:
+                return <ConfirmModal handleClose={this.handleClose}/> ;
+            default:
+                return <WelcomeModal handleClose={this.handleClose}/>;
+
+        }
+      }
+
     render() {
         if (!this.state.ready) {
             return (
@@ -195,70 +197,26 @@ export class Home extends React.Component {
         else {
             return (
                 <div>
-
-                    <div className='masterContainer'>
-                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
-                        <div className='tabContainer'><TabContainer /></div>
-                        <div className='cardsConteiner'><CardsProducts /></div>
-                        <div className='footerContainer'><Footer /></div>
-                    </div>
-
-                    {/* <Modal 
+                    {/* <Modal
                         open={this.state.modalDetails}
                         onClose={this.closeDetails}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description" >
-                            <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
-                    </Modal> */}
-
-                    {/* <Modal
+                        <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
+                    </Modal>*/}
+                    <Modal
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
-                        open={false}
+                        open={this.state.modalToggle}
                         onClose={this.handleClose}>
-
-                        <Grid container style={styles.paper} className='modalStart'>
-                            <Grid item xs={12} className='header'>
-                                <label className='title'>SEJA BEM VINDO!</label>
-                                <p className='subtitle'>VAMOS COMEÇAR?</p>
-                                <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
-                                e escoher o que mais interessa a você.</label>
-                            </Grid>
-                            <Grid item xs={12} sm={5} className='controlPoints'>
-                                <label>Aqui você controla seus pontos<br/>
-                                Você começa com (20 pontos)<br/>
-                                dependendo do seu contrato.
-                                </label>
-                                <Grid item xs={12}>
-                                    <CircularProgress className='circularProgress'  variant="static" value={80} />
-                                    <Grid item className="pointsProgress">
-                                        <label><span>14</span>/20<br/></label>
-                                        <label className='points'>pontos</label>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm={7}>
-                                <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
-                                <Grid item xs={12} className="myservices">
-                                    <Grid item>
-                                        <img src='https://picsum.photos/50' alt='' />
-                                    </Grid>
-                                    <Grid item className="descriptService">
-                                        <label> LOOK</label><br />
-                                        <i className="fas fa-tv"></i> <span>Conteudo de TV</span>
-                                    </Grid>
-                                    <Grid item className="pointsService">
-                                        <label><span>3</span>pts</label>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button variant="contained" color="primary" size="large"
-                                onClick={this.handleClose}>Entendi</Button>
-                            </Grid>
-                        </Grid>
-                    </Modal> */}
-
+                            {this.renderSwitch(this.state.typeContent)}
+                    </Modal> 
+                    <div className='masterContainer'>
+                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        <div className='tabContainer'><TabContainer /></div>
+                        <div className='cardsConteiner'><CardsProducts handleClose={this.handleClose} openDetails={this.openDetails}/></div>
+                        <div className='footerContainer'><Footer /></div>
+                    </div>
                 </div>
             )
         }

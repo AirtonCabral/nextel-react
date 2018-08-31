@@ -11,7 +11,14 @@
     background-color: #FF5722;
     color: white;
     height: 40px;
-    min-height: 40px!important;
+    min-height: 40px !important;
+    position: fixed !important;
+    top: 0px;
+    width: 100%;
+    padding: 0px;
+    button {
+        right: 20px;
+    }
 }
 
 .tabs {
@@ -28,10 +35,12 @@
     }
 }
 
-.alice-carousel{
-    
+.alice-carousel {
     padding-left: 70px;
     padding-right: 70px;
+    position: fixed;
+    top: 25px;
+    height: 100%;
 
     .alice-carousel__prev-btn, .alice-carousel__next-btn {
         position: absolute;
@@ -52,19 +61,24 @@
         }
     }
     .midiaCard {
-        padding-top: 45%;
+        padding-top: 40%;
+        height: 30px;
     }
     #cardOriginal {
         margin: 10px;
-        height: auto;
+        //max-height: 405px;
         hr {
             opacity: 0.1;
         }
         .contentCard {
+            height: 160px;
             h3 {
                 color: $primary;
                 text-transform: uppercase;
                 margin-bottom: -5px;
+            }
+            .caption {
+                height: 50px;
             }
         }
         .cardPoints {

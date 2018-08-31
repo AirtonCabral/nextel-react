@@ -2,18 +2,51 @@
 
 .details {
     width: 90% !important;
-    height: 30%;
+    min-height: 400px!important;
     max-width: 915px;
     max-height: 90%;
     padding: 15px!important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
     .imgProduto {
+        height: 100%;
         width: 100%;
-        height: 110px;
-        margin-top: 15px;
+        text-align: center;
     }
-    .alice-carousel__stage-item {
-            text-align: center!important;
+    .contentSuperior {
+        display: flex;
+        height: 130px;
+        overflow: hidden;
+    }
+    .contentInferior {
+        display: flex;
+        height: auto;
+        margin-top: 15px;
+        .carousel {
+            width: 180px;
+            text-align: center;
         }
+        .contentTabs {
+            width: 100%;
+            padding-left: 15px;
+        }
+    }
+    .alice-carousel {
+        top: 0px!important;
+        position: initial!important;
+        padding: 0!important;
+        width: 170px;
+        .__stage-item {
+            text-align: center;
+        }
+        .alice-carousel__dots {
+            width: 100%;
+        }
+    }
+    
     .contentCard {
         padding: 10px;
         hr {

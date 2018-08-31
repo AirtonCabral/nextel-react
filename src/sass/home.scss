@@ -11,16 +11,19 @@
 }
 
 .tabContainer {
-
-}active
+	position: fixed;
+    top: 40px;
+    width: 100%;
+}
 
 .cardsContainer {
 
 }
 
 .footerContainer {
-	// display: flex;
-	// align-self: flex-end;
+	position: fixed;
+	bottom: -5px;
+	width: 100%;
 }
 
 

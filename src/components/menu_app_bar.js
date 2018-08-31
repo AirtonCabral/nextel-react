@@ -22,7 +22,7 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
-  },
+  }
 };
 
 class MenuAppBar extends React.Component {
@@ -81,6 +81,7 @@ class MenuAppBar extends React.Component {
                   }}
                   open={open}
                   onClose={this.handleClose}
+                  className={classes.iconRight}
                 >
                   <MenuItem onClick={this.handleClose}>{'Como Funciona'}</MenuItem>
                   <MenuItem onClick={this.handleClose}>{'Regulamento'}</MenuItem>
