@@ -14,6 +14,7 @@ export const loadState = () => {
 }
 
 export const saveState = (state) => {
+    console.log('yeah', state);
     try {
         const serializedState = CircularJSON.stringify(state)
         localStorage.setItem('state', serializedState)

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Router, Switch, Link } from 'react-router-dom'
+// import { Route, Router, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -58,25 +59,25 @@ export class SiteRouter extends React.Component {
 
     render() {
         return (
-            // <Router basename={'/'} history={history}>
-            <Router history={history}>
+            // <Router history={history}>
+            <Router basename={'/'}>
                 <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route exact path="/home" component={Home} />
+                    <Route exact path="/login" component={Login} />
+                    <PrivateRoute exact path="/*" component={Home} auth={this.props.auth} />
                 </Switch>
             </Router>
         )
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         auth: state.auth,
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth,
+    }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     loadPage,
 }, dispatch)
 
-export default connect(null, mapDispatchToProps)(SiteRouter)
+export default connect(mapStateToProps, mapDispatchToProps)(SiteRouter)

@@ -14,6 +14,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { saveState } from './../lib/storage';
 
 const styles = theme => ({
   layout: {
@@ -62,11 +63,20 @@ export class SignIn extends React.Component {
     }
 
     componentDidUpdate() {
-      if (this.props.online) {
-        setTimeout(() => {
-          this.props.history.push('/home')
-        }, 1000);
-      }
+      // if (this.props.online) {
+      //   setTimeout(() => {
+      //     this.props.history.push('/home')
+      //   }, 1000);
+      // }
+    }
+
+    componentDidMount() {
+      // setTimeout(() => {
+      //   saveState({});
+      // }, 100);
+      // if (this.props.token) {
+      //   this.props.history.push('/home')
+      // }
     }
 
     render() {
@@ -88,12 +98,20 @@ export class SignIn extends React.Component {
                     event.preventDefault();
                     let {msisdn, login, password} = this.state;
                     this.setState({ isProcessing: true }, ()=>{
-                      this.props.startConnection(login, password, msisdn).then(()=>{
-                        // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(()=>{
+
+                      // this.props.startConnection(login, password, msisdn).then(()=>{
+                        this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(()=>{
                           let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
                           let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : 'Error  :(  Tentar novamente.';
                           this.setState({ isProcessing: false, buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
+                            setTimeout(() => {
+
+                              console.log(this.props.msisdn);
+                              this.props.history.push('/home')
+
+                            }, 1000);
                       });
+
                     });
                   }}>
                 <FormControl margin="normal" required fullWidth>

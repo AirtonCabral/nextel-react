@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startConnection } from '../actions/a_auth'
+// import { startConnection } from '../actions/a_auth'
 import { signIn, addToPortfolio, removeToPortfolio } from '../actions/a_user'
 import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
@@ -80,77 +80,69 @@ export class Home extends React.Component {
 
         let status_message = '';
 
-        if (msisdn_received) {
-            status_message = 'Autenticando...';
-        }
-        else {
-            status_message = 'MSISDN Não encontrado :(';
-            this.setState({
-                messages: status_message,
-                errors: true
-            });
-            return;
-        }
+        status_message = 'Autenticando...';
+        console.log('Opening  /Home', this.props.msisdn);
+        // if (this.props.token === null || this.props.msisdn === null) {
+        //     this.props.history.push('/login')
+        // }
+        // if (msisdn_received) {
+        // }
+        // else {
+        //     status_message = 'MSISDN Não encontrado :(';
+        //     this.setState({
+        //         messages: status_message,
+        //         errors: true
+        //     });
+        //     return;
+        // }
 
         this.setState({ messages: status_message }, () => {
 
-            this.props.startConnection('drweb', 'c62J3rZovtw', msisdn_received) // >>>>> auth
-                .then(() => {
+            
+            this.props.signIn(this.props.token, this.props.msisdn)// >>>>> signin
+            .then(() => {
+                
+                    if (this.props.assinantesID) {
+                        this.setState({
+                            messages: 'Carregando Lista de Serviços',
+                        }, () => {
+                            this.props.getProducts(this.props.token)// >>>>> get products
+                                .then(() => {
 
-                    if (this.props.token && this.props.msisdn) {
-
-                        this.props.signIn(this.props.token, this.props.msisdn)// >>>>> signin
-                            .then(() => {
-
-                                if (this.props.assinantesID) {
-                                    this.setState({
-                                        messages: 'Carregando Lista de Serviços',
-                                    }, () => {
-                                        this.props.getProducts(this.props.token)// >>>>> get products
-                                            .then(() => {
-
-                                                let message = ''
-                                                if (this.props.products.length > 0) {
-                                                    message = 'Lista Carregada!'
-                                                    // START PORTFOLIO DEFAULT
-                                                    this.props.sva_produtos_id.map((v, i) => {
-                                                        this.props.products.map((_v, _i) => {
-                                                            if (_v.id === v) {
-                                                                this.props.addToPortfolio({ ..._v });
-                                                            }
-                                                        });
-                                                    });
-                                                    this.setState({ messages: message }, () => {
-                                                        // START PROJECT
-                                                        setTimeout(() => {
-                                                            this.setState({
-                                                                ready: true
-                                                            });
-                                                        }, 1000);
-                                                    });
+                                    let message = ''
+                                    if (this.props.products.length > 0) {
+                                        message = 'Lista Carregada!'
+                                        // START PORTFOLIO DEFAULT
+                                        this.props.sva_produtos_id.map((v, i) => {
+                                            this.props.products.map((_v, _i) => {
+                                                if (_v.id === v) {
+                                                    this.props.addToPortfolio({ ..._v });
                                                 }
-                                                else {
-                                                    message = 'Erro ao carregar lista de serviços'
-                                                    // ERROR
-                                                    this.setState({
-                                                        messages: message,
-                                                        errors: true
-                                                    });
-                                                }
-                                            })
-                                    });
-                                }
-                                else {
-                                    this.setState({
-                                        messages: 'Erro ao carregar usuário.',
-                                        errors: true
-                                    });
-                                }
-                            })
+                                            });
+                                        });
+                                        this.setState({ messages: message }, () => {
+                                            // START PROJECT
+                                            setTimeout(() => {
+                                                this.setState({
+                                                    ready: true
+                                                });
+                                            }, 1000);
+                                        });
+                                    }
+                                    else {
+                                        message = 'Erro ao carregar lista de serviços'
+                                        // ERROR
+                                        this.setState({
+                                            messages: message,
+                                            errors: true
+                                        });
+                                    }
+                                })
+                        });
                     }
                     else {
                         this.setState({
-                            messages: 'Problemas com autenticação :(',
+                            messages: 'Erro ao carregar usuário.',
                             errors: true
                         });
                     }
@@ -281,7 +273,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    startConnection,
+    // startConnection,
     signIn,
     getProducts,
     addToPortfolio,

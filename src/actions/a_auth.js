@@ -1,12 +1,15 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { ATTEMPT_CONNECTION } from './types';
+import { ATTEMPT_CONNECTION, SIGNOUT } from './types';
+import { saveState } from './../lib/storage'
 
 export const startConnection = (username, password, msisdn) => (dispatch) => {
     let param = "grant_type=password&username="+username+"&password="+password+"&scope=read&client_id=&client_secret="
     let headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
+    // Força signout antes de signin novamente.
+    dispatch(signOut())
     const server = new API(remoteApi, null, null, headers)
     return server.post(endpoints.nextel.auth, param)
     .then((data) => {
@@ -30,5 +33,12 @@ export const startConnection = (username, password, msisdn) => (dispatch) => {
             type: ATTEMPT_CONNECTION,
             online: false,
         })
+    })
+}
+
+export const signOut = () => (dispatch) => {
+    saveState({});
+    dispatch({
+        type: SIGNOUT,
     })
 }

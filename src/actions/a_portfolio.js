@@ -7,6 +7,7 @@ export const getProducts = (auth) => (dispatch) => {
         'Authorization': 'Bearer ' +auth
     }
     const server = new API(remoteApi, null, null, headers)
+    console.log('a_portfolio >>>>>>', auth);
     return server.get(endpoints.nextel.products)
     .then((data) => {
         var arr = [];
