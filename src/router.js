@@ -37,7 +37,7 @@ export const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => {
 PrivateRoute.propTypes = {
     component: PropTypes.func,
     auth: PropTypes.shape({
-        token: PropTypes.string.isRequired,
+        token: PropTypes.string,
         expiresOn: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.instanceOf(Date)

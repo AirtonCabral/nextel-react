@@ -9,14 +9,16 @@ export const startConnection = (username, password, msisdn) => (dispatch) => {
     }
     // Força signout antes de signin novamente.
     dispatch(signOut())
+
     const server = new API(remoteApi, null, null, headers)
     return server.post(endpoints.nextel.auth, param)
     .then((data) => {
         if ('access_token' in data) {
-            server.auth = data.access_token
+            server.auth = 'Bearer ' +data.access_token;
             dispatch({
                 type: ATTEMPT_CONNECTION,
                 online: true,
+                api: server,
                 token: data.access_token,
                 msisdn: msisdn,
             })
@@ -35,19 +37,16 @@ export const startConnection = (username, password, msisdn) => (dispatch) => {
     })
 }
 
-export const signIn = (auth, msisdn) => (dispatch) => {
-    
-    let headers = {
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' +auth
-    }
-    const server = new API(remoteApi, null, null, headers)
+export const signIn = () => (dispatch, getState) => {
+    const server = getState().auth.api;
+    const msisdn = getState().auth.msisdn;
     return server.get(endpoints.nextel.user, {msisdn})
     .then((data) => {
         var arr_svaProdutosID = [];
         if ('svaProdutosID' in data) {
             for (var key in data.svaProdutosID) {
-                arr_svaProdutosID.push(data.svaProdutosID[key]);
+                const index = Number(data.svaProdutosID[key]);
+                arr_svaProdutosID.push(index);
             }
         }
         if ('assinantesID' in data) {

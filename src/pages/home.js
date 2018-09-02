@@ -47,7 +47,7 @@ const styles = {
     },
 };
 
-var msisdn_received = null;
+// var msisdn_received = null;
 
 export class Home extends React.Component {
     constructor(props) {
@@ -96,38 +96,38 @@ export class Home extends React.Component {
         // }
 
         setTimeout(() => {
-            this.props.getProducts(this.props.token).then(() => {
-                let message = ''
-                if (this.props.products.length > 0) {
-                    message = 'Lista Carregada!'
-                    // START PORTFOLIO DEFAULT
-                    this.props.sva_produtos_id.map((v, i) => {
-                        this.props.products.map((_v, _i) => {
-                            if (_v.id === v) {
-                                this.props.addToPortfolio({ ..._v });
-                            }
-                        });
-                    });
-                    this.setState({ messages: message }, () => {
-                        // START PROJECT
-                        setTimeout(() => {
-                            this.setState({
-                                ready: true
-                            });
-                        }, 1000);
-                    });
-                }
-                else {
-                    message = 'Erro ao carregar lista de serviços'
-                    // ERROR
-                    this.setState({
-                        messages: message,
-                        errors: true
-                    });
-                }
-            }).catch((error)=>{
-                console.log('error ao tentar carregar produtos');
-            });
+            // this.props.getProducts().then(() => {
+            //     let message = ''
+            //     if (this.props.products.length > 0) {
+            //         message = 'Lista Carregada!'
+            //         // START PORTFOLIO DEFAULT
+            //         this.props.sva_produtos_id.map((v, i) => {
+            //             this.props.products.map((_v, _i) => {
+            //                 if (_v.id === v) {
+            //                     this.props.addToPortfolio({ ..._v });
+            //                 }
+            //             });
+            //         });
+            //         this.setState({ messages: message }, () => {
+            //             // START PROJECT
+            //             setTimeout(() => {
+            //                 this.setState({
+            //                     ready: true
+            //                 });
+            //             }, 1000);
+            //         });
+            //     }
+            //     else {
+            //         message = 'Erro ao carregar lista de serviços'
+            //         // ERROR
+            //         this.setState({
+            //             messages: message,
+            //             errors: true
+            //         });
+            //     }
+            // }).catch((error)=>{
+            //     console.log('error ao tentar carregar produtos');
+            // });
         }, 250);
     }
 

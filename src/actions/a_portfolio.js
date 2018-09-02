@@ -2,17 +2,28 @@ import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
 import { PRODUCTS, PRODUCTS_RESETED, PRODUCTS_TAB_SELECTED } from './types';
 
-export const getProducts = (auth) => (dispatch) => {
+export const getProducts = () => (dispatch, getState) => {
     
     // Força signout antes de signin novamente.
     dispatch(resetPortfolio());
 
-    let headers = {
-        'Authorization': 'Bearer ' +auth
-    }
-    const server = new API(remoteApi, null, null, headers)
-    // return server.get('https://www.mocky.io/v2/5b84d4523000005600728f06')
-    return server.get(endpoints.nextel.products)
+    // const server = getState().auth.api;
+
+    // if ('get' in getState().auth.api) { // verifica se já foi inicializada anteriormente
+        // console.log('if <<<<<<<');
+    // }
+    // else { // caso contrário inicializa-se agora
+        // console.log('else >>>>>>');
+        // return;
+        const token = getState().auth.token;
+        const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        const server = new API('https://www.mocky.io/v2', null, null, headers)
+        // server.auth = 'Bearer ' +token;
+    // }
+    // return server.get(endpoints.nextel.products)
+    return server.get('/5b84d4523000005600728f06')
     .then((data) => {
         var arr = [];
         if ('svaProdutosID' in data) {

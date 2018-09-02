@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { removeToPortfolio } from '../actions/a_user'
 
+import Tooltip from '@material-ui/core/Tooltip';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -20,13 +21,18 @@ import AliceCarousel from 'react-alice-carousel';
 // import FolderIcon from '@material-ui/icons/Folder';
 // import DeleteIcon from '@material-ui/icons/Delete';
 import ChipsProduct from './chips_product';
+import AlertDialog from './alert_dialog';
 
 export class Footer extends React.Component {
 
     componentDidMount() {
         // console.log('footer didmount', this.props.user_products);
     }
-    
+
+    componentDidUpdate() {
+        console.log('update: se houver alteração dos serviços = shake!');
+    }
+
     renderNextDateAvailable() {
         let nextDate_month = new Date().getMonth() + 2;
         let nextDate_year = "/" + new Date().getFullYear();
@@ -39,7 +45,7 @@ export class Footer extends React.Component {
             nextDate_full
         )
     }
-    
+
     render() {
 
         // contagem de pontos
@@ -52,7 +58,7 @@ export class Footer extends React.Component {
 
         // montagem dos thumbs
         let cardToShow = [];
-        this.props.user_products.map((v ,i) => {
+        this.props.user_products.map((v, i) => {
             let isDisabled = false;
             let tolltipStatusMessage = '';
             if (this.props.renovar) {
@@ -69,12 +75,15 @@ export class Footer extends React.Component {
                         data={v}
                         isDisabled={isDisabled}
                         alert={tolltipStatusMessage}
-                        onRemove={(item)=>{
+                        onRemove={(item) => {
                             this.props.removeToPortfolio(item);
-                    }} />
+                        }} />
                 </div>
             );
         });
+
+        // texto tolltip botão 'salvar'
+        const submitButtonAlert = 'Atenção\nEsta ação poderá ser desfeita apenas a partir do dia '+this.renderNextDateAvailable();
 
         return (
             <div className='footer'>
@@ -82,7 +91,7 @@ export class Footer extends React.Component {
                 <label className='switchLabel'>{'Meus Serviços'}</label>
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
-                        
+
                         {/* CIRCLE COUNTER */}
                         <div className='footerLeft'>
                             <div className='footerLeftContainer'>
@@ -99,20 +108,23 @@ export class Footer extends React.Component {
                         {/* LISTA PRODUTOS */}
                         <div className='footerCenter'>
                             <div className='footerCenterContainer'>
-                                { cardToShow }
+                                {cardToShow}
                             </div>
                         </div>
 
                         {/* BOTÃO SALVAR */}
                         <div className='footerRight'>
                             <div className='footerRightContainer'>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="large"
-                                    disabled={current_points > this.props.pontos_totais}>
-                                    {'SALVAR'}
-                                </Button>
+                                <Tooltip title={submitButtonAlert} placement="top">
+                                    {/* <Button
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        disabled={current_points > this.props.pontos_totais}>
+                                        {'SALVAR'}
+                                    </Button> */}
+                                    <AlertDialog />
+                                </Tooltip>
                             </div>
                         </div>
                     </div>

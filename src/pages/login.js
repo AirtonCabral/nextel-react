@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { startConnection, signIn } from '../actions/a_auth'
+import { getProducts } from '../actions/a_portfolio'
+import { addToPortfolio } from '../actions/a_user'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -62,6 +64,7 @@ export class Login extends React.Component {
 
     render() {
       const { classes } = this.props;
+      const errorResultMessage = 'Error  :(  Recarregue a página.';
       return (
         <React.Fragment>
           <CssBaseline />
@@ -71,34 +74,53 @@ export class Login extends React.Component {
                 <LockIcon />
               </Avatar>
               <Typography variant="headline">Entrar</Typography>
-                <form
-                  className={classes.form}
-                  action="/"
-                  method="POST"
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    let {msisdn, login, password} = this.state;
-                    this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, ()=>{
+              <form
+                className={classes.form}
+                action="/"
+                method="POST"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  let { msisdn, login, password } = this.state;
+                  this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
 
-                      // this.props.startConnection(login, password, msisdn).then(()=>{
-                        this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(()=>{
-                          
-                          let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
-                          let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : 'Error  :(  Tentar novamente.';
-                          
-                          this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
-                          
-                          this.props.signIn(this.props.auth, this.props.msisdn).then(()=>{
-                            this.setState({ isProcessing: false, buttonValueState: 'Redirecionando' });
-                            setTimeout(() => {
-                                this.props.history.push('/home')
-                              }, 1000);
+                    // this.props.startConnection(login, password, msisdn).then(()=>{
+                    this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
+
+                      let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
+                      let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : errorResultMessage;
+                      this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
+
+                      this.props.signIn().then(() => {
+
+                        this.setState({ buttonValueState: 'Carregando Produtos...' });
+                        this.props.getProducts().then(() => {
+
+                          if (this.props.products.length > 0) {
+                            this.setState({ buttonValueState: 'Lista Carregada! Redirecionando...' });
+                            // Create Default Portfolio
+                            this.props.sva_produtos_id.map((v, i) => {
+                              this.props.products.map((_v, _i) => {
+                                if (_v.id === v) { this.props.addToPortfolio({ ..._v }); }
+                              });
                             });
+                            // START PROJECT
+                            this.setState({ buttonValueState: 'Redirecionando' });
+                            setTimeout(() => { this.props.history.push('/home') }, 250);
+                          }
+                          else {
+                            this.setState({
+                              buttonValueState: errorResultMessage
+                            });
+                          }
 
+                        });
                       });
 
                     });
-                  }}>
+
+                  });
+                }}
+              >
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">MSISDN</InputLabel>
                   <Input
@@ -157,13 +179,15 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
     online: state.auth.online,
-    token: state.auth.token,
-    msisdn: state.auth.msisdn,
+    sva_produtos_id: state.user.sva_produtos_id,
+    products: state.portfolio.products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     startConnection,
     signIn,
+    getProducts,
+    addToPortfolio,
 }, dispatch)
 
 export default connect(

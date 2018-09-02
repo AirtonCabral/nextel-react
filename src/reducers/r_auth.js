@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 online: action.online,
+                api: action.api,
                 token: action.token,
                 msisdn: action.msisdn,
                 expiresOn: expiresOn,

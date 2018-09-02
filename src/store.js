@@ -48,8 +48,8 @@ const store = createStore(
 // LocalStorage
 store.subscribe(() => {
     saveState({
-        auth: store.getState().auth,
         user: store.getState().user,
+        auth: store.getState().auth,
     })
 })
 
