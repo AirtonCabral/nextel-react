@@ -1,8 +1,12 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { PRODUCTS, PRODUCTS_TAB_SELECTED } from './types';
+import { PRODUCTS, PRODUCTS_RESETED, PRODUCTS_TAB_SELECTED } from './types';
 
 export const getProducts = (auth) => (dispatch) => {
+    
+    // Força signout antes de signin novamente.
+    dispatch(resetPortfolio());
+
     let headers = {
         'Authorization': 'Bearer ' +auth
     }
@@ -28,6 +32,12 @@ export const getProducts = (auth) => (dispatch) => {
             type: PRODUCTS,
             products: [],
         })
+    })
+}
+
+export const resetPortfolio = () => (dispatch) => {
+    dispatch({
+        type: PRODUCTS_RESETED,
     })
 }
 

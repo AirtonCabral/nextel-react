@@ -10,19 +10,23 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import './../sass/footer.scss';
 import AliceCarousel from 'react-alice-carousel';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import Avatar from '@material-ui/core/Avatar';
+// import IconButton from '@material-ui/core/IconButton';
+// import FolderIcon from '@material-ui/icons/Folder';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import ChipsProduct from './chips_product';
 
 export class Footer extends React.Component {
 
+    componentDidMount() {
+        // console.log('footer didmount', this.props.user_products);
+    }
+    
     renderNextDateAvailable() {
         let nextDate_month = new Date().getMonth() + 2;
         let nextDate_year = "/" + new Date().getFullYear();

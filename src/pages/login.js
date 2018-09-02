@@ -78,7 +78,7 @@ export class Login extends React.Component {
                   onSubmit={(event) => {
                     event.preventDefault();
                     let {msisdn, login, password} = this.state;
-                    this.setState({ isProcessing: true }, ()=>{
+                    this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, ()=>{
 
                       // this.props.startConnection(login, password, msisdn).then(()=>{
                         this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(()=>{
@@ -86,10 +86,11 @@ export class Login extends React.Component {
                           let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
                           let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : 'Error  :(  Tentar novamente.';
                           
-                          this.setState({ isProcessing: false, buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
-
-                            this.props.signIn(this.props.auth, this.props.msisdn).then(()=>{
-                              setTimeout(() => {
+                          this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
+                          
+                          this.props.signIn(this.props.auth, this.props.msisdn).then(()=>{
+                            this.setState({ isProcessing: false, buttonValueState: 'Redirecionando' });
+                            setTimeout(() => {
                                 this.props.history.push('/home')
                               }, 1000);
                             });

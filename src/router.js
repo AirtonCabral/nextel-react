@@ -1,18 +1,15 @@
 import React from 'react'
-// import { Route, Router, Switch, Link } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 // Conexão ao Redux
-import { history } from './store'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { loadPage } from './actions/a_dom'
 
 // Páginas do Site
 import Login from './pages/login'
 import Home from './pages/home'
-import Page404 from './pages/404';
 import { parseGetParams } from './lib/url';
 
 export const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => {

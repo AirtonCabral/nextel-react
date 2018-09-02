@@ -95,38 +95,40 @@ export class Home extends React.Component {
         //     return;
         // }
 
-        this.props.getProducts(this.props.token).then(() => {
-            let message = ''
-            if (this.props.products.length > 0) {
-                message = 'Lista Carregada!'
-                // START PORTFOLIO DEFAULT
-                this.props.sva_produtos_id.map((v, i) => {
-                    this.props.products.map((_v, _i) => {
-                        if (_v.id === v) {
-                            this.props.addToPortfolio({ ..._v });
-                        }
-                    });
-                });
-                this.setState({ messages: message }, () => {
-                    // START PROJECT
-                    setTimeout(() => {
-                        this.setState({
-                            ready: true
+        setTimeout(() => {
+            this.props.getProducts(this.props.token).then(() => {
+                let message = ''
+                if (this.props.products.length > 0) {
+                    message = 'Lista Carregada!'
+                    // START PORTFOLIO DEFAULT
+                    this.props.sva_produtos_id.map((v, i) => {
+                        this.props.products.map((_v, _i) => {
+                            if (_v.id === v) {
+                                this.props.addToPortfolio({ ..._v });
+                            }
                         });
-                    }, 1000);
-                });
-            }
-            else {
-                message = 'Erro ao carregar lista de serviços'
-                // ERROR
-                this.setState({
-                    messages: message,
-                    errors: true
-                });
-            }
-        }).catch((error)=>{
-            console.log('error ao tentar carregar produtos');
-        });
+                    });
+                    this.setState({ messages: message }, () => {
+                        // START PROJECT
+                        setTimeout(() => {
+                            this.setState({
+                                ready: true
+                            });
+                        }, 1000);
+                    });
+                }
+                else {
+                    message = 'Erro ao carregar lista de serviços'
+                    // ERROR
+                    this.setState({
+                        messages: message,
+                        errors: true
+                    });
+                }
+            }).catch((error)=>{
+                console.log('error ao tentar carregar produtos');
+            });
+        }, 250);
     }
 
     handleOpen = () => {
@@ -245,10 +247,10 @@ const mapStateToProps = state => ({
     pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
     products: state.portfolio.products,
+    user_products: state.user.user_products,
     // online: state.auth.online,
     // assinantesID: state.user.assinantesID,
     // renovar: state.user.renovar,
-    // user_products: state.user.user_products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
