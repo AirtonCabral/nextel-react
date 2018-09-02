@@ -1,5 +1,5 @@
 // Configura aqui se estamos em modo de produção ou debug
-const DEBUG = false
+const DEBUG = true
 
 let url
 if (DEBUG) {

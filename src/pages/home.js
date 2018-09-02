@@ -1,16 +1,15 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-// import { startConnection } from '../actions/a_auth'
-import { signIn, addToPortfolio, removeToPortfolio } from '../actions/a_user'
+import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
 import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
-import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import Modal from '@material-ui/core/Modal';
+// import Typography from '@material-ui/core/Typography';
+// import Grid from '@material-ui/core/Grid';
+// import Button from '@material-ui/core/Button';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ConnectionStatus from './../components/connection_status';
 import MenuAppBar from './../components/menu_app_bar';
@@ -55,10 +54,10 @@ export class Home extends React.Component {
         super(props);
 
         // let msisdn = null;
-        if (props.location.search) {
-            let value = props.location.search;
-            msisdn_received = value.split('=')[1];
-        }
+        // if (props.location.search) {
+        //     let value = props.location.search;
+        //     msisdn_received = value.split('=')[1];
+        // }
 
         this.state = {
             // consoleToggle: false,
@@ -78,10 +77,10 @@ export class Home extends React.Component {
 
     componentDidMount() {
 
-        let status_message = '';
+        // let status_message = '';
+        // status_message = 'Autenticando...';
 
-        status_message = 'Autenticando...';
-        console.log('Opening  /Home', this.props.msisdn);
+        // console.log('Opening  /Home', this.props.msisdn);
         // if (this.props.token === null || this.props.msisdn === null) {
         //     this.props.history.push('/login')
         // }
@@ -96,57 +95,37 @@ export class Home extends React.Component {
         //     return;
         // }
 
-        this.setState({ messages: status_message }, () => {
-
-            
-            this.props.signIn(this.props.token, this.props.msisdn)// >>>>> signin
-            .then(() => {
-                
-                    if (this.props.assinantesID) {
+        this.props.getProducts(this.props.token).then(() => {
+            let message = ''
+            if (this.props.products.length > 0) {
+                message = 'Lista Carregada!'
+                // START PORTFOLIO DEFAULT
+                this.props.sva_produtos_id.map((v, i) => {
+                    this.props.products.map((_v, _i) => {
+                        if (_v.id === v) {
+                            this.props.addToPortfolio({ ..._v });
+                        }
+                    });
+                });
+                this.setState({ messages: message }, () => {
+                    // START PROJECT
+                    setTimeout(() => {
                         this.setState({
-                            messages: 'Carregando Lista de Serviços',
-                        }, () => {
-                            this.props.getProducts(this.props.token)// >>>>> get products
-                                .then(() => {
-
-                                    let message = ''
-                                    if (this.props.products.length > 0) {
-                                        message = 'Lista Carregada!'
-                                        // START PORTFOLIO DEFAULT
-                                        this.props.sva_produtos_id.map((v, i) => {
-                                            this.props.products.map((_v, _i) => {
-                                                if (_v.id === v) {
-                                                    this.props.addToPortfolio({ ..._v });
-                                                }
-                                            });
-                                        });
-                                        this.setState({ messages: message }, () => {
-                                            // START PROJECT
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    ready: true
-                                                });
-                                            }, 1000);
-                                        });
-                                    }
-                                    else {
-                                        message = 'Erro ao carregar lista de serviços'
-                                        // ERROR
-                                        this.setState({
-                                            messages: message,
-                                            errors: true
-                                        });
-                                    }
-                                })
+                            ready: true
                         });
-                    }
-                    else {
-                        this.setState({
-                            messages: 'Erro ao carregar usuário.',
-                            errors: true
-                        });
-                    }
-                })
+                    }, 1000);
+                });
+            }
+            else {
+                message = 'Erro ao carregar lista de serviços'
+                // ERROR
+                this.setState({
+                    messages: message,
+                    errors: true
+                });
+            }
+        }).catch((error)=>{
+            console.log('error ao tentar carregar produtos');
         });
     }
 
@@ -261,20 +240,20 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    online: state.auth.online,
     token: state.auth.token,
     msisdn: state.auth.msisdn,
-    assinantesID: state.user.assinantesID,
     pontos: state.user.pontos,
-    renovar: state.user.renovar,
     sva_produtos_id: state.user.sva_produtos_id,
-    user_products: state.user.user_products,
     products: state.portfolio.products,
+    // online: state.auth.online,
+    // assinantesID: state.user.assinantesID,
+    // renovar: state.user.renovar,
+    // user_products: state.user.user_products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     // startConnection,
-    signIn,
+    // signIn,
     getProducts,
     addToPortfolio,
     removeToPortfolio,

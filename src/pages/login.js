@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { startConnection, signIn } from '../actions/a_auth'
-// import { Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +13,6 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { saveState } from './../lib/storage';
 
 const styles = theme => ({
   layout: {
@@ -48,7 +46,7 @@ const styles = theme => ({
   },
 });
 
-export class SignIn extends React.Component {
+export class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -60,23 +58,6 @@ export class SignIn extends React.Component {
           buttonColorState: 'primary',
           buttonValueState: 'Entrar',
         };
-    }
-
-    componentDidUpdate() {
-      // if (this.props.online) {
-      //   setTimeout(() => {
-      //     this.props.history.push('/home')
-      //   }, 1000);
-      // }
-    }
-
-    componentDidMount() {
-      // setTimeout(() => {
-      //   saveState({});
-      // }, 100);
-      // if (this.props.token) {
-      //   this.props.history.push('/home')
-      // }
     }
 
     render() {
@@ -101,15 +82,18 @@ export class SignIn extends React.Component {
 
                       // this.props.startConnection(login, password, msisdn).then(()=>{
                         this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(()=>{
+                          
                           let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
                           let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : 'Error  :(  Tentar novamente.';
+                          
                           this.setState({ isProcessing: false, buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
-                            setTimeout(() => {
 
-                              console.log(this.props.msisdn);
-                              this.props.history.push('/home')
+                            this.props.signIn(this.props.auth, this.props.msisdn).then(()=>{
+                              setTimeout(() => {
+                                this.props.history.push('/home')
+                              }, 1000);
+                            });
 
-                            }, 1000);
                       });
 
                     });
@@ -166,7 +150,7 @@ export class SignIn extends React.Component {
     }
 }
 
-SignIn.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -184,4 +168,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(withStyles(styles)(SignIn))
+)(withStyles(styles)(Login))

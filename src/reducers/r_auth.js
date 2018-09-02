@@ -9,28 +9,25 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    // Refresh do token.
-    // Duas horas.
-    let expiresOn = new Date(Date.now() + 7200000);
-    // if (action.type.indexOf("auth/") === -1) {
-    // }
     switch (action.type) {
         case ATTEMPT_CONNECTION:
+            const expiresOn = new Date(Date.now() + 600000); // 10 minutos
             return {
                 ...state,
                 online: action.online,
                 token: action.token,
                 msisdn: action.msisdn,
-                expiresOn,
+                expiresOn: expiresOn,
             }
         case SIGNOUT:
-            return {
+            const objState = {
                 ...state,
                 online: false,
                 token: null,
                 msisdn: null,
                 expiresOn: null,
             }
+            return objState
         default:
             return state
     }

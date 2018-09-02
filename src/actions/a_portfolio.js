@@ -7,7 +7,7 @@ export const getProducts = (auth) => (dispatch) => {
         'Authorization': 'Bearer ' +auth
     }
     const server = new API(remoteApi, null, null, headers)
-    console.log('a_portfolio >>>>>>', auth);
+    // return server.get('https://www.mocky.io/v2/5b84d4523000005600728f06')
     return server.get(endpoints.nextel.products)
     .then((data) => {
         var arr = [];
