@@ -16,7 +16,8 @@ export const history = createHistory()
 const localState = loadState()
 const sessionState = loadStateFromSession()
 // const initialState = { ...localState, ...sessionState }
-const initialState = {}
+const initialState = { ...localState }
+// const initialState = {}
 
 const enhancers = []
 const middleware = [
@@ -47,7 +48,8 @@ const store = createStore(
 // LocalStorage
 store.subscribe(() => {
     saveState({
-        auth: store.getState().auth
+        user: store.getState().user,
+        auth: store.getState().auth,
     })
 })
 

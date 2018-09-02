@@ -1,4 +1,4 @@
-import { PRODUCTS, PRODUCTS_TAB_SELECTED } from '../actions/types';
+import { PRODUCTS, PRODUCTS_TAB_SELECTED, PRODUCTS_RESETED } from '../actions/types';
 
 const initialState = {
     products: [],
@@ -12,6 +12,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 products: action.products,
+            }
+        case PRODUCTS_RESETED:
+            return {
+                ...state,
+                products: [],
             }
         case PRODUCTS_TAB_SELECTED:
             return {
