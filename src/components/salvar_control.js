@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class AlertDialog extends React.Component {
   state = {
@@ -20,29 +21,52 @@ class AlertDialog extends React.Component {
   };
 
   render() {
+    let isActive = false;
+    let tolltipMessage = '';
+    this.props.userProducts.forEach(element => {
+      this.props.svaProdutosId.forEach(compare => {
+        if (element.id !== compare) { isActive = true; };
+      });
+    });
+    if (isActive) {
+      tolltipMessage = 'ATUALIZAR MEU PORTFÓLIO';
+    }
+    else {
+      tolltipMessage = 'Tudo salvo!';
+    }
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open alert dialog</Button>
+        <Tooltip title={tolltipMessage} placement="top">
+          <div>
+            <Button
+              disabled={!isActive}
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={this.handleClickOpen}>
+              {'SALVAR'}
+            </Button>
+          </div>
+        </Tooltip>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Let Google help apps determine location. This means sending anonymous location data to
               Google, even when no apps are running.
-            </DialogContentText>
+              </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
-            </Button>
+            {/* <Button onClick={this.handleClose} color="primary">
+                Disagree
+              </Button> */}
             <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
-            </Button>
+              Entendi
+              </Button>
           </DialogActions>
         </Dialog>
       </div>

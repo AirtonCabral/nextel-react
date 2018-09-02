@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { removeToPortfolio } from '../actions/a_user'
 
-import Tooltip from '@material-ui/core/Tooltip';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -21,17 +20,9 @@ import AliceCarousel from 'react-alice-carousel';
 // import FolderIcon from '@material-ui/icons/Folder';
 // import DeleteIcon from '@material-ui/icons/Delete';
 import ChipsProduct from './chips_product';
-import AlertDialog from './alert_dialog';
+import SalvarControl from './salvar_control';
 
 export class Footer extends React.Component {
-
-    componentDidMount() {
-        // console.log('footer didmount', this.props.user_products);
-    }
-
-    componentDidUpdate() {
-        console.log('update: se houver alteração dos serviços = shake!');
-    }
 
     renderNextDateAvailable() {
         let nextDate_month = new Date().getMonth() + 2;
@@ -61,7 +52,7 @@ export class Footer extends React.Component {
         this.props.user_products.map((v, i) => {
             let isDisabled = false;
             let tolltipStatusMessage = '';
-            if (this.props.renovar) {
+            if (!this.props.renovar) {
                 this.props.sva_produtos_id.forEach(element => {
                     if (v.id === element) {
                         isDisabled = true;
@@ -83,7 +74,9 @@ export class Footer extends React.Component {
         });
 
         // texto tolltip botão 'salvar'
-        const submitButtonAlert = 'Atenção\nEsta ação poderá ser desfeita apenas a partir do dia '+this.renderNextDateAvailable();
+        const submitButtonAlert = (
+            <div className='buttonSalvarTolltip'>ATENÇÃO PRAZO DE RENOVAÇÃO<br />{'Apenas a partir do dia: ' + this.renderNextDateAvailable()}</div>
+        );
 
         return (
             <div className='footer'>
@@ -115,16 +108,10 @@ export class Footer extends React.Component {
                         {/* BOTÃO SALVAR */}
                         <div className='footerRight'>
                             <div className='footerRightContainer'>
-                                <Tooltip title={submitButtonAlert} placement="top">
-                                    {/* <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        disabled={current_points > this.props.pontos_totais}>
-                                        {'SALVAR'}
-                                    </Button> */}
-                                    <AlertDialog />
-                                </Tooltip>
+                                <SalvarControl
+                                    submitButtonAlert={submitButtonAlert}
+                                    svaProdutosId={this.props.sva_produtos_id}
+                                    userProducts={this.props.user_products} />
                             </div>
                         </div>
                     </div>

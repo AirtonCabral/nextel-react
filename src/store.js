@@ -49,6 +49,7 @@ const store = createStore(
 store.subscribe(() => {
     saveState({
         user: store.getState().user,
+        portfolio: store.getState().portfolio,
         auth: store.getState().auth,
     })
 })
