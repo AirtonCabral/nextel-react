@@ -24,6 +24,8 @@
 	display: flex;
     align-items: center;
     flex-grow: 1;
+    height: 60px;
+    margin-top: 45px;
 	// background-color: #354ABC;
 }
 
@@ -38,15 +40,25 @@
 .footerRight {
     display: flex;
     align-items: center;
+    height: 60px;
+    margin-top: 45px;
 }
 
 .footerRightContainer {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-.buttonSalvarTolltip {
-    text-align: right;
+    button {
+        background-color: $primary;
+        width: 150px;
+        color: white;
+        height: 40px;
+        &:hover {
+            background-color: #a74418;
+        }
+        &:disabled {
+            background-color: #b6b6b6;
+        }
+    }
 }
 
 
@@ -74,7 +86,7 @@
         width: 110px;
         height: 110px;
         position: relative;
-        top: -48px;
+        top: -5px;
         left: 15px;
     }
     .circularProgress {
@@ -115,18 +127,6 @@
         margin: 0 auto;
         padding: 10px;
         padding-left: 130px;
-        button {
-            background-color: $primary;
-            width: 150px;
-            color: white;
-            height: 40px;
-            &:hover {
-                background-color: #a74418;
-            }
-            &:disabled {
-                background-color: #b6b6b6;
-            }
-        }
         label {
             font-size: 1rem;
             line-height: 15px;

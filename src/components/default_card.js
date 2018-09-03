@@ -19,10 +19,10 @@ const styles = {
     colorChecked: {
         color: 'white',
         '&$colorChecked': {
-            // color: '#4eb50c',
-            // '& + $colorBar': {
-            //     backgroundColor: '#4eb50c',
-            // },
+            color: '#4eb50c',
+            '& + $colorBar': {
+                backgroundColor: '#4eb50c',
+            },
         },
     },
     card: {
@@ -109,7 +109,7 @@ export class DefaultCard extends React.Component {
                             {data.tags}
                         </Typography>
                         <hr />
-                        <Typography variant="caption">
+                        <Typography variant="caption" className='caption'>
                             {data.resumo}
                         </Typography>
                         <hr />

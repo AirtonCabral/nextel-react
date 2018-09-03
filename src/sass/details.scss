@@ -2,8 +2,53 @@
 
 .details {
     width: 90% !important;
-    height: 30%;
+    min-height: 400px!important;
+    max-width: 915px;
+    max-height: 90%;
+    padding: 15px!important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    .imgProduto {
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+    .contentSuperior {
+        display: flex;
+        height: 130px;
+        overflow: hidden;
+    }
+    .contentInferior {
+        display: flex;
+        height: auto;
+        margin-top: 15px;
+        .carousel {
+            width: 180px;
+            text-align: center;
+        }
+        .contentTabs {
+            width: 100%;
+            padding-left: 15px;
+        }
+    }
+    .alice-carousel {
+        top: 0px!important;
+        position: initial!important;
+        padding: 0!important;
+        width: 170px;
+        .__stage-item {
+            text-align: center;
+        }
+        .alice-carousel__dots {
+            width: 100%;
+        }
+    }
+    
     .contentCard {
+        padding: 10px;
         hr {
             opacity: 0.1;
         }
@@ -15,10 +60,20 @@
     }
     .cardPoints {
         padding: 10px;
-        height: 132px;
+        margin-top: 15px;
+        height: 110px;
         background: #80808021;
         display: flex;
         flex-direction: row-reverse;
+        .MuiSwitch-checked-274 {
+            color: #4bb20d;
+        }
+        .MuiSwitch-bar-278 {
+            background-color: #4bb20d !important;
+        }
+    }
+    .imgCaroussel {
+        width: auto;
     }
     .points {
         font-size: 5rem;
@@ -46,6 +101,18 @@
                 background-color: $primary;
                 color: white;
             }
+        }
+    }
+    .tabs {
+        .TabIndicator-root-129 {
+            width: 100%!important;
+            height: 2px;
+        }
+        .TabIndicator-colorPrimary-115 {
+            background-color: #e15b1e !important;
+        }
+        .MuiTabScrollButton-root-116 {
+            flex:0 0 10px
         }
     }
 }

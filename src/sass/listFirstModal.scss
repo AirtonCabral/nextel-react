@@ -1,61 +1,4 @@
-@import 'vars';
-
-.masterContainer {
-	display: flex;
-	flex-direction: column;
-	align-content: space-between;
-}
-
-.barContainer {
-	
-}
-
-.tabContainer {
-	position: fixed;
-    top: 40px;
-    width: 100%;
-}
-
-.cardsContainer {
-
-}
-
-.footerContainer {
-	position: fixed;
-	bottom: -5px;
-	width: 100%;
-}
-
-
-
-.cardLoaderContainer {
-	display: flex;
-	justify-content: center;
-	margin: 20px;
-}
-
-.cardContainer {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
-
-.cardItem {
-	margin-top: 20px;
-}
-
-
-.containerList {
-	margin: 0px;
-}
-
-
-
-
-
-
-
-
+@import '_vars.scss';
 
 .modalStart {
 	text-align: center;
@@ -64,6 +7,7 @@
 	min-height: 70% !important;
 	height: auto !important;
 	.header {
+		margin-bottom: 15px;
 		.title {
 			color: $primary;
 			font-weight: normal;
@@ -117,6 +61,40 @@
 			}
 		}
 	}
+	.servicosContratados {
+		overflow: hidden;
+		overflow-y: inherit;
+		height: 205px;
+		margin-bottom: 15px;
+    }
+    .containerList {
+        width: 100%;
+        .Itemlist{
+            padding: 0px !important;
+            margin: 5px 10% !important;
+            width: 80% !important;
+            border: 1px solid #e15b1e !important;
+        }
+        .MuiAvatar-root-300 {
+            border-radius: 0px;
+            width: 50px;
+            height: 50px;
+		}
+		.pointsService {
+			width: 30%;
+			height: 35px;
+			background-color: lightgray;
+			color: black;
+			text-align: center;
+			label {
+				position: relative;
+				top: -20px;
+				span {
+					font-size: 54px;
+				}
+			}
+		}
+    }
 	.myservices {
 		display: flex;
 		border: 1px solid $primary;
@@ -159,3 +137,4 @@
 		}
 	}
 }
+

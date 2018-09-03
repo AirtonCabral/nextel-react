@@ -23,7 +23,7 @@ export class CardsProducts extends React.Component {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
                         <div key={i} className="cardItem">
-                            <DefaultCard id={i} />
+                            <DefaultCard id={i} openDetails={this.props.openDetails}/>
                         </div>
                     );
                 }
