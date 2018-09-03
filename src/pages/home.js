@@ -174,9 +174,9 @@ export class Home extends React.Component {
                     </Modal> 
 
                     <div className='masterContainer'>
-                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
-                        <div className='tabContainer'><TabContainer /></div>
-                        <div className='cardsConteiner'><CardsProducts /></div>
+                        <div><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        {/* <div className='tabContainer'><TabContainer /></div> */}
+                        <div className='cardsContainerHome'><CardsProducts /></div>
                         <div className='footerContainer'>
                             <Footer
                                 renderNextDateAvailable={this.renderNextDateAvailable()}
