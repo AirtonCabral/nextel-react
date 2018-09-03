@@ -158,9 +158,9 @@ class Details extends React.Component {
                                 </Typography><br />
                                 <Typography variant='body2'>
                                     <ul>
-                                        <li>{this.props.details.comousar.how1}</li>
-                                        <li>{this.props.details.comousar.how2}</li>
-                                        <li>{this.props.details.comousar.how3}</li>
+                                        <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how1 }} /></li>
+                                        <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how2 }} /></li>
+                                        <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how3 }} /></li>
                                     </ul>
                                 </Typography>
                                 {/* <Typography variant='subheading'>
