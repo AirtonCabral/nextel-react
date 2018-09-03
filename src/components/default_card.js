@@ -73,7 +73,7 @@ export class DefaultCard extends React.Component {
             if (element.id === data.id) {
                 isSelected = true;
                 // verifica se há carência para o user e bloqueia o card
-                if (this.props.renovar) {
+                if (!this.props.renovar) {
                     this.props.sva_produtos_id.forEach(element => {
                         if (element === data.id) {
                             isAvailable = false;

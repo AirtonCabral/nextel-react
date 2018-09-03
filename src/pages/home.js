@@ -76,58 +76,10 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-
-        // let status_message = '';
-        // status_message = 'Autenticando...';
-
-        // console.log('Opening  /Home', this.props.msisdn);
-        // if (this.props.token === null || this.props.msisdn === null) {
-        //     this.props.history.push('/login')
-        // }
-        // if (msisdn_received) {
-        // }
-        // else {
-        //     status_message = 'MSISDN Não encontrado :(';
-        //     this.setState({
-        //         messages: status_message,
-        //         errors: true
-        //     });
-        //     return;
-        // }
-
-        setTimeout(() => {
-            // this.props.getProducts().then(() => {
-            //     let message = ''
-            //     if (this.props.products.length > 0) {
-            //         message = 'Lista Carregada!'
-            //         // START PORTFOLIO DEFAULT
-            //         this.props.sva_produtos_id.map((v, i) => {
-            //             this.props.products.map((_v, _i) => {
-            //                 if (_v.id === v) {
-            //                     this.props.addToPortfolio({ ..._v });
-            //                 }
-            //             });
-            //         });
-            //         this.setState({ messages: message }, () => {
-            //             // START PROJECT
-            //             setTimeout(() => {
-            //                 this.setState({
-            //                     ready: true
-            //                 });
-            //             }, 1000);
-            //         });
-            //     }
-            //     else {
-            //         message = 'Erro ao carregar lista de serviços'
-            //         // ERROR
-            //         this.setState({
-            //             messages: message,
-            //             errors: true
-            //         });
-            //     }
-            // }).catch((error)=>{
-            //     console.log('error ao tentar carregar produtos');
-            // });
+         setTimeout(() => {
+            this.setState({
+                ready: true
+            });
         }, 250);
     }
 
