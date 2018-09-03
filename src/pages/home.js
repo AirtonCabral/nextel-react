@@ -2,7 +2,6 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
-import { getProducts } from '../actions/a_portfolio'
 import './../sass/home.scss'
 
 // import Modal from '@material-ui/core/Modal';
@@ -206,9 +205,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    // startConnection,
-    // signIn,
-    getProducts,
     addToPortfolio,
     removeToPortfolio,
 }, dispatch)

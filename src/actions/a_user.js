@@ -1,45 +1,6 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { ADD_PRODUCT, REMOVE_PRODUCT, SIGNIN } from './types';
-
-export const signIn = (auth, msisdn) => (dispatch) => {
-    
-    let headers = {
-        'Authorization': 'Bearer ' +auth
-    }
-    const server = new API(remoteApi, null, null, headers)
-    return server.get(endpoints.nextel.user, {msisdn})
-    .then((data) => {
-        var arr_svaProdutosID = [];
-        if ('svaProdutosID' in data) {
-            for (var key in data.svaProdutosID) {
-                arr_svaProdutosID.push(data.svaProdutosID[key]);
-            }
-        }
-        if ('assinantesID' in data) {
-            dispatch({
-                type: SIGNIN,
-                assinantesID: data.assinantesID,
-                pontos: data.pontos,
-                renovar: data.renovar,
-                sva_produtos_id: arr_svaProdutosID,
-            })
-        } else {
-            // Joga o erro para o handler a baixo.
-            const error = 'Objeto não encontrado.'
-            console.log('error', error)
-            dispatch({
-                type: SIGNIN,
-            })
-        }
-    })
-    .catch((error) => {
-        // Avisa o usuário que login não eu certo.
-        dispatch({
-            type: SIGNIN,
-        })
-    })
-}
+import { ADD_PRODUCT, REMOVE_PRODUCT, SAVE_PORTFOLIO } from './types';
 
 export const addToPortfolio = (value) => (dispatch) => {
     dispatch({
@@ -52,5 +13,47 @@ export const removeToPortfolio = (value) => (dispatch) => {
     dispatch({
         type: REMOVE_PRODUCT,
         payload: value
+    })
+}
+
+export const saveToPortfolio = () => (dispatch, getState) => {
+
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const bearer = 'Bearer ' +getState().auth.token
+    const server = new API(remoteApi, bearer, null, headers);
+    const bodyPost = {
+        "assinantesID": 33,
+        "msisdn": "5521998526556",
+        "portfolioID": 542,
+        "svaProdutosID": {
+            "1": "1"
+        }
+    } 
+    return server.post(endpoints.nextel.save, bodyPost)
+
+    // const server = getState().auth.api;
+    // return server.get(endpoints.nextel.save)
+    .then((data) => {
+        if (data.mensagem === 'OK') {
+            dispatch({
+                type: SAVE_PORTFOLIO,
+            })
+        } else {
+            // Joga o erro para o handler a baixo.
+            const error = 'Objeto não encontrado.'
+            console.log('error', error)
+            dispatch({
+                type: SAVE_PORTFOLIO,
+            })
+        }
+    })
+    .catch((error) => {
+        console.log('error', error);
+        // Avisa o usuário que login não eu certo.
+        dispatch({
+            type: SAVE_PORTFOLIO,
+        })
     })
 }

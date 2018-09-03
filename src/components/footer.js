@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { removeToPortfolio } from '../actions/a_user'
+import { removeToPortfolio, saveToPortfolio } from '../actions/a_user'
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -109,9 +109,10 @@ export class Footer extends React.Component {
                         <div className='footerRight'>
                             <div className='footerRightContainer'>
                                 <SalvarControl
-                                    submitButtonAlert={submitButtonAlert}
+                                    // submitButtonAlert={submitButtonAlert}
                                     svaProdutosId={this.props.sva_produtos_id}
-                                    userProducts={this.props.user_products} />
+                                    userProducts={this.props.user_products}
+                                    handleSaveAction={()=>this.props.saveToPortfolio()} />
                             </div>
                         </div>
                     </div>
@@ -132,6 +133,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     removeToPortfolio,
+    saveToPortfolio,
 }, dispatch)
 
 export default connect(

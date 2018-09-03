@@ -3,6 +3,7 @@ export const SIGNIN = 'user/SIGNIN'
 export const SIGNOUT = 'user/SIGNOUT'
 export const ADD_PRODUCT = 'user/ADD_PRODUCT'
 export const REMOVE_PRODUCT = 'user/REMOVE_PRODUCT'
+export const SAVE_PORTFOLIO = 'user/SAVE_PORTFOLIO'
 export const LOAD_PAGE = 'dom/LOAD_PAGE'
 
 export const PRODUCTS = 'portfolio/PRODUCTS'

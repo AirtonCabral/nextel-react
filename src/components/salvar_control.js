@@ -12,17 +12,14 @@ class AlertDialog extends React.Component {
     open: false,
   };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
   handleClose = () => {
-    this.setState({ open: false });
+    // this.setState({ open: false });
   };
 
   render() {
     let isActive = false;
     let tolltipMessage = '';
+    // verifica status dos produtos
     this.props.userProducts.forEach(element => {
       this.props.svaProdutosId.forEach(compare => {
         if (element.id !== compare) { isActive = true; };
@@ -43,12 +40,12 @@ class AlertDialog extends React.Component {
               variant="contained"
               color="primary"
               size="large"
-              onClick={this.handleClickOpen}>
+              onClick={()=>this.props.handleSaveAction()}>
               {'SALVAR'}
             </Button>
           </div>
         </Tooltip>
-        <Dialog
+        {/* <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
@@ -61,14 +58,11 @@ class AlertDialog extends React.Component {
               </DialogContentText>
           </DialogContent>
           <DialogActions>
-            {/* <Button onClick={this.handleClose} color="primary">
-                Disagree
-              </Button> */}
             <Button onClick={this.handleClose} color="primary" autoFocus>
               Entendi
               </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
       </div>
     );
   }

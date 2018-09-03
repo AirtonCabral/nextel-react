@@ -15,16 +15,27 @@ export const getProducts = () => (dispatch, getState) => {
     // else { // caso contrário inicializa-se agora
         // console.log('else >>>>>>');
         // return;
-        const token = getState().auth.token;
-        const headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        const server = new API('https://www.mocky.io/v2', null, null, headers)
+        // const token = getState().auth.token;
+        // const headers = {
+            // 'Content-Type': 'application/x-www-form-urlencoded'
+        // }
+        // const server = new API('https://www.mocky.io/v2', null, null, headers)
+        // const server = new API('https://www.mocky.io/v2', null, null, headers)
         // server.auth = 'Bearer ' +token;
     // }
     // return server.get(endpoints.nextel.products)
     // return server.get('/5b84d4523000005600728f06')
-    return server.get('/5b8c9c442f0000750cceec3c')
+    // return server.get('/5b8c9c442f0000750cceec3c')
+
+
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const bearer = 'Bearer ' +getState().auth.token
+    const server = new API(remoteApi, bearer, null, headers);
+    return server.post(endpoints.nextel.products)
+
+
     .then((data) => {
         var arr = [];
         if ('svaProdutosID' in data) {

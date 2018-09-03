@@ -91,10 +91,9 @@ export class Login extends React.Component {
                       this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
 
                       this.props.signIn().then(() => {
-
                         this.setState({ buttonValueState: 'Carregando Produtos...' });
-                        this.props.getProducts().then(() => {
 
+                        this.props.getProducts().then(() => {
                           if (this.props.products.length > 0) {
                             this.setState({ buttonValueState: 'Lista Carregada! Redirecionando...' });
                             // Create Default Portfolio

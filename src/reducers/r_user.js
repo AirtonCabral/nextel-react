@@ -1,4 +1,4 @@
-import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED } from '../actions/types';
+import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SAVE_PORTFOLIO } from '../actions/types';
 
 const initialState = {
     assinantesID: null,
@@ -24,6 +24,11 @@ export default (state = initialState, action) => {
                 ...state,
                 user_products: [],
             }
+        // case SAVE_PORTFOLIO:
+        //     return {
+        //         ...state,
+        //         user_products: [],
+        //     }
         case ADD_PRODUCT:
             let increment_arr = [...state.user_products]
             increment_arr.push({...action.payload})
