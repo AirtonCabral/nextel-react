@@ -64,10 +64,16 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
+        console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
             this.props.sva_produtos_id.length === 0 ||
             this.props.user_products.length === 0 ) {
                 setTimeout(() => { this.props.history.push('/login') }, 100);
+        }
+        else {
+            if (this.props.user_message_history === null) {
+                this.props.setMessageSaw(2);
+            }
         }
     }
 
@@ -97,10 +103,11 @@ export class Home extends React.Component {
     }
 
     handleClose = () => {
+        console.log('handclose', this.props.user_message_history)
         if (this.props.product_selected !== null) {
             this.props.selectProduct(null);
         }
-        if (this.props.user_message_history > 0) {
+        if (this.props.user_message_history >= 0) {
             this.props.setMessageSaw(null);
         }
     };
@@ -118,6 +125,10 @@ export class Home extends React.Component {
         switch(param) {
             case 0:
                 return <WelcomeModal
+                            userProducts={this.props.user_products}
+                            remainPoints={this.getRemainPoints()}
+                            currentPoints={this.getCurrentPoints()}
+                            totalPoints={this.props.user_total_points}
                             handleClose={this.handleClose} />;
             case 1:
                 return <Details
@@ -125,9 +136,11 @@ export class Home extends React.Component {
                             handleSwitch={this.handleSwitch} /> ;
             case 2:
                 return <NewsModal
-                            handleClose={()=>{
-                                this.props.sendPortfolioToApi()
-                            }}/>;
+                            userProducts={this.props.user_products}
+                            remainPoints={this.getRemainPoints()}
+                            currentPoints={this.getCurrentPoints()}
+                            totalPoints={this.props.user_total_points}
+                            handleClose={this.handleClose} />;
             case 3:
                 return <ConfirmModal
                             userProducts={this.props.user_products}
@@ -141,11 +154,12 @@ export class Home extends React.Component {
                                 });
                             }} />;
             default:
-                return <WelcomeModal handleClose={this.handleClose}/>;
+                return <div />;
          }
       }
 
     render() {
+        console.log('render', this.props.user_message_history)
         if (!this.state.ready) {
             return (
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
@@ -158,7 +172,7 @@ export class Home extends React.Component {
             if (this.props.product_selected !== null) {
                 isContentDetailToOpen = true;
                 typeContent = 1;
-            } else if (this.props.user_message_history > 0) {
+            } else if (this.props.user_message_history !== null) {
                 isContentDetailToOpen = true;
                 typeContent = this.props.user_message_history;
             }
@@ -174,9 +188,9 @@ export class Home extends React.Component {
                     </Modal> 
 
                     <div className='masterContainer'>
-                        <div><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
-                        {/* <div className='tabContainer'><TabContainer /></div> */}
-                        <div className='cardsContainerHome'><CardsProducts /></div>
+                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        <div className='cardsConteiner'><CardsProducts /></div>
+                        <div className='tabContainer'><TabContainer /></div>
                         <div className='footerContainer'>
                             <Footer
                                 renderNextDateAvailable={this.renderNextDateAvailable()}

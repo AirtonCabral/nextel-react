@@ -30,9 +30,8 @@ export class CardsProducts extends React.Component {
                 }
             });
             return (
-                <div className="aliceContainerHome">
-                RODRIGO ROBLEDO
-                    {/* <AliceCarousel
+                <div className="cardContainer">
+                    <AliceCarousel
                         mouseDragEnabled
                         infinite
                         keysControlDisabled
@@ -44,7 +43,7 @@ export class CardsProducts extends React.Component {
                             999: { items: 3 },
                             1400: { items: 4 },
                         }}
-                    /> */}
+                    />
                 </div>
             );
         };
