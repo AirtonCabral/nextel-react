@@ -23,12 +23,17 @@ export const getProducts = () => (dispatch, getState) => {
         // server.auth = 'Bearer ' +token;
     // }
     // return server.get(endpoints.nextel.products)
-    return server.get('/5b84d4523000005600728f06')
+    // return server.get('/5b84d4523000005600728f06')
+    return server.get('/5b8c9c442f0000750cceec3c')
     .then((data) => {
         var arr = [];
         if ('svaProdutosID' in data) {
             for (var key in data.svaProdutosID) {
-                arr.push(data.svaProdutosID[key]);
+                const objchild = {
+                    id: Number(key),
+                    ...data.svaProdutosID[key]
+                }
+                arr.push(objchild);
             }
         }
         dispatch({

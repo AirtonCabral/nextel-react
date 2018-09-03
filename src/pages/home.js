@@ -64,7 +64,7 @@ export class Home extends React.Component {
             modalToggle: true,
             modalDetails: false,
             modalData: [],
-            ready: false,
+            ready: true,
             messages: 'Iniciando',
             errors: null,
             // count: 27,
@@ -76,11 +76,14 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-         setTimeout(() => {
-            this.setState({
-                ready: true
-            });
-        }, 250);
+        console.log('this.props.products.length', this.props.products.length);
+        console.log('this.props.sva_produtos_id.length', this.props.sva_produtos_id.length);
+        console.log('this.props.user_products.length', this.props.user_products.length);
+        // if (this.props.products.length === 0 ||
+        //     this.props.sva_produtos_id.length === 0 ||
+        //     this.props.user_products.length === 0 ) {
+        //         setTimeout(() => { this.props.history.push('/login') }, 250);
+        // }
     }
 
     handleOpen = () => {
@@ -194,9 +197,9 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    token: state.auth.token,
-    msisdn: state.auth.msisdn,
-    pontos: state.user.pontos,
+    // token: state.auth.token,
+    // msisdn: state.auth.msisdn,
+    // pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
     products: state.portfolio.products,
     user_products: state.user.user_products,

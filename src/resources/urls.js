@@ -11,7 +11,7 @@ if (DEBUG) {
 const nextel_mock = {
     auth: '/5b691543330000173e32de04',
     user: '/5b860f8f300000904a7294b0',
-    products: '/5b84d4523000005600728f06',
+    products: '/5b8c9c442f0000750cceec3c',
     save: '/5b8715ff340000db018b586f',
 };
 
