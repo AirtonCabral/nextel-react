@@ -76,14 +76,11 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-        console.log('this.props.products.length', this.props.products.length);
-        console.log('this.props.sva_produtos_id.length', this.props.sva_produtos_id.length);
-        console.log('this.props.user_products.length', this.props.user_products.length);
-        // if (this.props.products.length === 0 ||
-        //     this.props.sva_produtos_id.length === 0 ||
-        //     this.props.user_products.length === 0 ) {
-        //         setTimeout(() => { this.props.history.push('/login') }, 250);
-        // }
+        if (this.props.products.length === 0 ||
+            this.props.sva_produtos_id.length === 0 ||
+            this.props.user_products.length === 0 ) {
+                setTimeout(() => { this.props.history.push('/login') }, 100);
+        }
     }
 
     handleOpen = () => {
