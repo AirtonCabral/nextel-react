@@ -160,7 +160,7 @@ const mapStateToProps = state => ({
     pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
     user_products: state.user.user_products,
-    products: state.portfolio.products,
+    products: state.products.list,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

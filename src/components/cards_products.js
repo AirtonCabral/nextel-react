@@ -50,9 +50,9 @@ export class CardsProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    products:           state.portfolio.products,
-    tabSelected:        state.portfolio.tab_selected_index,
-    tabTitle:           state.portfolio.tab_selected_title,
+    products:           state.products.list,
+    tabSelected:        state.products.tab_selected_index,
+    tabTitle:           state.products.tab_selected_title,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

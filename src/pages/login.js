@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { startConnection, signIn } from '../actions/a_auth'
-import { getProducts } from '../actions/a_portfolio'
-import { addToPortfolio } from '../actions/a_user'
+import { startConnection } from '../actions/a_auth'
+import { getProducts } from '../actions/a_products'
+import { signIn } from '../actions/a_user'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -87,34 +87,26 @@ export class Login extends React.Component {
                     this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
 
                       let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
-                      let buttonValueResult = this.props.online ? 'Seja bem vindo, conenctando...' : errorResultMessage;
+                      let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
                       this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
 
-                      this.props.signIn().then(() => {
-                        this.setState({ buttonValueState: 'Carregando Produtos...' });
-
-                        this.props.getProducts().then(() => {
-                          if (this.props.products.length > 0) {
-                            this.setState({ buttonValueState: 'Lista Carregada! Redirecionando...' });
-                            // Create Default Portfolio
-                            this.props.sva_produtos_id.map((v, i) => {
-                              this.props.products.map((_v, _i) => {
-                                if (_v.id === v) { this.props.addToPortfolio({ ..._v }); }
-                              });
-                            });
-                            // START PROJECT
-                            this.setState({ buttonValueState: 'Redirecionando' });
-                            setTimeout(() => { this.props.history.push('/home') }, 250);
-                          }
-                          else {
-                            this.setState({
-                              buttonValueState: errorResultMessage
-                            });
-                          }
-
+                      
+                      this.props.getProducts().then(() => {
+                        this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
+                        
+                        this.props.signIn().then(() => {
+                          // START PROJECT
+                          this.setState({ buttonValueState: 'Tudo ok, Redirecionando' }, ()=>{
+                            setTimeout(() => { this.props.history.push('/home') }, 300);
+                          });
                         });
+
+                      
                       });
 
+                    })
+                    .catch((error)=>{
+                      this.setState({ isProcessing: false, buttonValueState: 'Ups, houve alguma coisa. Recarregue a tela.' });
                     });
 
                   });
@@ -178,15 +170,12 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
     online: state.auth.online,
-    sva_produtos_id: state.user.sva_produtos_id,
-    products: state.portfolio.products,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     startConnection,
     signIn,
     getProducts,
-    addToPortfolio,
 }, dispatch)
 
 export default connect(

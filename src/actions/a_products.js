@@ -1,6 +1,7 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
 import { PRODUCTS, PRODUCTS_RESETED, PRODUCTS_TAB_SELECTED } from './types';
+import { addToPortfolio } from './a_user';
 
 export const getProducts = () => (dispatch, getState) => {
     
@@ -49,7 +50,7 @@ export const getProducts = () => (dispatch, getState) => {
         dispatch({
             type: PRODUCTS,
             products: arr,
-        })
+        });
     })
     .catch((error) => {
         // Avisa o usuário que não eu certo.

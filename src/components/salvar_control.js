@@ -18,19 +18,19 @@ class AlertDialog extends React.Component {
 
   render() {
     let isActive = false;
+    let countCheck = this.props.userProducts.length;
     let tolltipMessage = '';
     // verifica status dos produtos
     this.props.userProducts.forEach(element => {
       this.props.svaProdutosId.forEach(compare => {
-        if (element.id !== compare) { isActive = true; };
+        if (element.id === compare) { countCheck--; };
       });
     });
-    if (isActive) {
-      tolltipMessage = 'ATUALIZAR MEU PORTFÓLIO';
+    // ajusta variável de estado
+    if (countCheck>0) {
+      isActive = true;
     }
-    else {
-      tolltipMessage = 'Tudo salvo!';
-    }
+    isActive ? tolltipMessage = 'ATUALIZAR MEU PORTFÓLIO' : tolltipMessage = 'Tudo salvo!';
     return (
       <div>
         <Tooltip title={tolltipMessage} placement="top">

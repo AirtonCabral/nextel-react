@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { setProductsToShow } from './../actions/a_portfolio'
+import { setProductsToShow } from './../actions/a_products'
 
 
 const styles = {
@@ -71,8 +71,8 @@ export class TabContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.portfolio.products,
-  tabSelected: state.portfolio.tab_selected_index,
+  products: state.products.list,
+  tabSelected: state.products.tab_selected_index,
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   setProductsToShow

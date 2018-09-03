@@ -226,7 +226,7 @@ const mapStateToProps = state => ({
     // msisdn: state.auth.msisdn,
     // pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
-    products: state.portfolio.products,
+    products: state.products.list,
     user_products: state.user.user_products,
     // online: state.auth.online,
     // assinantesID: state.user.assinantesID,

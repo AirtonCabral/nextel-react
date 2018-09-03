@@ -1,7 +1,7 @@
-import { PRODUCTS, PRODUCTS_TAB_SELECTED, PRODUCTS_RESETED } from '../actions/types';
+import { PRODUCTS, PRODUCTS_TAB_SELECTED, PRODUCTS_RESETED, SAVE_PORTFOLIO } from '../actions/types';
 
 const initialState = {
-    products: [],
+    list: [],
     tab_selected_index: 0,
     tab_selected_title: '',
 }
@@ -11,12 +11,12 @@ export default (state = initialState, action) => {
         case PRODUCTS:
             return {
                 ...state,
-                products: action.products,
+                list: action.products,
             }
         case PRODUCTS_RESETED:
             return {
                 ...state,
-                products: [],
+                list: [],
             }
         case PRODUCTS_TAB_SELECTED:
             return {

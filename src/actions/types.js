@@ -1,4 +1,5 @@
 export const ATTEMPT_CONNECTION = 'auth/ATTEMPT_CONNECTION'
+export const DISCONNECT = 'auth/DISCONNECT'
 export const SIGNIN = 'user/SIGNIN'
 export const SIGNOUT = 'user/SIGNOUT'
 export const ADD_PRODUCT = 'user/ADD_PRODUCT'
