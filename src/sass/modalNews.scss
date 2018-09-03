@@ -78,13 +78,19 @@
         .infosChannel{
             text-align: left;
             vertical-align: middle;
-            padding-top: 15px;
-        }
+			padding: 7px;
+			overflow: hidden;
+		}
+		@media screen and (max-width:760px){
+			.infosChannel{
+				display: none
+			}
+		}
 		.pointsService {
 			width: 30%;
 			background-color: lightgray;
 			margin: 10px;
-			margin-left: 20px;
+			margin-left: 0px;
 			color: black;
 			label {
 				position: relative;
@@ -93,6 +99,12 @@
 					font-size: 54px;
 				}
 			}
+		}
+	}
+
+	@media screen and (max-width:760px){
+		.myservices{
+			margin: 0px;
 		}
 	}
 }

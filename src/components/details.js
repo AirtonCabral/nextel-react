@@ -43,7 +43,7 @@ class Details extends React.Component {
         super(props);
         this.state = {
             selected: false,
-            value: 'Vantagens',
+            value: 'Como usar',
         }
     }
 
@@ -95,6 +95,7 @@ class Details extends React.Component {
                                 <FormControlLabel
                                     control={
                                         <Switch
+                                            className='switchDetails'
                                             onChange={(event)=>{
                                                 this.setState({ selected: event.target.checked }, () => {
                                                     
@@ -134,8 +135,7 @@ class Details extends React.Component {
                         <Tabs
                             value={value}
                             onChange={this.handleChange}
-                            fullWidth={true}
-                            scrollable
+                            fullWidth
                             scrollButtons="on"
                             indicatorColor="primary"
                             textColor="primary"
@@ -144,27 +144,27 @@ class Details extends React.Component {
                             <Tab value='Como usar' label="Como usar" />
                         </Tabs>
                         {value === 'Vantagens' && <TabContainer>Item One</TabContainer>}
-                        {value === 'Como usar' && <TabContainer>
-                        <Typography variant='body2'>
-                            {this.props.details.comousar.titulo}
-                        </Typography><br/>
-                        <Typography variant='subheading'>
-                         COMO USAR:
-                        </Typography>
-                        <Typography variant='body2'>
-                            <ul>
-                                <li>{this.props.details.comousar.how1}</li>
-                                <li>{this.props.details.comousar.how2}</li>
-                                <li>{this.props.details.comousar.how3}</li>
-                            </ul>
-                        </Typography>
-                        <Typography variant='subheading'>
-                         BAIXAR APP:
-                        </Typography>
-                        <Typography variant='body2'>
-                            <u>Clique aqui</u> para baixar o app.
-                        </Typography>
-                        </TabContainer>}
+                        {value === 'Como usar' && <TabContainer class='insideTabHowUse'>
+                            <Typography variant='body2'>
+                                {this.props.details.comousar.titulo}
+                            </Typography><br/>
+                            <Typography variant='subheading'>
+                            COMO USAR:
+                            </Typography>
+                            <Typography variant='body2'>
+                                <ul>
+                                    <li>{this.props.details.comousar.how1}</li>
+                                    <li>{this.props.details.comousar.how2}</li>
+                                    <li>{this.props.details.comousar.how3}</li>
+                                </ul>
+                            </Typography>
+                            <Typography variant='subheading'>
+                            BAIXAR APP:
+                            </Typography>
+                            <Typography variant='body2'>
+                                <u>Clique aqui</u> para baixar o app.
+                            </Typography>
+                            </TabContainer>}
                     </Grid>
                 </Grid>
             </Grid>

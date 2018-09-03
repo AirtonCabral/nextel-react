@@ -11,12 +11,17 @@ import './../sass/home.scss'
 // import Button from '@material-ui/core/Button';
 // import CircularProgress from '@material-ui/core/CircularProgress';
 
+import Modal from '@material-ui/core/Modal';
 import ConnectionStatus from './../components/connection_status';
 import MenuAppBar from './../components/menu_app_bar';
 import TabContainer from './../components/tabs_app';
 import CardsProducts from './../components/cards_products'
 import Footer from './../components/footer';
 import Details from './../components/details';
+import WelcomeModal from './../components/welcome';
+import NewsModal from './../components/news_modal';
+import ConfirmModal from './../components/confirm_modal';
+
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -62,6 +67,7 @@ export class Home extends React.Component {
         this.state = {
             // consoleToggle: false,
             modalToggle: true,
+            typeContent: 2, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
             modalDetails: false,
             modalData: [],
             ready: false,
@@ -84,7 +90,10 @@ export class Home extends React.Component {
     }
 
     handleOpen = () => {
-        this.setState({ modalToggle: true });
+        this.setState({ 
+            modalToggle: true,
+            typeContent: 0
+        });
     };
 
     handleClose = () => {
@@ -92,13 +101,11 @@ export class Home extends React.Component {
     };
 
     openDetails = (e, data) => {
-        console.log(data);
         this.setState({
+            modalToggle: true,
             modalData: data,
-            modalDetails: true
+            typeContent: 1
         });
-        // console.log(this.state.modalDetails);
-        // console.log(this.state.modalData);
     };
 
     closeDetails = () => {
@@ -114,6 +121,21 @@ export class Home extends React.Component {
         }
     }
 
+    renderSwitch(param) {
+        switch(param) {
+            case 0:
+                return <WelcomeModal handleClose={this.handleClose} />;
+            case 1:
+                return <Details details={this.state.modalData} handleSwitch={this.handleSwitch} /> ;
+            case 2:
+                return <NewsModal handleClose={this.handleClose}/> ;
+            case 3:
+                return <ConfirmModal handleClose={this.handleClose}/> ;
+            default:
+                return <WelcomeModal handleClose={this.handleClose}/>;
+         }
+      }
+
     render() {
         if (!this.state.ready) {
             return (
@@ -123,11 +145,18 @@ export class Home extends React.Component {
         else {
             return (
                 <div>
+                    <Modal
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        open={this.state.modalToggle}
+                        onClose={this.handleClose}>
+                            {this.renderSwitch(this.state.typeContent)}
+                    </Modal> 
 
                     <div className='masterContainer'>
                         <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
                         <div className='tabContainer'><TabContainer /></div>
-                        <div className='cardsConteiner'><CardsProducts /></div>
+                        <div className='cardsConteiner'><CardsProducts openDetails={this.openDetails} /></div>
                         <div className='footerContainer'><Footer /></div>
                     </div>
 
