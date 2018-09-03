@@ -96,7 +96,7 @@ class Details extends React.Component {
                         </Grid>
                         <Grid item xs={3}>
                             <CardActions className="cardPoints">
-                                <FormGroup>
+                                {/* <FormGroup>
                                     <FormControlLabel
                                         control={
                                             <Switch
@@ -116,7 +116,7 @@ class Details extends React.Component {
                                             />
                                         }
                                     />
-                                </FormGroup>
+                                </FormGroup> */}
                             </CardActions>
                             <label className='points'>
                                 {this.props.details.pontos} <span>pts</span>

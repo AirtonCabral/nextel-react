@@ -19,26 +19,35 @@ const styles = {
     },
 };
 const ConfirmModal = (props) => {
+    let ChipsToShow = [];
+    props.userProducts.map((v, i) => {
+        ChipsToShow.push(
+            <div style={{marginBottom:5}} key={i}>
+                <ChipsProduct
+                    data={v}
+                    isDisabled={true}
+                    alert={''} />
+            </div>
+        );
+    });
     return (
         <div>
         <Grid container style={styles.paper} className='modalNews'>
             <Grid item xs={12} className='header'>
                 <label className='title'>SALVAR</label><br/>
-                <label>Ao confirmar sua seleção, você só poderá altera-la em 30 dias.</label>
+                <label>{'Atenção: esta seleção somente poderá ser alterada após: '+props.renderNextDateAvailable}</label>
             </Grid>
             <Grid item xs={12}>
-                Aqui vai o ChipsProduct
+                { ChipsToShow }
             </Grid>
             
             <Grid item xs={12} className='extraPoints'>
-                <label className='subtitle'>PONTOS UTILIZADOS: 6</label><br/>
-                <label className='subtitle'>PONTOS TOTAL: 30</label> - <label className='subtitle'>PONTOS DISPONÍVEIS: 14</label>
+                <label className='subtitle'>{'PONTOS UTILIZADOS: '+props.currentPoints}</label><br/>
+                <label className='subtitle'>{'PONTOS DISPONÍVEIS: '+props.remainPoints}</label>
             </Grid>
             <Grid item xs={12}>
                 <Button variant="contained" color="primary" size="large"
-                onClick={props.handleClose}>CONFIRMAR</Button>
-                <Button variant="contained" color="primary" size="large"
-                onClick={props.handleClose}>voltar</Button>
+                onClick={props.onSubmit}>CONFIRMAR</Button>
             </Grid>
         </Grid>
         </div>

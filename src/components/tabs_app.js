@@ -42,6 +42,7 @@ export class TabContainer extends React.Component {
   }
 
   handleChange = (event, value) => {
+    console.log('>>>>> handleChange', value);
     this.props.setProductsToShow(value, this.state.titleTabs[value]);
     this.setState({
       tabSelected: value, // não confundir com 'props.tabSelected'

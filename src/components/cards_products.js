@@ -39,8 +39,8 @@ export class CardsProducts extends React.Component {
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1 },
-                            570: { items: 2 },
-                            950: { items: 3 },
+                            720: { items: 2 },
+                            999: { items: 3 },
                             1400: { items: 4 },
                         }}
                     />

@@ -1,6 +1,6 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { SIGNIN, SIGNOUT, ADD_PRODUCT, REMOVE_PRODUCT, SAVE_PORTFOLIO } from './types';
+import { SIGNIN, SIGNOUT, ADD_PRODUCT, REMOVE_PRODUCT, SAVE_PORTFOLIO, MESSAGE_SAW } from './types';
 
 export const signIn = () => (dispatch, getState) => {
     
@@ -30,6 +30,7 @@ export const signIn = () => (dispatch, getState) => {
                 pontos: data.pontos,
                 renovar: data.renovar,
                 sva_produtos_id: arr_svaProdutosID,
+                user_message_history: 0,
             })
             // Create Default Portfolio
             arr_svaProdutosID.forEach(element => {
@@ -77,6 +78,10 @@ export const removeToPortfolio = (value) => (dispatch) => {
 }
 
 export const saveToPortfolio = () => (dispatch, getState) => {
+    dispatch(setMessageSaw(3));
+}
+
+export const sendPortfolioToApi = () => (dispatch, getState) => {
 
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -118,5 +123,12 @@ export const saveToPortfolio = () => (dispatch, getState) => {
         dispatch({
             type: SAVE_PORTFOLIO,
         })
+    })
+}
+
+export const setMessageSaw = (value) => (dispatch) => {
+    dispatch({
+        type: MESSAGE_SAW,
+        payload: value
     })
 }
