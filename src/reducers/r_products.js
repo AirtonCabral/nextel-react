@@ -1,9 +1,10 @@
-import { PRODUCTS, PRODUCTS_TAB_SELECTED, PRODUCTS_RESETED, SAVE_PORTFOLIO } from '../actions/types';
+import { PRODUCTS, PRODUCTS_TAB_SELECTED, PRODUCTS_RESETED, PRODUCTS_SELECTED } from '../actions/types';
 
 const initialState = {
     list: [],
     tab_selected_index: 0,
     tab_selected_title: '',
+    product_selected: null,
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +13,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 list: action.products,
+            }
+        case PRODUCTS_SELECTED:
+            return {
+                ...state,
+                product_selected: action.payload,
             }
         case PRODUCTS_RESETED:
             return {

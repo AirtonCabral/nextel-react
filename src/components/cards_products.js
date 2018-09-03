@@ -5,6 +5,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import AliceCarousel from 'react-alice-carousel';
 import DefaultCard from './../components/default_card'
 import CirProgress from '@material-ui/core/CircularProgress';
+// import { selectProduct } from './../actions/a_products'
 
 export class CardsProducts extends React.Component {
 
@@ -23,7 +24,7 @@ export class CardsProducts extends React.Component {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
                         <div key={i} className="cardItem">
-                            <DefaultCard id={i} openDetails={this.props.openDetails}/>
+                            <DefaultCard id={i} />
                         </div>
                     );
                 }
@@ -56,7 +57,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    
+    // selectProduct
 }, dispatch)
 
 export default connect(

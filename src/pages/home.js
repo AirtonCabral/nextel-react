@@ -2,6 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
+import { selectProduct } from '../actions/a_products'
 import './../sass/home.scss'
 
 // import Modal from '@material-ui/core/Modal';
@@ -96,7 +97,8 @@ export class Home extends React.Component {
     };
 
     handleClose = () => {
-        this.setState({ modalToggle: false });
+        // this.setState({ modalToggle: false });
+        this.props.selectProduct(null)
     };
 
     openDetails = (e, data) => {
@@ -125,7 +127,7 @@ export class Home extends React.Component {
             case 0:
                 return <WelcomeModal handleClose={this.handleClose} />;
             case 1:
-                return <Details details={this.state.modalData} handleSwitch={this.handleSwitch} /> ;
+                return <Details details={this.props.product_selected} handleSwitch={this.handleSwitch} /> ;
             case 2:
                 return <NewsModal handleClose={this.handleClose}/> ;
             case 3:
@@ -142,20 +144,28 @@ export class Home extends React.Component {
             )
         }
         else {
+            let isContentDetailToOpen = false;
+            let typeContent = 0;
+            // verifica se é para abrir modal detalhes
+            if (this.props.product_selected !== null) {
+                isContentDetailToOpen = true;
+                typeContent = 1;
+            }
             return (
                 <div>
                     <Modal
+                        onClose={this.handleClose}
+                        // open={this.state.modalToggle}
+                        open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                        open={this.state.modalToggle}
-                        onClose={this.handleClose}>
-                            {this.renderSwitch(this.state.typeContent)}
+                        aria-describedby="simple-modal-description">
+                            {this.renderSwitch(typeContent)}
                     </Modal> 
 
                     <div className='masterContainer'>
                         <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
                         <div className='tabContainer'><TabContainer /></div>
-                        <div className='cardsConteiner'><CardsProducts openDetails={this.openDetails} /></div>
+                        <div className='cardsConteiner'><CardsProducts /></div>
                         <div className='footerContainer'><Footer /></div>
                     </div>
 
@@ -227,6 +237,7 @@ const mapStateToProps = state => ({
     // pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
     products: state.products.list,
+    product_selected: state.products.product_selected,
     user_products: state.user.user_products,
     // online: state.auth.online,
     // assinantesID: state.user.assinantesID,
@@ -236,6 +247,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     addToPortfolio,
     removeToPortfolio,
+    selectProduct,
 }, dispatch)
 
 export default connect(

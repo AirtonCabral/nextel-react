@@ -1,6 +1,6 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { PRODUCTS, PRODUCTS_RESETED, PRODUCTS_TAB_SELECTED } from './types';
+import { PRODUCTS, PRODUCTS_RESETED, PRODUCTS_TAB_SELECTED, PRODUCTS_SELECTED } from './types';
 import { addToPortfolio } from './a_user';
 
 export const getProducts = () => (dispatch, getState) => {
@@ -59,6 +59,13 @@ export const getProducts = () => (dispatch, getState) => {
             type: PRODUCTS,
             products: [],
         })
+    })
+}
+
+export const selectProduct = (item) => (dispatch) => {
+    dispatch({
+        type: PRODUCTS_SELECTED,
+        payload: item
     })
 }
 

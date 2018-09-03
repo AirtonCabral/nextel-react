@@ -8,5 +8,6 @@ export const SAVE_PORTFOLIO = 'user/SAVE_PORTFOLIO'
 export const LOAD_PAGE = 'dom/LOAD_PAGE'
 
 export const PRODUCTS = 'portfolio/PRODUCTS'
+export const PRODUCTS_SELECTED = 'portfolio/PRODUCTS_SELECTED'
 export const PRODUCTS_RESETED = 'portfolio/PRODUCTS_RESETED'
 export const PRODUCTS_TAB_SELECTED = 'portfolio/PRODUCTS_TAB_SELECTED'
