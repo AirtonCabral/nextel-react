@@ -7,9 +7,12 @@
 
 
 .footerContainer {
+    position: fixed;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+    bottom: -5px;
+    width: 100%;
 }
 
 .footerLeft {
