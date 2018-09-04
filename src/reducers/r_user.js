@@ -1,11 +1,14 @@
-import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED } from '../actions/types';
+import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SIGNOUT, MESSAGE_SAW } from '../actions/types';
 
 const initialState = {
     assinantesID: null,
+    mensagem: null,
+    portfolioID: null,
     pontos: null,
-    renovar: false,
-    sva_produtos_id: {},
-    user_products: []
+    renovar: null,
+    sva_produtos_id: [],
+    user_products: [],
+    user_message_history: null,
 }
 
 export default (state = initialState, action) => {
@@ -14,10 +17,29 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 assinantesID: action.assinantesID,
+                mensagem: action.mensagem,
+                portfolioID: action.portfolioID,
                 pontos: action.pontos,
                 renovar: action.renovar,
                 sva_produtos_id: action.sva_produtos_id,
-                user_products: []
+                user_products: [],
+                user_message_history: action.user_message_history,
+            }
+        case SIGNOUT:
+            return {
+                assinantesID: null,
+                mensagem: null,
+                portfolioID: null,
+                pontos: null,
+                renovar: null,
+                sva_produtos_id: [],
+                user_products: [],
+                user_message_history: null,
+            }
+        case MESSAGE_SAW:
+            return {
+                ...state,
+                user_message_history: action.payload,
             }
         case PRODUCTS_RESETED:
             return {

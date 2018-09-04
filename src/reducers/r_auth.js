@@ -1,10 +1,9 @@
-import { ATTEMPT_CONNECTION, SIGNOUT } from '../actions/types';
+import { ATTEMPT_CONNECTION, DISCONNECT, SIGNIN } from '../actions/types';
 
 const initialState = {
     online: false,
     token: null,
     msisdn: null,
-    api: null,
     expiresOn: null
 }
 
@@ -15,14 +14,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 online: action.online,
-                api: action.api,
                 token: action.token,
                 msisdn: action.msisdn,
                 expiresOn: expiresOn,
             }
-        case SIGNOUT:
-            const objState = {
+        case SIGNIN:
+            return {
                 ...state,
+                msisdn: action.msisdn,
+            }
+        case DISCONNECT:
+            const objState = {
                 online: false,
                 token: null,
                 msisdn: null,

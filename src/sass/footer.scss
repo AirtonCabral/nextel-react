@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 @import './_vars.scss';
 
+=======
+@import 'vars';
+>>>>>>> justForMerge2
 .hide {
     bottom: -60px !important;
 }
@@ -8,9 +12,12 @@
 
 
 .footerContainer {
+    position: fixed;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+    bottom: -5px;
+    width: 100%;
 }
 
 .footerLeft {
@@ -60,6 +67,10 @@
             background-color: #b6b6b6;
         }
     }
+}
+
+.buttonSalvarTolltop {
+    text-align: right;
 }
 
 

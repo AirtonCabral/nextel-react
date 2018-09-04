@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { removeToPortfolio } from '../actions/a_user'
+import { removeToPortfolio, saveToPortfolio } from '../actions/a_user'
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -24,28 +24,10 @@ import SalvarControl from './salvar_control';
 
 export class Footer extends React.Component {
 
-    renderNextDateAvailable() {
-        let nextDate_month = new Date().getMonth() + 2;
-        let nextDate_year = "/" + new Date().getFullYear();
-        if (nextDate_month < 10) {
-            nextDate_month = "0" + nextDate_month;
-        }
-        let nextDate_day = "01/";
-        let nextDate_full = nextDate_day + nextDate_month + nextDate_year;
-        return (
-            nextDate_full
-        )
-    }
-
     render() {
 
-        // contagem de pontos
-        let current_points = 0;
         let current_points_percent = 0;
-        this.props.user_products.map((v, i) => {
-            current_points += v.pontos;
-        });
-        current_points_percent = (current_points / this.props.pontos) * 100;
+        current_points_percent = (this.props.currentPoints / this.props.pontos) * 100;
 
         // montagem dos thumbs
         let cardToShow = [];
@@ -56,7 +38,7 @@ export class Footer extends React.Component {
                 this.props.sva_produtos_id.forEach(element => {
                     if (v.id === element) {
                         isDisabled = true;
-                        tolltipStatusMessage = "Período de carência até " + this.renderNextDateAvailable();
+                        tolltipStatusMessage = "Período de carência até " + this.props.renderNextDateAvailable;
                     }
                 });
             }
@@ -73,11 +55,6 @@ export class Footer extends React.Component {
             );
         });
 
-        // texto tolltip botão 'salvar'
-        const submitButtonAlert = (
-            <div className='buttonSalvarTolltip'>ATENÇÃO PRAZO DE RENOVAÇÃO<br />{'Apenas a partir do dia: ' + this.renderNextDateAvailable()}</div>
-        );
-
         return (
             <div className='footer'>
 
@@ -91,7 +68,7 @@ export class Footer extends React.Component {
                                 <div className='boxCircular'>
                                     <CircularProgress className='circularProgress' variant="static" value={current_points_percent} />
                                     <Grid item className="pointsProgress">
-                                        <label>{current_points}/<span>{this.props.pontos}</span><br /></label>
+                                        <label>{this.props.currentPoints}/<span>{this.props.pontos}</span><br /></label>
                                         <label className='points'>pontos</label>
                                     </Grid>
                                 </div>
@@ -109,9 +86,9 @@ export class Footer extends React.Component {
                         <div className='footerRight'>
                             <div className='footerRightContainer'>
                                 <SalvarControl
-                                    submitButtonAlert={submitButtonAlert}
                                     svaProdutosId={this.props.sva_produtos_id}
-                                    userProducts={this.props.user_products} />
+                                    userProducts={this.props.user_products}
+                                    handleSaveAction={()=>this.props.saveToPortfolio()} />
                             </div>
                         </div>
                     </div>
@@ -132,6 +109,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     removeToPortfolio,
+    saveToPortfolio,
 }, dispatch)
 
 export default connect(

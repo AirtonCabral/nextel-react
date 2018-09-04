@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import ChipsProduct from './chips_product';
 import Button from '@material-ui/core/Button';
 
 import './../sass/modalNews.scss';
@@ -19,6 +19,17 @@ const styles = {
     },
 };
 const NewsModal = (props) => {
+    let ChipsToShow = [];
+    props.userProducts.map((v, i) => {
+        ChipsToShow.push(
+            <div style={{marginTop:10}} key={i}>
+                <ChipsProduct
+                    data={v}
+                    isDisabled={true}
+                    alert={''} />
+            </div>
+        );
+    });
     return (
         <div>
         <Grid container style={styles.paper} className='modalNews'>
@@ -30,7 +41,8 @@ const NewsModal = (props) => {
                 <Grid item xs={1}></Grid>
                 <Grid item xs={10}>
                     <label>SEUS SERVIÇOS JÁ CONTRATADOS</label><br/>
-                    <Grid item xs={12} className="myservices">
+                    { ChipsToShow }
+                    {/* <Grid item xs={12} className="myservices">
                         <Grid item>
                             <img src='https://picsum.photos/80' alt='' />
                         </Grid>
@@ -48,14 +60,14 @@ const NewsModal = (props) => {
                         <Grid item className="pointsService">
                             <label><span>3</span>pts</label>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
                 <Grid item xs={1}></Grid>
             </Grid>
             <Grid item xs={12} className='extraPoints'>
                 <label className='subtitle'>VOCE GANHOU MAIS</label>
                 <p className='title'>10 PONTOS</p>
-                <label className='subtitle'>VOCE TEM UM TOTAL DE 14 PONTOS</label>
+                <label className='subtitle'>{'VOCE TEM UM TOTAL DE '+props.totalPoints+' PONTOS'}</label>
             </Grid>
             <Grid item xs={12}>
                 <Button variant="contained" color="primary" size="large"

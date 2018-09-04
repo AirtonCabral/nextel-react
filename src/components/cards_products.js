@@ -5,6 +5,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import AliceCarousel from 'react-alice-carousel';
 import DefaultCard from './../components/default_card'
 import CirProgress from '@material-ui/core/CircularProgress';
+// import { selectProduct } from './../actions/a_products'
 
 export class CardsProducts extends React.Component {
 
@@ -23,7 +24,7 @@ export class CardsProducts extends React.Component {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
                         <div key={i} className="cardItem">
-                            <DefaultCard id={i} openDetails={this.props.openDetails}/>
+                            <DefaultCard id={i} />
                         </div>
                     );
                 }
@@ -38,8 +39,8 @@ export class CardsProducts extends React.Component {
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1 },
-                            570: { items: 2 },
-                            950: { items: 3 },
+                            720: { items: 2 },
+                            999: { items: 3 },
                             1400: { items: 4 },
                         }}
                     />
@@ -50,13 +51,13 @@ export class CardsProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    products:           state.portfolio.products,
-    tabSelected:        state.portfolio.tab_selected_index,
-    tabTitle:           state.portfolio.tab_selected_title,
+    products:           state.products.list,
+    tabSelected:        state.products.tab_selected_index,
+    tabTitle:           state.products.tab_selected_title,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    
+    // selectProduct
 }, dispatch)
 
 export default connect(

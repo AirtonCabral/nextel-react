@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
+import { selectProduct } from '../actions/a_products'
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -92,6 +93,7 @@ export class DefaultCard extends React.Component {
         }
         return (
             <div>
+                {this.openDetails}
                 <Card className={classes.card} id='cardOriginal'>
                     <div style={styles.canvasContainer}>
                         <CardMedia
@@ -114,7 +116,7 @@ export class DefaultCard extends React.Component {
                         </Typography>
                         <hr />
                         <Button className='detailsButton'
-                            onClick={((e) => this.props.openDetails(e, data))}>Detalhes</Button>
+                            onClick={(() => this.props.selectProduct(data))}>Detalhes</Button>
                     </CardContent>
                     <CardActions className="cardPoints">
                         <FormGroup>
@@ -159,12 +161,13 @@ const mapStateToProps = state => ({
     pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
     user_products: state.user.user_products,
-    products: state.portfolio.products,
+    products: state.products.list,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     addToPortfolio,
-    removeToPortfolio
+    removeToPortfolio,
+    selectProduct,
 }, dispatch)
 
 export default connect(

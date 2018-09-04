@@ -1,22 +1,21 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
-import { getProducts } from '../actions/a_portfolio'
+import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi } from '../actions/a_user'
+import { selectProduct } from '../actions/a_products'
 import './../sass/home.scss'
 
-// import Modal from '@material-ui/core/Modal';
-// import Typography from '@material-ui/core/Typography';
-// import Grid from '@material-ui/core/Grid';
-// import Button from '@material-ui/core/Button';
-// import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Modal from '@material-ui/core/Modal';
 import ConnectionStatus from './../components/connection_status';
 import MenuAppBar from './../components/menu_app_bar';
 import TabContainer from './../components/tabs_app';
 import CardsProducts from './../components/cards_products'
 import Footer from './../components/footer';
 import Details from './../components/details';
+import WelcomeModal from './../components/welcome';
+import NewsModal from './../components/news_modal';
+import ConfirmModal from './../components/confirm_modal';
+
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -42,10 +41,10 @@ const styles = {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         backgroundColor: '#FFFFFF',
-        //   boxShadow: theme.shadows[5],
         padding: 10,
     },
 };
+
 
 // var msisdn_received = null;
 
@@ -53,56 +52,64 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        // let msisdn = null;
-        // if (props.location.search) {
-        //     let value = props.location.search;
-        //     msisdn_received = value.split('=')[1];
-        // }
-
         this.state = {
-            // consoleToggle: false,
             modalToggle: true,
+            typeContent: 2, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
             modalDetails: false,
             modalData: [],
-            ready: false,
+            ready: true,
             messages: 'Iniciando',
             errors: null,
-            // count: 27,
-            // limitCount: 70,
-            // services: [],
-            // bleh:[],
-            // msisdn
         };
     }
 
     componentDidMount() {
-         setTimeout(() => {
-            this.setState({
-                ready: true
-            });
-        }, 250);
+        console.log('this.props.user_message_history', this.props.user_message_history);
+        if (this.props.products.length === 0 ||
+            this.props.sva_produtos_id.length === 0 ||
+            this.props.user_products.length === 0 ) {
+                setTimeout(() => { this.props.history.push('/login') }, 100);
+        }
+        else {
+            if (this.props.user_message_history === null) {
+                this.props.setMessageSaw(2);
+            }
+        }
     }
 
-    handleOpen = () => {
-        this.setState({ modalToggle: true });
-    };
+    renderNextDateAvailable() {
+        let nextDate_month = new Date().getMonth() + 2;
+        let nextDate_year = "/" + new Date().getFullYear();
+        if (nextDate_month < 10) {
+            nextDate_month = "0" + nextDate_month;
+        }
+        let nextDate_day = "01/";
+        let nextDate_full = nextDate_day + nextDate_month + nextDate_year;
+        return (
+            nextDate_full
+        )
+    }
+
+    getCurrentPoints() {
+        let current_points = 0;
+        this.props.user_products.forEach(element => {
+            current_points += element.pontos;
+        });
+        return current_points;
+    }
+
+    getRemainPoints() {
+        return this.props.user_total_points-this.getCurrentPoints();
+    }
 
     handleClose = () => {
-        this.setState({ modalToggle: false });
-    };
-
-    openDetails = (e, data) => {
-        console.log(data);
-        this.setState({
-            modalData: data,
-            modalDetails: true
-        });
-        // console.log(this.state.modalDetails);
-        // console.log(this.state.modalData);
-    };
-
-    closeDetails = () => {
-        this.setState({ modalDetails: false });
+        console.log('handclose', this.props.user_message_history)
+        if (this.props.product_selected !== null) {
+            this.props.selectProduct(null);
+        }
+        if (this.props.user_message_history >= 0) {
+            this.props.setMessageSaw(null);
+        }
     };
 
     handleSwitch = (checked, value) => {
@@ -114,78 +121,82 @@ export class Home extends React.Component {
         }
     }
 
+    renderSwitch(param) {
+        switch(param) {
+            case 0:
+                return <WelcomeModal
+                            userProducts={this.props.user_products}
+                            remainPoints={this.getRemainPoints()}
+                            currentPoints={this.getCurrentPoints()}
+                            totalPoints={this.props.user_total_points}
+                            handleClose={this.handleClose} />;
+            case 1:
+                return <Details
+                            details={this.props.product_selected}
+                            handleSwitch={this.handleSwitch} /> ;
+            case 2:
+                return <NewsModal
+                            userProducts={this.props.user_products}
+                            remainPoints={this.getRemainPoints()}
+                            currentPoints={this.getCurrentPoints()}
+                            totalPoints={this.props.user_total_points}
+                            handleClose={this.handleClose} />;
+            case 3:
+                return <ConfirmModal
+                            userProducts={this.props.user_products}
+                            handleClose={this.handleClose}
+                            remainPoints={this.getRemainPoints()}
+                            currentPoints={this.getCurrentPoints()}
+                            renderNextDateAvailable={this.renderNextDateAvailable()}
+                            onSubmit={()=>{
+                                this.props.sendPortfolioToApi().then(()=>{
+                                    this.handleClose();
+                                });
+                            }} />;
+            default:
+                return <div />;
+         }
+      }
+
     render() {
+        console.log('render', this.props.user_message_history)
         if (!this.state.ready) {
             return (
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
             )
         }
         else {
+            let isContentDetailToOpen = false;
+            let typeContent = 0;
+            // verifica se é para abrir modal detalhes
+            if (this.props.product_selected !== null) {
+                isContentDetailToOpen = true;
+                typeContent = 1;
+            } else if (this.props.user_message_history !== null) {
+                isContentDetailToOpen = true;
+                typeContent = this.props.user_message_history;
+            }
             return (
                 <div>
+                    <Modal
+                        onClose={this.handleClose}
+                        // open={this.state.modalToggle}
+                        open={isContentDetailToOpen}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description">
+                            {this.renderSwitch(typeContent)}
+                    </Modal> 
 
                     <div className='masterContainer'>
                         <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
-                        <div className='tabContainer'><TabContainer /></div>
                         <div className='cardsConteiner'><CardsProducts /></div>
-                        <div className='footerContainer'><Footer /></div>
+                        <div className='tabContainer'><TabContainer /></div>
+                        <div className='footerContainer'>
+                            <Footer
+                                renderNextDateAvailable={this.renderNextDateAvailable()}
+                                currentPoints={this.getCurrentPoints()} />
+                        </div>
                     </div>
-
-                    {/* <Modal 
-                        open={this.state.modalDetails}
-                        onClose={this.closeDetails}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description" >
-                            <Details details={this.state.modalData} handleSwitch={this.handleSwitch} />
-                    </Modal> */}
-
-                    {/* <Modal
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                        open={false}
-                        onClose={this.handleClose}>
-
-                        <Grid container style={styles.paper} className='modalStart'>
-                            <Grid item xs={12} className='header'>
-                                <label className='title'>SEJA BEM VINDO!</label>
-                                <p className='subtitle'>VAMOS COMEÇAR?</p>
-                                <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
-                                e escoher o que mais interessa a você.</label>
-                            </Grid>
-                            <Grid item xs={12} sm={5} className='controlPoints'>
-                                <label>Aqui você controla seus pontos<br/>
-                                Você começa com (20 pontos)<br/>
-                                dependendo do seu contrato.
-                                </label>
-                                <Grid item xs={12}>
-                                    <CircularProgress className='circularProgress'  variant="static" value={80} />
-                                    <Grid item className="pointsProgress">
-                                        <label><span>14</span>/20<br/></label>
-                                        <label className='points'>pontos</label>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm={7}>
-                                <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
-                                <Grid item xs={12} className="myservices">
-                                    <Grid item>
-                                        <img src='https://picsum.photos/50' alt='' />
-                                    </Grid>
-                                    <Grid item className="descriptService">
-                                        <label> LOOK</label><br />
-                                        <i className="fas fa-tv"></i> <span>Conteudo de TV</span>
-                                    </Grid>
-                                    <Grid item className="pointsService">
-                                        <label><span>3</span>pts</label>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button variant="contained" color="primary" size="large"
-                                onClick={this.handleClose}>Entendi</Button>
-                            </Grid>
-                        </Grid>
-                    </Modal> */}
 
                 </div>
             )
@@ -194,23 +205,20 @@ export class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    token: state.auth.token,
-    msisdn: state.auth.msisdn,
-    pontos: state.user.pontos,
     sva_produtos_id: state.user.sva_produtos_id,
-    products: state.portfolio.products,
+    products: state.products.list,
+    product_selected: state.products.product_selected,
     user_products: state.user.user_products,
-    // online: state.auth.online,
-    // assinantesID: state.user.assinantesID,
-    // renovar: state.user.renovar,
+    user_message_history: state.user.user_message_history,
+    user_total_points: state.user.pontos,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    // startConnection,
-    // signIn,
-    getProducts,
     addToPortfolio,
     removeToPortfolio,
+    selectProduct,
+    setMessageSaw,
+    sendPortfolioToApi,
 }, dispatch)
 
 export default connect(

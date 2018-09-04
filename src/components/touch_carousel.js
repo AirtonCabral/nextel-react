@@ -10,12 +10,14 @@ const styles = theme => ({
 
 const responsive = {
     0: { items: 1 },
-    550: { items: 2 },
-    700: { items: 3 },
-    1024: { items: 4 },
+    // 550: { items: 2 },
+    // 990: { items: 3 },
+    // 1200: { items: 4 },
 };
 
 function TouchCarousel(props) {
+
+    // console.log('sadasdasas');
 
     let items = [];
 

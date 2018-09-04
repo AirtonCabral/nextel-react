@@ -33,6 +33,15 @@
             width: 100%;
             padding-left: 15px;
         }
+        @media screen and (max-width: 760px) {
+            .contentTabs {
+                &:last-child {
+                    padding: 24px;
+                    overflow: overlay;
+                    max-height: 250px;
+                }
+            }
+        }
     }
     .alice-carousel {
         top: 0px!important;
@@ -46,6 +55,11 @@
             width: 100%;
         }
     }
+    @media screen and (max-width: 760px) {
+        .alice-carousel {
+            width: auto;
+            }
+        }
     
     .contentCard {
         padding: 10px;
@@ -86,6 +100,21 @@
             font-size: 18px;
             margin-left: 8px;
             letter-spacing: initial;
+        }
+    }
+    @media screen and (max-width: 760px) {
+        .cardPoints {
+            padding: 10px;
+            margin-top: 0;
+            height: 130px;
+            .switchDetails {
+                top: 42px;
+                left: calc( 50% - 15px );
+            }
+        }
+        .points {
+            top: -70px;
+            left: -3px;
         }
     }
     .contentCard {

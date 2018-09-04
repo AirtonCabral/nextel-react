@@ -19,12 +19,6 @@
 
 }
 
-.footerContainer {
-	position: fixed;
-	bottom: -5px;
-	width: 100%;
-}
-
 
 
 .cardLoaderContainer {
@@ -36,7 +30,8 @@
 .cardContainer {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
+	margin-top: 40px;
+	// margin-bottom: 20px;
 }
 
 .cardItem {
@@ -136,6 +131,11 @@
 				float: left;
 				margin-right: 5px;
 				margin-top: 5px;
+			}
+			@media screen and (max-width: 760px)  {
+				i { 
+					display: none; 
+				}
 			}
 			span {
 				float: left;
