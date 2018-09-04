@@ -14,7 +14,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   chip: {
-
+    width: '160px',
+    margin: '0px',
+    justifyContent: 'left'
   },
 });
 
@@ -36,6 +38,7 @@ function Chips(props) {
             props.onRemove(props.data);
           }}
           className={classes.chip}
+          variant="outlined"
         />
       </Tooltip>
     </div>

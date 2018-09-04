@@ -44,14 +44,6 @@
 	margin: 0px;
 }
 
-
-
-
-
-
-
-
-
 .modalStart {
 	text-align: center;
 	color: $neutral;
@@ -59,6 +51,7 @@
 	min-height: 70% !important;
 	height: auto !important;
 	.header {
+		margin-bottom: 10px;
 		.title {
 			color: $primary;
 			font-weight: normal;
@@ -77,11 +70,16 @@
 			background-color: #a74418;
 		}
 	}
-
+	.boxChips {
+		overflow-y: auto;
+		max-height: 210px;
+		flex-wrap: wrap;
+		margin-bottom: 15px;
+	}
 	.controlPoints {
 		border-right: 1px solid #87878726;
 		height: 210px;
-		margin-bottom: 5px;
+		margin-bottom: 15px;
 		font-size: 14px;
 		.circularProgress {
 			color: #e15b1e;
@@ -90,7 +88,6 @@
 			width: 100px !important;
 			height: 100px !important;
 			margin-top: 20px;
-			transform: rotate(-17deg)!important;
 		}
 		.pointsProgress {
 			background-color: lightgray;

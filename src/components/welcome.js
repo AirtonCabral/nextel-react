@@ -44,7 +44,7 @@ const WelcomeModal = (props) => {
                     <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
                         e escoher o que mais interessa a você.</label>
                 </Grid>
-                <Grid item xs={12} sm={5} className='controlPoints'>
+                <Grid item xs={12} sm={6} className='controlPoints'>
                     <label>{textoPontos1}</label><br />
                     <label>{textoPontos2}</label><br />
                     <label>{textoPontos3}</label>
@@ -58,7 +58,7 @@ const WelcomeModal = (props) => {
                     </div>
 
                 </Grid>
-                <Grid item xs={12} sm={7}>
+                <Grid item xs={12} sm={6} className='boxChips'>
                     <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
                     { ChipsToShow }
                     {/* <Grid item xs={12} className="myservices">
