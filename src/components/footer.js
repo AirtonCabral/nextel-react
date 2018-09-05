@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import './../sass/footer.scss';
 import AliceCarousel from 'react-alice-carousel';
+import Hidden from '@material-ui/core/Hidden';
 
 // import List from '@material-ui/core/List';
 // import ListItem from '@material-ui/core/ListItem';
@@ -57,8 +58,9 @@ export class Footer extends React.Component {
 
         return (
             <div className='footer' >
+                <label  className='switchLabel desktop'>{'Meus Serviços'}: ( {this.props.pontos - this.props.currentPoints }pontos restantes )</label>
 
-                <button className='switchLabel'
+                <button className='switchLabel mobile'
                 onClick={this.props.handleFooter}>{'Meus Serviços'}: ( {this.props.pontos - this.props.currentPoints }pontos restantes )</button>
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
