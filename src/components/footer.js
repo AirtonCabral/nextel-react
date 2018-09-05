@@ -58,7 +58,7 @@ export class Footer extends React.Component {
         return (
             <div className='footer'>
 
-                <label className='switchLabel'>{'Meus Serviços'}</label>
+                <label className='switchLabel'>{'Meus Serviços'}: ( {this.props.currentPoints - this.props.pontos}pontos restantes )</label>
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
 

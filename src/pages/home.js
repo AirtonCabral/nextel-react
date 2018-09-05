@@ -54,7 +54,7 @@ export class Home extends React.Component {
 
         this.state = {
             modalToggle: true,
-            typeContent: 2, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
+            typeContent: 3, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
             modalDetails: false,
             modalData: [],
             ready: true,
@@ -133,7 +133,8 @@ export class Home extends React.Component {
             case 1:
                 return <Details
                             details={this.props.product_selected}
-                            handleSwitch={this.handleSwitch} /> ;
+                            handleSwitch={this.handleSwitch}
+                            handleClose={this.handleClose} /> ;
             case 2:
                 return <NewsModal
                             userProducts={this.props.user_products}
@@ -184,7 +185,7 @@ export class Home extends React.Component {
                         open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
-                            {this.renderSwitch(typeContent)}
+                            {this.renderSwitch(2)}
                     </Modal> 
 
                     <div className='masterContainer'>

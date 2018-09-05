@@ -61,9 +61,16 @@
         }
     }
     .midiaCard {
-        // padding-top: 40%;
-        // height: 30px;
+        height: 60px;
+        padding-top: 50%;
     }
+    .fa-times {
+		font-size: 30px;
+		height: 30px;
+		position: absolute;
+		right: 1%;
+		cursor: pointer;
+	}
     #cardOriginal {
         margin: 10px;
         //max-height: 405px;
@@ -87,6 +94,9 @@
             margin: -10px 12px;
             display: flex;
             flex-direction: row-reverse;
+            .invalido {
+                opacity: 0.5
+            }
         }
         .points {
             font-size: 5rem;

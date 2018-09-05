@@ -33,9 +33,12 @@ const NewsModal = (props) => {
     return (
         <div>
         <Grid container style={styles.paper} className='modalNews'>
+        <i xs={12} onClick={props.handleClose} className="fas fa-times"></i>
             <Grid item xs={12} className='header'>
-                <label className='title'>TEM NOVIDADE POR AQUI!</label><br/>
-                <label>Percebemos que você alterou seu plano.<br/> Você pode fazer uma nova seleção de serviços com a sua pontuação</label>
+                <label className='title'>TEM NOVIDADE POR AQUI...</label><br/>
+                <label>Você alterou seu plano Nextel, por isso sua qunatidade de pontos mudou.<br/>
+                Este são os produtos sugeridos para sua nova quantidade de pontos, mas você pode personalizar novamente sua seleção.<br/>
+                Você tem {props.totalPoints}</label>
             </Grid>
             <Grid container xs={12} className='yourServices'>
                 <Grid item xs={1}></Grid>

@@ -63,7 +63,7 @@ class Details extends React.Component {
         }
         return (
             arrImgs.map((imgPath, i) => (
-                <img src={imgPath} key={i} className="imgProduto" />
+                <img src={imgPath} key={i} className="imgProdutoCarousel" />
             ))
         )
     };
@@ -74,7 +74,9 @@ class Details extends React.Component {
         const items = this.galleryItems();
         return (
             <div>
+                
                 <Grid container style={styles.paper} className='details'>
+                <i xs={12} onClick={this.props.handleClose} className="fas fa-times"></i>
                     <Grid item xs={12} className='contentSuperior'>
                         <Grid item xs={3}>
                             <img src={this.props.details.img.display} className='imgProduto' alt='imagem do conteudo ' />

@@ -38,11 +38,15 @@ const WelcomeModal = (props) => {
     return (
         <div>
             <Grid container style={styles.paper} className='modalStart'>
+                <i className="fas fa-times" onClick={props.handleClose}></i>
                 <Grid item xs={12} className='header'>
                     <label className='title'>SEJA BEM VINDO!</label>
                     <p className='subtitle'>VAMOS COMEÇAR?</p>
-                    <label>Aqui você pode personalizar sua seleçãode produtos adicionais <br />
-                        e escoher o que mais interessa a você.</label>
+                    <label>Escolha os serviços que vão fazer parte do seu pacote. <br />
+                        Enquanto você não eprsonaliza sua seleção,separamos alguns serviços que podem interessar
+                        você.<br /> Escolhao que mais gostar até o limite dos seus pontos.<br />
+                        Você tem {props.totalPoints - props.currentPoints} pontos.
+                        </label>
                 </Grid>
                 <Grid item xs={12} sm={6} className='controlPoints'>
                     <label>{textoPontos1}</label><br />

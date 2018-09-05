@@ -17,15 +17,23 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 const styles = {
-    colorChecked: {
+    colorSwitchBase: {
         color: 'white',
         '&$colorChecked': {
-            color: '#4eb50c',
-            '& + $colorBar': {
-                backgroundColor: '#4eb50c',
-            },
+          color: 'white',
+          '& + $colorBar': {
+            backgroundColor: '#e15b1e',
+            opacity: 1,
+          },
         },
-    },
+      },
+      colorBar: { 
+          color: '#e15b1e',
+        },
+      colorChecked: { 
+          color: 'purple',
+          opacity: 1
+        },
     card: {
         margin: '10px'
         // maxWidth: 345,
@@ -122,6 +130,7 @@ export class DefaultCard extends React.Component {
                         <FormGroup>
                             <Tooltip title={tolltipStatusMessage}>
                                 <FormControlLabel
+                                    className={ !isAvailable ? 'invalido' : '' }
                                     control={
                                         <Switch
                                             onChange={() => {
@@ -138,9 +147,11 @@ export class DefaultCard extends React.Component {
                                             aria-label="LoginSwitch"
                                             color="primary"
                                             classes={{
-                                                checked: classes.colorChecked
-                                            }}
-                                        />
+                                                switchBase: classes.colorSwitchBase,
+                                                checked: classes.colorChecked,
+                                                bar: classes.colorBar,
+                                              }}
+                                        /> 
                                     }
                                 />
                             </Tooltip>

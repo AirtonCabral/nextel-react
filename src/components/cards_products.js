@@ -36,6 +36,7 @@ export class CardsProducts extends React.Component {
                         infinite
                         keysControlDisabled
                         items={cardToShow}
+                        autoPlayInterval={4000}
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1 },

@@ -7,6 +7,13 @@
 	width: 80% !important;
 	min-height: 40% !important;
 	height: auto !important;
+	.fa-times {
+		font-size: 30px;
+		height: 30px;
+		position: absolute;
+		right: 1%;
+		cursor: pointer;
+	}
 	.header {
 		margin-bottom: 15px;
 		.title {
@@ -26,6 +33,16 @@
         margin: 10px;
 		&:hover {
 			background-color: #a74418;
+		}
+	}
+	.backButton {
+		background-color: white;
+        width: 70px;
+		margin: 10px;
+		border: none;
+		font-size: 10px;
+		&:hover {
+			background-color: #80808014;
 		}
 	}
     .extraPoints {

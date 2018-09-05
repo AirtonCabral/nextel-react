@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ChipsProduct from './chips_product';
+import { withStyles } from '@material-ui/core/styles';
 
 import './../sass/modalNews.scss';
 
@@ -17,6 +18,7 @@ const styles = {
         //   boxShadow: theme.shadows[5],
         padding: 10,
     },
+
 };
 const ConfirmModal = (props) => {
     let ChipsToShow = [];
@@ -35,7 +37,8 @@ const ConfirmModal = (props) => {
         <Grid container style={styles.paper} className='modalNews'>
             <Grid item xs={12} className='header'>
                 <label className='title'>SALVAR</label><br/>
-                <label>{'Atenção: esta seleção somente poderá ser alterada após: '+props.renderNextDateAvailable}</label>
+                <label>Tem certeza que deseja salvar as alterações?<br/>
+                Você só poderá alterar os serviços escolhidos na sua seleção em {props.renderNextDateAvailable}</label>
             </Grid>
             <Grid item xs={12}>
                 { ChipsToShow }
@@ -48,6 +51,8 @@ const ConfirmModal = (props) => {
             <Grid item xs={12}>
                 <Button variant="contained" color="primary" size="large"
                 onClick={props.onSubmit}>CONFIRMAR</Button>
+                <Button variant="outlined" className='backButton' color="white" size="large"
+                onClick={props.handleClose} >VOLTAR</Button>
             </Grid>
         </Grid>
         </div>
