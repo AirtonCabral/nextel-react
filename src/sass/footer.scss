@@ -14,7 +14,44 @@
     bottom: -5px;
     width: 100%;
 }
+.footerMobile{
+    display: none;
+}
 
+.extendFooter {
+    position: fixed;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    bottom: -5px;
+    width: 100%;
+    height: 275px;
+    .footerContainer{
+        height: 275px;
+    }
+    .footerRight {
+        margin-top: 26px;
+    }
+    .footerLeft {
+        height: 100px;
+        position: relative;
+        z-index: 999;
+    }
+    .footerMobile {
+        position: fixed;
+        left: 0%;
+        bottom: 0px;
+        background-color: #dadada;
+        display: table;
+        width: 100%;
+        height: 183px;
+        .footerCenterContainer {
+            display: inline-block;
+            padding: 10px;
+            width: auto;
+        }
+    }
+}
 .footerLeft {
 	
 }
@@ -30,6 +67,11 @@
     height: 60px;
     margin-top: 45px;
 	// background-color: #354ABC;
+}
+@media screen and (max-width: 760px){
+    .footerCenter {
+        display: none;
+    }
 }
 
 .footerCenterContainer {
@@ -77,13 +119,25 @@
     width: 100%;
     .switchLabel {
         margin-left: 145px;
+        position: relative;
+        z-index: 9999;
     }
+    .extendFooter {
+        cursor: pointer;
+        height: 400px;
+    }
+    @media screen and (max-width: 500px){
+        .switchLabel {
+            margin-left: 125px;
+        }
+    }
+
     .controlPoints {
-    border-right: 1px solid #87878726;
-    margin-bottom: 5px;
-    height: 65px;
-    font-size: 14px;
-    background-color: #dadada;
+        border-right: 1px solid #87878726;
+        margin-bottom: 5px;
+        height: 65px;
+        font-size: 14px;
+        background-color: #dadada;
     .MuiGrid-item-133 {
         height: 65px;
     }

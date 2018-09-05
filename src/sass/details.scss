@@ -158,3 +158,38 @@
     }
     
 }
+@media screen and (max-width: 500px){
+	.details{
+		width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        padding: 25px 20px !important;
+        .contentInferior {
+            .contentTabs {
+                padding: 0;
+                overflow: overlay;
+                max-height: 250px;
+                position: relative;
+                top: 0px!important;
+                z-index: 9999;
+                width: calc(100% - 160px) !important;
+            }
+            .carousel {
+                width: 160px !important;
+                text-align: center;
+            }
+        }
+        .imgProdutoCarousel {
+            width: 160px!important;
+        }
+        .alice-carousel__stage-item {
+            width: 160px!important
+        }
+        .alice-carousel {
+            top: 0px !important;
+            position: initial !important;
+            padding: 0 !important;
+            width: 160px!important;
+        }
+	}
+}

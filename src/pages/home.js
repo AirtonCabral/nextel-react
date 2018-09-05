@@ -54,6 +54,7 @@ export class Home extends React.Component {
 
         this.state = {
             modalToggle: true,
+            toggleFooter: false,
             typeContent: 3, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
             modalDetails: false,
             modalData: [],
@@ -121,6 +122,10 @@ export class Home extends React.Component {
         }
     }
 
+    handleFooter = () => {
+        let toggleFooterAtual = this.state.toggleFooter;
+        this.setState({ toggleFooter: !toggleFooterAtual});
+    }
     renderSwitch(param) {
         switch(param) {
             case 0:
@@ -157,7 +162,7 @@ export class Home extends React.Component {
             default:
                 return <div />;
          }
-      }
+    }
 
     render() {
         console.log('render', this.props.user_message_history)
@@ -185,17 +190,19 @@ export class Home extends React.Component {
                         open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
-                            {this.renderSwitch(2)}
+                            {this.renderSwitch(typeContent)}
                     </Modal> 
 
                     <div className='masterContainer'>
                         <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
-                        <div className='cardsConteiner'><CardsProducts /></div>
+                        <div className='cardsConteiner'><CardsProducts toggleFooter={this.state.toggleFooter }/></div>
                         <div className='tabContainer'><TabContainer /></div>
-                        <div className='footerContainer'>
+                        <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>
                             <Footer
                                 renderNextDateAvailable={this.renderNextDateAvailable()}
-                                currentPoints={this.getCurrentPoints()} />
+                                currentPoints={this.getCurrentPoints()} 
+                                handleFooter={this.handleFooter}
+                                toggleFooter={this.state.toggleFooter}/>
                         </div>
                     </div>
 

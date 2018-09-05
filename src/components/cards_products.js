@@ -36,11 +36,12 @@ export class CardsProducts extends React.Component {
                         infinite
                         keysControlDisabled
                         items={cardToShow}
+                        dotsDisabled={this.props.toggleFooter }
                         autoPlayInterval={4000}
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
-                            0: { items: 1 },
-                            720: { items: 2 },
+                            0: { items: 1, buttonsDisabled: false },
+                            720: { items: 2, buttonsDisabled: true },
                             999: { items: 3 },
                             1400: { items: 4 },
                         }}

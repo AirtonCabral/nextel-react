@@ -35,6 +35,7 @@ const ConfirmModal = (props) => {
     return (
         <div>
         <Grid container style={styles.paper} className='modalNews'>
+        <i xs={12} onClick={props.handleClose} className="fas fa-times"></i>
             <Grid item xs={12} className='header'>
                 <label className='title'>SALVAR</label><br/>
                 <label>Tem certeza que deseja salvar as alterações?<br/>

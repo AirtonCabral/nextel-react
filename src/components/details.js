@@ -126,7 +126,7 @@ class Details extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} className='contentInferior'>
-                        <Grid item className='carousel' xs={3}>
+                        <Grid item className='carousel'>
                             <AliceCarousel
                                 items={items}
                                 infinite={true}

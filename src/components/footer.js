@@ -56,9 +56,10 @@ export class Footer extends React.Component {
         });
 
         return (
-            <div className='footer'>
+            <div className='footer' >
 
-                <label className='switchLabel'>{'Meus Serviços'}: ( {this.props.currentPoints - this.props.pontos}pontos restantes )</label>
+                <button className='switchLabel'
+                onClick={this.props.handleFooter}>{'Meus Serviços'}: ( {this.props.pontos - this.props.currentPoints }pontos restantes )</button>
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
 
@@ -89,6 +90,11 @@ export class Footer extends React.Component {
                                     svaProdutosId={this.props.sva_produtos_id}
                                     userProducts={this.props.user_products}
                                     handleSaveAction={()=>this.props.saveToPortfolio()} />
+                            </div>
+                        </div>
+                        <div className='footerMobile'>
+                            <div className='footerCenterContainer'>
+                                {cardToShow}
                             </div>
                         </div>
                     </div>
