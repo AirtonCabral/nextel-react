@@ -53,9 +53,8 @@ export class Home extends React.Component {
         super(props);
 
         this.state = {
-            modalToggle: true,
+            modalToggle: false,
             toggleFooter: false,
-            typeContent: 3, //0 = modal inicial, 1 = detalhes, 2 = modal de News, 3= Confirm Modal
             modalDetails: false,
             modalData: [],
             ready: true,
@@ -65,17 +64,17 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-        console.log('this.props.user_message_history', this.props.user_message_history);
+        // console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
             this.props.sva_produtos_id.length === 0 ||
             this.props.user_products.length === 0 ) {
                 setTimeout(() => { this.props.history.push('/login') }, 100);
         }
-        else {
-            if (this.props.user_message_history === null) {
-                this.props.setMessageSaw(2);
-            }
-        }
+        // else {
+        //     if (this.props.user_message_history === null) {
+        //         this.props.setMessageSaw(2);
+        //     }
+        // }
     }
 
     renderNextDateAvailable() {
@@ -104,11 +103,11 @@ export class Home extends React.Component {
     }
 
     handleClose = () => {
-        console.log('handclose', this.props.user_message_history)
+        // console.log('handclose', this.props.user_message_history)
         if (this.props.product_selected !== null) {
             this.props.selectProduct(null);
         }
-        if (this.props.user_message_history >= 0) {
+        if (this.props.user_message_history !== null) {
             this.props.setMessageSaw(null);
         }
     };
@@ -126,62 +125,90 @@ export class Home extends React.Component {
         let toggleFooterAtual = this.state.toggleFooter;
         this.setState({ toggleFooter: !toggleFooterAtual});
     }
+
     renderSwitch(param) {
         switch(param) {
             case 0:
                 return <WelcomeModal
-                            userProducts={this.props.user_products}
-                            remainPoints={this.getRemainPoints()}
-                            currentPoints={this.getCurrentPoints()}
-                            totalPoints={this.props.user_total_points}
-                            handleClose={this.handleClose} />;
+                    userProducts={this.props.user_products}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    totalPoints={this.props.user_total_points}
+                    handleClose={this.handleClose} />;
             case 1:
-                return <Details
-                            details={this.props.product_selected}
-                            handleSwitch={this.handleSwitch}
-                            handleClose={this.handleClose} /> ;
-            case 2:
                 return <NewsModal
-                            userProducts={this.props.user_products}
-                            remainPoints={this.getRemainPoints()}
-                            currentPoints={this.getCurrentPoints()}
-                            totalPoints={this.props.user_total_points}
-                            handleClose={this.handleClose} />;
+                    userProducts={this.props.user_products}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    totalPoints={this.props.user_total_points}
+                    handleClose={this.handleClose} />;
             case 3:
                 return <ConfirmModal
-                            userProducts={this.props.user_products}
-                            handleClose={this.handleClose}
-                            remainPoints={this.getRemainPoints()}
-                            currentPoints={this.getCurrentPoints()}
-                            renderNextDateAvailable={this.renderNextDateAvailable()}
-                            onSubmit={()=>{
-                                this.props.sendPortfolioToApi().then(()=>{
-                                    this.handleClose();
-                                });
-                            }} />;
+                    userProducts={this.props.user_products}
+                    handleClose={this.handleClose}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    renderNextDateAvailable={this.renderNextDateAvailable()}
+                    onSubmit={()=>{
+                        this.props.sendPortfolioToApi().then(()=>{
+                            this.handleClose();
+                        });
+                    }} />;
+            case 4:
+                return <Details
+                    details={this.props.product_selected}
+                    handleSwitch={this.handleSwitch}
+                    handleClose={this.handleClose} /> ;
             default:
                 return <div />;
          }
     }
 
     render() {
-        console.log('render', this.props.user_message_history)
+        // console.log('render', this.props.me)
         if (!this.state.ready) {
             return (
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
             )
         }
         else {
+
             let isContentDetailToOpen = false;
-            let typeContent = 0;
-            // verifica se é para abrir modal detalhes
-            if (this.props.product_selected !== null) {
+            let typeContent = 2; // 0 = welcome, 1 = downgrade, 2= nothing, 3= Confirm Modal, 4=detalhes-produto
+            
+            if (this.props.product_selected !== null) { // aqui precisa fazer ainda uma verificação tal... (vou fazer depois)
                 isContentDetailToOpen = true;
-                typeContent = 1;
-            } else if (this.props.user_message_history !== null) {
-                isContentDetailToOpen = true;
-                typeContent = this.props.user_message_history;
+                typeContent = 4;
             }
+            else {
+                switch (this.props.mensagem) {
+                    case 0: 
+                        isContentDetailToOpen = true;
+                        typeContent = 0;
+                            break;
+                    case 1: 
+                        isContentDetailToOpen = true;
+                        typeContent = 1;
+                            break;
+                    case 2: 
+                        typeContent = 2;
+                        isContentDetailToOpen = false;
+                            break;
+                    default:
+                        typeContent = 2;
+                        isContentDetailToOpen = false;
+                            break;
+                }
+            }
+            if (this.props.user_message_history !== null) {
+                isContentDetailToOpen = true;
+                typeContent = 3;
+            }
+            console.log('this.props.product_selected', this.props.product_selected);
+            console.log('this.props.mensagem', this.props.mensagem);
+            console.log('typeContent', typeContent);
+            console.log('isContentDetailToOpen', isContentDetailToOpen);
+            console.log('this.props.user_message_history', this.props.user_message_history);
             return (
                 <div>
                     <Modal
@@ -216,6 +243,7 @@ const mapStateToProps = state => ({
     sva_produtos_id: state.user.sva_produtos_id,
     products: state.products.list,
     product_selected: state.products.product_selected,
+    mensagem: state.user.mensagem,
     user_products: state.user.user_products,
     user_message_history: state.user.user_message_history,
     user_total_points: state.user.pontos,

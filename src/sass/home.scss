@@ -38,6 +38,7 @@
 	.cardContainer {
 		.alice-carousel {
 			padding: 40px;
+			margin-top: 20px;
 		}
 		.alice-carousel__prev-btn {
 			display: none;
@@ -80,6 +81,7 @@
 		.subtitle {
 			margin: 0;
 			font-size: 24px;
+			padding-bottom: 25px;
 		}
 	}
 	button {
@@ -91,13 +93,13 @@
 	}
 	.boxChips {
 		overflow-y: auto;
-		max-height: 210px;
+		max-height: 245px;
 		flex-wrap: wrap;
 		margin-bottom: 15px;
 	}
 	.controlPoints {
 		border-right: 1px solid #87878726;
-		height: 210px;
+		height: 245px;
 		margin-bottom: 15px;
 		font-size: 14px;
 		.circularProgress {

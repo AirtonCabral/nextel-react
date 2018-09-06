@@ -10,7 +10,7 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case ATTEMPT_CONNECTION:
-            const expiresOn = new Date(Date.now() + 600000); // 10 minutos
+            const expiresOn = new Date(Date.now() + 1800000); // 30 minutos
             return {
                 ...state,
                 online: action.online,

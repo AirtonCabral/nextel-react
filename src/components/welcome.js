@@ -19,12 +19,18 @@ const styles = {
 };
 
 const WelcomeModal = (props) => {
+    
     const textoPontos1 = 'Aqui você controla seus pontos';
     const textoPontos2 = 'Você começa com ('+props.totalPoints+' pontos)';
     const textoPontos3 = 'dependendo do seu contrato.'
+    const textoPacotes1 = 'Enquanto você não personaliza';
+    const textoPacotes2 = 'sua seleção, separamos alguns';
+    const textoPacotes3 = 'serviços que podem interessar você.'
+    
     let current_points_percent = 0;
         current_points_percent = (props.currentPoints / props.totalPoints) * 100;
     let ChipsToShow = [];
+    
     props.userProducts.map((v, i) => {
         ChipsToShow.push(
             <div style={{marginTop:10}} key={i}>
@@ -38,21 +44,21 @@ const WelcomeModal = (props) => {
     return (
         <div>
             <Grid container style={styles.paper} className='modalStart'>
-                <i className="fas fa-times" onClick={props.handleClose}></i>
+                
+                {/* <i className="fas fa-times" onClick={props.handleClose}></i> */}
+                
                 <Grid item xs={12} className='header'>
                     <label className='title'>SEJA BEM VINDO!</label>
                     <p className='subtitle'>VAMOS COMEÇAR?</p>
-                    <label>Escolha os serviços que vão fazer parte do seu pacote. <br />
-                        Enquanto você não eprsonaliza sua seleção,separamos alguns serviços que podem interessar
-                        você.<br /> Escolhao que mais gostar até o limite dos seus pontos.<br />
-                        Você tem {props.totalPoints - props.currentPoints} pontos.
-                        </label>
+                    <label>
+                        Escolha os serviços que vão fazer parte do seu pacote.
+                    </label>
                 </Grid>
+
                 <Grid item xs={12} sm={6} className='controlPoints'>
                     <label>{textoPontos1}</label><br />
                     <label>{textoPontos2}</label><br />
                     <label>{textoPontos3}</label>
-                    
                     <div className='boxCircular'>
                         <CircularProgress className='circularProgress' variant="static" value={current_points_percent} />
                         <Grid item className="pointsProgress">
@@ -60,24 +66,18 @@ const WelcomeModal = (props) => {
                             <label className='points'>pontos</label>
                         </Grid>
                     </div>
+                </Grid>
 
-                </Grid>
-                <Grid item xs={12} sm={6} className='boxChips'>
-                    <label>SEUS SERVIÇOS JÁ CONTRATADOS</label>
+                <Grid item xs={12} sm={6} className='boxChips controlPoints'>
+                    {/* <label style={{fontSize:14}}>Enquanto você não personaliza<br />
+                    sua seleção, separamos alguns<br />
+                    serviços que podem interessar você.</label> */}
+                    <label>{textoPacotes1}</label><br />
+                    <label>{textoPacotes2}</label><br />
+                    <label>{textoPacotes3}</label>
                     { ChipsToShow }
-                    {/* <Grid item xs={12} className="myservices">
-                        <Grid item>
-                            <img src='https://picsum.photos/50' alt='' />
-                        </Grid>
-                        <Grid item className="descriptService">
-                            <label> LOOK</label><br />
-                            <i className="fas fa-tv"></i> <span>Conteudo de TV</span>
-                        </Grid>
-                        <Grid item className="pointsService">
-                            <label><span>3</span>pts</label>
-                        </Grid>
-                    </Grid> */}
                 </Grid>
+                
                 <Grid item xs={12}>
                     <Button variant="contained" color="primary" size="large"
                         onClick={props.handleClose}>Entendi</Button>

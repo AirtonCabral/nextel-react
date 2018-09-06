@@ -24,13 +24,12 @@ export const signIn = () => (dispatch, getState) => {
             dispatch({
                 type: SIGNIN,
                 assinantesID: data.assinantesID,
-                mensagem: data.mensagem,
+                mensagem: 0, //data.mensagem,
                 msisdn: data.msisdn,
                 portfolioID: data.portfolioID,
                 pontos: data.pontos,
                 renovar: data.renovar,
                 sva_produtos_id: arr_svaProdutosID,
-                user_message_history: 0,
             })
             // Create Default Portfolio
             arr_svaProdutosID.forEach(element => {

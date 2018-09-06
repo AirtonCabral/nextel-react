@@ -24,8 +24,8 @@ export const getProducts = () => (dispatch, getState) => {
         // server.auth = 'Bearer ' +token;
     // }
     // return server.get(endpoints.nextel.products)
-    // return server.get('/5b84d4523000005600728f06')
-    return server.get('/5b8c9c442f0000750cceec3c')
+    return server.get('/5b906e422e00009f2ba89eb6') // doctorweb api mocked
+    // return server.get('/5b8c9c442f0000750cceec3c') // ales api mocked
 
 
     // const headers = {

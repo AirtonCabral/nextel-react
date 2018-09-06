@@ -23,7 +23,6 @@ export default (state = initialState, action) => {
                 renovar: action.renovar,
                 sva_produtos_id: action.sva_produtos_id,
                 user_products: [],
-                user_message_history: action.user_message_history,
             }
         case SIGNOUT:
             return {

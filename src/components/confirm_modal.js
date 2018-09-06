@@ -35,11 +35,11 @@ const ConfirmModal = (props) => {
     return (
         <div>
         <Grid container style={styles.paper} className='modalNews'>
-        <i xs={12} onClick={props.handleClose} className="fas fa-times"></i>
+        {/* <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> */}
             <Grid item xs={12} className='header'>
-                <label className='title'>SALVAR</label><br/>
+                <div style={{marginTop:30}}><label className='title'>SALVAR</label><br/>
                 <label>Tem certeza que deseja salvar as alterações?<br/>
-                Você só poderá alterar os serviços escolhidos na sua seleção em {props.renderNextDateAvailable}</label>
+                Você só poderá alterar os serviços escolhidos na sua seleção em {props.renderNextDateAvailable}</label></div>
             </Grid>
             <Grid item xs={12}>
                 { ChipsToShow }
@@ -52,6 +52,8 @@ const ConfirmModal = (props) => {
             <Grid item xs={12}>
                 <Button variant="contained" color="primary" size="large"
                 onClick={props.onSubmit}>CONFIRMAR</Button>
+            </Grid>
+            <Grid item xs={12}>
                 <Button variant="outlined" className='backButton' color="white" size="large"
                 onClick={props.handleClose} >VOLTAR</Button>
             </Grid>
