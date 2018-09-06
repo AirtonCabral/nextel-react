@@ -53,7 +53,7 @@ export class Home extends React.Component {
         super(props);
 
         this.state = {
-            modalToggle: false,
+            forceModalClose: false,
             toggleFooter: false,
             modalDetails: false,
             modalData: [],
@@ -104,11 +104,12 @@ export class Home extends React.Component {
 
     handleClose = () => {
         // console.log('handclose', this.props.user_message_history)
+        this.props.selectProduct(null);
+        this.props.setMessageSaw(null);
+        this.setState({forceModalClose:true});
         if (this.props.product_selected !== null) {
-            this.props.selectProduct(null);
         }
         if (this.props.user_message_history !== null) {
-            this.props.setMessageSaw(null);
         }
     };
 
@@ -180,6 +181,10 @@ export class Home extends React.Component {
                 isContentDetailToOpen = true;
                 typeContent = 4;
             }
+            else if (this.props.user_message_history !== null) {
+                isContentDetailToOpen = true;
+                typeContent = 3;
+            }
             else {
                 switch (this.props.mensagem) {
                     case 0: 
@@ -199,10 +204,6 @@ export class Home extends React.Component {
                         isContentDetailToOpen = false;
                             break;
                 }
-            }
-            if (this.props.user_message_history !== null) {
-                isContentDetailToOpen = true;
-                typeContent = 3;
             }
             console.log('this.props.product_selected', this.props.product_selected);
             console.log('this.props.mensagem', this.props.mensagem);

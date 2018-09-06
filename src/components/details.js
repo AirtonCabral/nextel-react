@@ -150,7 +150,7 @@ class Details extends React.Component {
                                 <Tab value='Vantagens' label="Vantagens" />
                                 <Tab value='Como usar' label="Como usar" />
                             </Tabs>
-                            {value === 'Vantagens' && <TabContainer>{this.props.details.descricao}</TabContainer>}
+                            {value === 'Descrição' && <TabContainer>{this.props.details.descricao}</TabContainer>}
                             {value === 'Como usar' && <TabContainer class='insideTabHowUse'>
                                 <Typography variant='subheading'>
                                     COMO USAR:

@@ -35,9 +35,10 @@ export default (state = initialState, action) => {
                 user_products: [],
                 user_message_history: null,
             }
-        case MESSAGE_SAW:
+            case MESSAGE_SAW:
             return {
                 ...state,
+                mensagem: 2,
                 user_message_history: action.payload,
             }
         case PRODUCTS_RESETED:
