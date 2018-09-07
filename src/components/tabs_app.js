@@ -21,19 +21,22 @@ export class TabContainer extends React.Component {
 
     // creating tabs categories
     let output_tabs = []
+    let sort_tabs = []
+    output_tabs.push('todos') // adiciona aba
     this.props.products.map((v, i) => {
       let hasItem = false;
-      output_tabs.map((_v, _i) => {
+      sort_tabs.map((_v, _i) => {
         if (_v === v.tags) {
-          hasItem = true
+          hasItem = true;
         }
       });
       if (!hasItem) {
-        output_tabs.push(v.tags)
+        sort_tabs.push(v.tags)
       }
     });
-    output_tabs.push('todos') // adiciona aba
-    output_tabs.sort((a, b) => a.tags > b.tags);
+    sort_tabs.sort();
+    output_tabs.push(...sort_tabs);
+    // console.log(output_tabs);
 
     this.state = {
       tabSelected: this.props.tabSelected,
@@ -42,7 +45,7 @@ export class TabContainer extends React.Component {
   }
 
   handleChange = (event, value) => {
-    console.log('>>>>> handleChange', value);
+    // console.log('>>>>> handleChange', value);
     this.props.setProductsToShow(value, this.state.titleTabs[value]);
     this.setState({
       tabSelected: value, // não confundir com 'props.tabSelected'

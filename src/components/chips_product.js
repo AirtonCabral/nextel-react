@@ -18,26 +18,32 @@ const styles = theme => ({
     margin: '0px',
     justifyContent: 'left'
   },
+  chipDesk: {
+    // width: '160px',
+    margin: '0px',
+    justifyContent: 'left',
+    height: 20,
+  },
 });
 
 
 function handleClick() {
-  alert('You clicked the Chip.'); // eslint-disable-line no-alert
+  // alert('You clicked the Chip.'); // eslint-disable-line no-alert
 }
 
 function Chips(props) {
-  const { classes, isDisabled } = props;
+  const { classes, isDisabled, disableTitle } = props;
   return (
     <div className={classes.root}>
       <Tooltip title={props.alert} placement="top">
         <Chip
           avatar={<Avatar src={props.data.img.icon} />}
-          label={props.data.produto}
+          label={disableTitle?'':props.data.produto}
           deleteIcon={isDisabled ? <div /> : null}
           onDelete={() => {
             props.onRemove(props.data);
           }}
-          className={classes.chip}
+          className={disableTitle?classes.chipDesk:classes.chip}
           variant="outlined"
         />
       </Tooltip>

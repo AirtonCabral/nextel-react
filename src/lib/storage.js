@@ -22,6 +22,15 @@ export const saveState = (state) => {
     }
 }
 
+export const clearState = () => {
+    console.log('clearState !!!')
+    try {
+        localStorage.clear();
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export const loadStateFromSession = () => {
     try {
         const serializedState = sessionStorage.getItem('state')

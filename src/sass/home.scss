@@ -32,7 +32,11 @@
 	display: flex;
 	justify-content: center;
 	margin-top: 40px;
+	background-color: rgba(242, 232, 222, 0.28);
 	// margin-bottom: 20px;
+	// .alice-carousel__stage-item {
+	// 	// width: 360px!important
+	// }
 }
 @media screen and (max-width: 760px){
 	.cardContainer {
@@ -48,8 +52,16 @@
 		}
 	}
 }
+.cardItem2 {
+	margin-top: 20px;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-bottom: 10px;
+	// width: 360px;
+}
 .cardItem {
 	margin-top: 20px;
+	// width: 360px;
 }
 
 

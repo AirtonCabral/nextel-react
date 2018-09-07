@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import Help from '@material-ui/icons/Help';
 // import IconSvg from './icon_model'
+import Regulamento from './regulamento'
 
 const styles = {
   root: {
@@ -25,10 +26,12 @@ const styles = {
   }
 };
 
+
 class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
+    openRegulamento: false,
   };
 
   handleChange = (event, checked) => {
@@ -41,6 +44,10 @@ class MenuAppBar extends React.Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+  };
+
+  handleCloseRegulamento = () => {
+    this.setState({ openRegulamento: false });
   };
 
   render() {
@@ -84,16 +91,21 @@ class MenuAppBar extends React.Component {
                   className={classes.iconRight}
                 >
                   <MenuItem onClick={this.handleClose}>{'Como Funciona'}</MenuItem>
-                  <MenuItem onClick={this.handleClose}>{'Regulamento'}</MenuItem>
+                  <MenuItem onClick={() => {
+                    this.setState({ openRegulamento: true });
+                    this.handleClose();
+                  }}>{'Regulamento'}</MenuItem>
                   <MenuItem onClick={this.handleClose}>{'Ajuda'}</MenuItem>
                 </Menu>
               </div>
             )}
           </Toolbar>
         </AppBar>
+        <Regulamento handleCloseRegulamento={this.handleCloseRegulamento} openRegulamento={this.state.openRegulamento} />
       </div>
     );
   }
+
 }
 
 MenuAppBar.propTypes = {

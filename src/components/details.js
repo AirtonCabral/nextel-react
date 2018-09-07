@@ -147,7 +147,7 @@ class Details extends React.Component {
                                 indicatorColor="primary"
                                 textColor="primary"
                                 className='tabs'>
-                                <Tab value='Vantagens' label="Vantagens" />
+                                <Tab value='Descrição' label="Descrição" />
                                 <Tab value='Como usar' label="Como usar" />
                             </Tabs>
                             {value === 'Descrição' && <TabContainer>{this.props.details.descricao}</TabContainer>}

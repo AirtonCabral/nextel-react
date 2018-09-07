@@ -10,6 +10,7 @@ import CirProgress from '@material-ui/core/CircularProgress';
 export class CardsProducts extends React.Component {
 
     render() {
+        let classNameDynamic = "cardItem";
         if (this.props.products.length === 0) {
             return(
                 <div className="cardLoaderContainer">
@@ -19,11 +20,21 @@ export class CardsProducts extends React.Component {
         }
         else {
             let cardToShow = [];
+            let totalItensToShow = 0;
+            // hack pra resolver a questão da largura dos cards
+            this.props.products.map((item, i) => {
+                if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
+                    totalItensToShow++;
+                }
+            });
+            if (totalItensToShow <= 2) {
+                classNameDynamic = "cardItem2";
+            }
             // montando os cards gerais dos produtos
             this.props.products.map((item, i) => {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
-                        <div key={i} className="cardItem">
+                        <div key={i} className={classNameDynamic}>
                             <DefaultCard id={i} />
                         </div>
                     );
@@ -41,7 +52,7 @@ export class CardsProducts extends React.Component {
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1, buttonsDisabled: false },
-                            720: { items: 2, buttonsDisabled: true },
+                            720: { items: 3, buttonsDisabled: true },
                             999: { items: 3 },
                             1400: { items: 4 },
                         }}
@@ -49,7 +60,8 @@ export class CardsProducts extends React.Component {
                 </div>
             );
         };
-    }
+    };
+
 }
 
 const mapStateToProps = state => ({

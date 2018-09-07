@@ -123,7 +123,7 @@ export class Home extends React.Component {
     }
 
     handleFooter = () => {
-        let toggleFooterAtual = this.state.toggleFooter;
+        const toggleFooterAtual = this.state.toggleFooter;
         this.setState({ toggleFooter: !toggleFooterAtual});
     }
 
@@ -205,11 +205,11 @@ export class Home extends React.Component {
                             break;
                 }
             }
-            console.log('this.props.product_selected', this.props.product_selected);
-            console.log('this.props.mensagem', this.props.mensagem);
-            console.log('typeContent', typeContent);
-            console.log('isContentDetailToOpen', isContentDetailToOpen);
-            console.log('this.props.user_message_history', this.props.user_message_history);
+            // console.log('this.props.product_selected', this.props.product_selected);
+            // console.log('this.props.mensagem', this.props.mensagem);
+            // console.log('typeContent', typeContent);
+            // console.log('isContentDetailToOpen', isContentDetailToOpen);
+            // console.log('this.props.user_message_history', this.props.user_message_history);
             return (
                 <div>
                     <Modal

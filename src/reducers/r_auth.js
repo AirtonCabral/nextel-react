@@ -18,11 +18,11 @@ export default (state = initialState, action) => {
                 msisdn: action.msisdn,
                 expiresOn: expiresOn,
             }
-        case SIGNIN:
-            return {
-                ...state,
-                msisdn: action.msisdn,
-            }
+        // case SIGNIN:
+        //     return {
+        //         ...state,
+        //         msisdn: action.msisdn,
+        //     }
         case DISCONNECT:
             const objState = {
                 online: false,

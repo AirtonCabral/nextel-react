@@ -1,10 +1,11 @@
 @import 'vars';
+
+
+
+
 .hide {
     bottom: -60px !important;
 }
-
-
-
 
 .footerContainer {
     position: fixed;
@@ -25,12 +26,12 @@
 	justify-content: space-between;
     bottom: -5px;
     width: 100%;
-    height: 275px;
+    height: 185px;
     .footerContainer{
-        height: 275px;
+        height: 204px;
     }
     .footerRight {
-        margin-top: 26px;
+        margin-top: 39px;
     }
     .footerLeft {
         height: 100px;
@@ -41,12 +42,12 @@
         position: fixed;
         left: 0%;
         bottom: 0px;
-        background-color: #dadada;
+        background-color: #FFFFFF;
         display: table;
         width: 100%;
-        height: 183px;
+        height: 100px;
         .footerCenterContainer {
-            display: inline-block;
+            // display: inline-block;
             padding: 10px;
             width: auto;
         }
@@ -81,6 +82,49 @@
     justify-content: flex-start;
     padding-left: 5px;
     padding-right: 5px;
+    .MuiChip-avatar-256 {
+        width: 40px;
+        color: #616161;
+        height: 40px;
+        font-size: 1rem;
+        margin-right: -4px;
+        -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    }
+    .Chips-root-237 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 8px;
+        margin-right: 10px;
+    }
+    .MuiChip-label-260 {
+        cursor: inherit;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        padding-left: 0px;
+        padding-right: 0px;
+        -webkit-user-select: none;
+    }
+    .Chips-chipDesk-239 {
+        margin: 0px;
+        height: 30px;
+        justify-content: left;
+        background-color: rgba(225, 91, 30, 0.33);
+    }
+    .MuiChip-deleteIcon-261 {
+        color: rgba(0, 0, 0, 0.4);
+        padding-left: 13px;
+    }
+    .MuiChip-deleteIcon-261 {
+        color: rgba(0, 0, 0, 0.26);
+        cursor: pointer;
+        height: auto;
+        margin: 0 4px 0 -11px;
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 .footerRight {
@@ -88,21 +132,50 @@
     align-items: center;
     height: 60px;
     margin-top: 45px;
+
+    @media screen and (max-width: 500px){
+        .mobiletoshow {
+            display: block;
+        }
+    }
+}
+
+.footerRightContainer2 {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 20px;
+    display: none;
+    button {
+        padding: 8px 0px;
+        background-color: $primary;
+        width: 70px;
+        color: white;
+        height: 40px;
+        font-size: 10px;
+        &:hover {
+            background-color: #a74418;
+        }
+        &:disabled {
+            background-color: #b6b6b6;
+        }
+    }
 }
 
 .footerRightContainer {
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 20px;
     button {
         background-color: $primary;
-        width: 150px;
+        width: 90px;
+        min-width: 90px;
         color: white;
         height: 40px;
         &:hover {
             background-color: #a74418;
         }
         &:disabled {
-            background-color: #b6b6b6;
+            background-color: #CBC3BB;
         }
     }
 }
@@ -119,13 +192,16 @@
     // bottom: -5px;
     width: 100%;
     .switchLabel {
-        margin-left: 145px;
+        margin-left: 131px;
         position: relative;
         z-index: 9999;
+        font-size: 11px;
+        top: 19px;
+        color: #555555;
     }
     .extendFooter {
         cursor: pointer;
-        height: 400px;
+        // height: 400px;
     }
     .mobile {
         display: none;
@@ -141,6 +217,7 @@
         }
         .switchLabel {
             margin-left: 125px;
+            display: none;
         }
         .Chips-chip-227 {
             width: 155px;
@@ -150,20 +227,24 @@
     .controlPoints {
         border-right: 1px solid #87878726;
         margin-bottom: 5px;
-        height: 65px;
+        height: 80px;
         font-size: 14px;
-        background-color: #dadada;
+        background-color: #FFFFFF;
+        -webkit-box-shadow: 0px -2px 9px 1px rgba(0,0,0,0.27);
+        -moz-box-shadow: 0px -2px 9px 1px rgba(0,0,0,0.27);
+        box-shadow: 0px -2px 9px 1px rgba(0,0,0,0.27);
     .MuiGrid-item-133 {
         height: 65px;
     }
     .boxCircular {
-        background: #dadada;
+        // background: #dadada;
         border-radius: 70%;
         width: 110px;
         height: 110px;
         position: relative;
-        top: -5px;
+        top: -10px;
         left: 15px;
+        background-color: #FFFFFF;
     }
     .circularProgress {
         position: relative;

@@ -86,7 +86,7 @@ export class DefaultCard extends React.Component {
                     this.props.sva_produtos_id.forEach(element => {
                         if (element === data.id) {
                             isAvailable = false;
-                            tolltipStatusMessage = "Disponível a partir de " + nextDateAvailable;
+                            tolltipStatusMessage = "Altere a partir de " + nextDateAvailable;
                         }
                     });
                 }

@@ -15,6 +15,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { clearState } from './../lib/storage';
 
 const styles = theme => ({
   layout: {
@@ -53,7 +54,7 @@ export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          msisdn: '',
+          msisdn: '5521998526556',
           login: '',
           password: '',
           isProcessing: false,
@@ -61,6 +62,10 @@ export class Login extends React.Component {
           buttonValueState: 'Entrar',
         };
     }
+
+    // componentDidMount() {
+    //   clearState();
+    // }
 
     render() {
       const { classes } = this.props;
@@ -79,12 +84,15 @@ export class Login extends React.Component {
                 action="/"
                 method="POST"
                 onSubmit={(event) => {
+                  
+                  clearState();
                   event.preventDefault();
                   let { msisdn, login, password } = this.state;
                   this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
 
                     // this.props.startConnection(login, password, msisdn).then(()=>{
-                    this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
+                    // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
+                    this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
 
                       let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
                       let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
@@ -96,9 +104,17 @@ export class Login extends React.Component {
                         
                         this.props.signIn().then(() => {
                           // START PROJECT
-                          this.setState({ buttonValueState: 'Tudo ok, Redirecionando' }, ()=>{
-                            setTimeout(() => { this.props.history.push('/home') }, 300);
-                          });
+                          if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+                            this.setState({ buttonValueState: 'Tudo ok, Redirecionando' }, ()=>{
+                              setTimeout(() => { this.props.history.push('/home') }, 300);
+                            });
+                          }
+                          else {
+                            this.setState({
+                              isProcessing: false, 
+                              buttonValueState: 'Ups, MSISDN Inválido.'
+                            });
+                          }
                         });
 
                       
@@ -124,7 +140,7 @@ export class Login extends React.Component {
                       this.setState({ msisdn: event.target.value });
                     }} />
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
+                {/* <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">Login</InputLabel>
                   <Input
                     id="email"
@@ -134,8 +150,8 @@ export class Login extends React.Component {
                     onChange={event=>{
                       this.setState({ login: event.target.value });
                     }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
+                </FormControl> */}
+                {/* <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="password">Password</InputLabel>
                   <Input
                     name="password"
@@ -146,7 +162,7 @@ export class Login extends React.Component {
                     onChange={event=>{
                       this.setState({ password: event.target.value });
                     }} />
-                </FormControl>
+                </FormControl> */}
                 <Button
                   type="submit"
                   fullWidth
@@ -170,6 +186,7 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({
     online: state.auth.online,
+    assinantesID: state.user.assinantesID,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

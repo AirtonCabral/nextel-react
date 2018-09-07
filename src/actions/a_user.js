@@ -24,7 +24,7 @@ export const signIn = () => (dispatch, getState) => {
             dispatch({
                 type: SIGNIN,
                 assinantesID: data.assinantesID,
-                mensagem: 0, //data.mensagem,
+                mensagem: data.mensagem,
                 msisdn: data.msisdn,
                 portfolioID: data.portfolioID,
                 pontos: data.pontos,
@@ -45,13 +45,28 @@ export const signIn = () => (dispatch, getState) => {
             console.log('error', error)
             dispatch({
                 type: SIGNIN,
+                assinantesID: null,
+                mensagem: null,
+                msisdn: null,
+                portfolioID: null,
+                pontos: null,
+                renovar: null,
+                sva_produtos_id: [],
             })
         }
     })
     .catch((error) => {
         // Avisa o usuário que login não eu certo.
+        console.log('signIn error', error);
         dispatch({
             type: SIGNIN,
+            assinantesID: null,
+            mensagem: null,
+            msisdn: null,
+            portfolioID: null,
+            pontos: null,
+            renovar: null,
+            sva_produtos_id: [],
         })
     })
 }

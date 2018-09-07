@@ -39,14 +39,16 @@ export class Footer extends React.Component {
                 this.props.sva_produtos_id.forEach(element => {
                     if (v.id === element) {
                         isDisabled = true;
-                        tolltipStatusMessage = "Período de carência até " + this.props.renderNextDateAvailable;
+                        tolltipStatusMessage = "Altere a partir de " + this.props.renderNextDateAvailable;
                     }
                 });
             }
             cardToShow.push(
-                <div key={i} className='footerCenterContainer'>
+                // <div key={i} className='footerCenterContainer'>
+                <div key={i}>
                     <ChipsProduct
                         data={v}
+                        disableTitle
                         isDisabled={isDisabled}
                         alert={tolltipStatusMessage}
                         onRemove={(item) => {
@@ -55,13 +57,13 @@ export class Footer extends React.Component {
                 </div>
             );
         });
-
+        let currentPoints = this.props.pontos-this.props.currentPoints;
         return (
             <div className='footer' >
-                <label  className='switchLabel desktop'>{'Meus Serviços'}: ( {this.props.pontos-this.props.currentPoints} pontos restantes )</label>
 
-                <button className='switchLabel mobile'
-                onClick={this.props.handleFooter}>{'Meus Serviços'}: ( {this.props.pontos - this.props.currentPoints } pontos restantes )</button>
+                <label  className='switchLabel desktop'>{'MEUS SERVIÇOS'}: ( {currentPoints} PONTOS RESTANTES )</label>
+                {/* <button className='switchLabel mobile' onClick={this.props.handleFooter}>{'MEUS SERVIÇOS'}: ( {currentPoints } PONTOS RESTANTES )</button> */}
+
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
 
@@ -87,6 +89,12 @@ export class Footer extends React.Component {
 
                         {/* BOTÃO SALVAR */}
                         <div className='footerRight'>
+                            <div className='footerRightContainer2 mobiletoshow'>
+                                <Button
+                                    onClick={this.props.handleFooter}>
+                                    {currentPoints+' PONTOS RESTANTES'}
+                                </Button>
+                            </div>
                             <div className='footerRightContainer'>
                                 <SalvarControl
                                     svaProdutosId={this.props.sva_produtos_id}
@@ -100,7 +108,6 @@ export class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-
                 </AppBar>
             </div>
         )
