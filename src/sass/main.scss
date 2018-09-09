@@ -35,6 +35,25 @@
     }
 }
 
+.chips-root {
+    // display: 'flex';
+    // padding-bottom: 8px;
+    margin-right: 16px;
+    // justify-content: 'center';
+    .chip {
+        // width: '160px',
+        // margin: '0px',
+        // justifyContent: 'left'
+    }
+    .chipDesk {
+        // height: 20,
+        // height: 30;
+        // background-color: rgba(225, 91, 30, 0.33);
+    }
+}
+
+
+
 .alice-carousel {
     // padding-left: 70px;
     // padding-right: 70px;

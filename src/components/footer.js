@@ -45,16 +45,17 @@ export class Footer extends React.Component {
             }
             cardToShow.push(
                 // <div key={i} className='footerCenterContainer'>
-                <div key={i}>
+                // <div key={i}>
                     <ChipsProduct
                         data={v}
+                        key={i}
                         disableTitle
                         isDisabled={isDisabled}
                         alert={tolltipStatusMessage}
                         onRemove={(item) => {
                             this.props.removeToPortfolio(item);
                         }} />
-                </div>
+                // </div>
             );
         });
         let currentPoints = this.props.pontos-this.props.currentPoints;
@@ -83,7 +84,9 @@ export class Footer extends React.Component {
                         {/* LISTA PRODUTOS */}
                         <div className='footerCenter'>
                             <div className='footerCenterContainer'>
-                                {cardToShow}
+                            {
+                                cardToShow // produtos do user
+                            }
                             </div>
                         </div>
 
@@ -104,7 +107,9 @@ export class Footer extends React.Component {
                         </div>
                         <div className='footerMobile'>
                             <div className='footerCenterContainer'>
-                                {cardToShow}
+                            {
+                                cardToShow // produtos do user
+                            }
                             </div>
                         </div>
                     </div>

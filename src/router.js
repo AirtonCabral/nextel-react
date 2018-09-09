@@ -50,11 +50,13 @@ export class SiteRouter extends React.Component {
     componentDidMount() {
         window.addEventListener('load', () => {
             let params = parseGetParams(window.location)
+            console.log('didmount-parseGetParams', params);
             this.props.loadPage(window.location.pathname, params)
         })
     }
 
     render() {
+        console.log('router render()');
         return (
             // <Router history={history}>
             <Router basename={'/'}>

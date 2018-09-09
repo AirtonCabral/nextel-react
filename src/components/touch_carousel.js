@@ -38,11 +38,11 @@ function TouchCarousel(props) {
     return (
         <div>
             <AliceCarousel
-                infinite={false}
+                infinite
+                mouseDragEnabled
+                dotsDisabled
                 items={items}
                 startIndex={0}
-                mouseDragEnabled={true}
-                buttonsDisabled={true}
                 responsive={responsive}
             />
         </div>

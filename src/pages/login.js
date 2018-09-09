@@ -105,7 +105,7 @@ export class Login extends React.Component {
                         this.props.signIn().then(() => {
                           // START PROJECT
                           if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-                            this.setState({ buttonValueState: 'Tudo ok, Redirecionando' }, ()=>{
+                            this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
                               setTimeout(() => { this.props.history.push('/home') }, 300);
                             });
                           }
