@@ -83,7 +83,7 @@
     width: calc(100% - 320px);
     overflow: overlay;
 }
-@media screen and (max-width: 760px){
+@media screen and (max-width: 620px){
     .footerCenter {
         display: none;
     }
@@ -103,7 +103,7 @@
     height: 60px;
     margin-top: 45px;
 
-    @media screen and (max-width: 500px){
+    @media screen and (max-width: 620px){
         .mobiletoshow {
             display: block;
         }
@@ -176,7 +176,7 @@
     .mobile {
         display: none;
     }
-    @media screen and (max-width: 500px){
+    @media screen and (max-width: 620px){
         .desktop {
             display: none;
         }

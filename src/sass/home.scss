@@ -16,9 +16,7 @@
     width: 100%;
 }
 
-.cardsContainer {
 
-}
 
 
 
@@ -176,8 +174,11 @@
 @media screen and (max-width: 760px){
 	.cardContainer {
 		.alice-carousel {
-			padding: 40px;
-			margin-top: 20px;
+			// padding: 40px;
+			// margin-top: 20px;
+			padding-left: 10px !important;
+			padding-right: 10px !important;
+			padding-top: 0px !important;
 		}
 		.alice-carousel__prev-btn {
 			display: none;
@@ -185,7 +186,14 @@
 		.alice-carousel__next-btn{
 			display: none;
 		}
+		.cardItem-reduzido {
+			margin-left: 5px !important;
+			margin-right: 5px !important;
+		}
 	}
+}
+.cardsConteiner {
+	background-color: rgba(242, 232, 222, 0.28);
 }
 .cardContainer {
 	// display: flex;
@@ -193,7 +201,6 @@
 	// align-items: flex-end;
 	margin-top: 90px;
 	margin-bottom: 40px;
-	background-color: rgba(242, 232, 222, 0.28);
 	// margin-bottom: 20px;
 	// .alice-carousel__stage-item {
 	// 	// width: 360px!important

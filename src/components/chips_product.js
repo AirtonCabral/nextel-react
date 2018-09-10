@@ -22,6 +22,8 @@ const styles = theme => ({
     boxShadow: '0px 0px 6px 1px rgba(0,0,0,0.1)',
   },
   label: {
+    paddingLeft: 7,
+    width: 110,
     // display: 'none',
     // cursor: 'inherit',
     // display: 'flex',
