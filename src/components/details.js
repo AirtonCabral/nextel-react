@@ -4,9 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import Switch from '@material-ui/core/Switch';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import AliceCarousel from 'react-alice-carousel';
@@ -74,72 +71,57 @@ class Details extends React.Component {
         const items = this.galleryItems();
         return (
             <div>
-                
-                <Grid container style={styles.paper} className='details'>
-                <i xs={12} onClick={this.props.handleClose} className="fas fa-times"></i>
-                    <Grid item xs={12} className='contentSuperior'>
-                        <Grid item xs={3}>
-                            <img src={this.props.details.img.display} className='imgProduto' alt='imagem do conteudo ' />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <CardContent className='contentCard'>
-                                <Typography gutterBottom variant="subheading">
-                                    {this.props.details.produto}
-                                </Typography>
-                                <Typography variant='body2'>
-                                    {this.props.details.tags}
-                                </Typography>
-                                <hr />
-                                <Typography variant="caption">
-                                    {this.props.details.resumo}
-                                </Typography>
-                                <hr />
-                            </CardContent>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <CardActions className="cardPoints">
-                                {/* <FormGroup>
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                className='switchDetails'
-                                                onChange={(event) => {
-                                                    this.setState({ selected: event.target.checked }, () => {
 
-                                                    });
-                                                }}
-                                                value='selected'
-                                                checked={this.state.selected}
-                                            // aria-label="LoginSwitch"
-                                            // color="primary"
-                                            // style={{
-                                            //     checked: classes.colorChecked
-                                            // }}
-                                            />
-                                        }
-                                    />
-                                </FormGroup> */}
-                            </CardActions>
+                <Grid container style={styles.paper} className='details'>
+
+                    <i xs={12} onClick={this.props.handleClose} className="fas fa-times"></i>
+
+                    <div style={{overflow:'auto', marginTop:20}}>
+                        <Grid item xs={12} className='contentSuperior'>
+
+                            <Grid item>
+                                <img src={this.props.details.img.display} className='imgProduto' alt='imagem do conteudo ' />
+                            </Grid>
+
+                            <Grid item>
+                                <CardContent className='contentCard'>
+                                    <Typography gutterBottom variant="subheading">
+                                        {this.props.details.produto}
+                                    </Typography>
+                                    <Typography variant='body2'>
+                                        {this.props.details.tags}
+                                    </Typography>
+                                    <hr />
+                                    <Typography variant="caption">
+                                        {this.props.details.resumo}
+                                    </Typography>
+                                    <hr />
+                                </CardContent>
+                            </Grid>
+
+                            {/* <Grid item xs={3}>
                             <label className='points'>
                                 {this.props.details.pontos} <span>pts</span>
                             </label>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} className='contentInferior'>
-                        <Grid item className='carousel'>
-                            <AliceCarousel
-                                items={items}
-                                infinite={true}
-                                autoPlay={true}
-                                autoPlayInterval={3000}
-                                startIndex={0}
-                                mouseDragEnabled={false}
-                                buttonsDisabled={true}
-                                responsive={responsive} />
+                        </Grid> */}
 
                         </Grid>
-                        <Grid className='contentTabs' >
-                            <Tabs
+                        <Grid item xs={12} className='contentInferior'>
+                            <Grid item className='carousel'>
+                                <AliceCarousel
+                                    items={items}
+                                    dotsDisabled
+                                    infinite
+                                    autoPlay
+                                    buttonsDisabled
+                                    mouseDragEnabled={false}
+                                    autoPlayInterval={4000}
+                                    startIndex={0}
+                                    responsive={responsive} />
+
+                            </Grid>
+                            {/* <Grid className='contentTabs' > */}
+                            {/* <Tabs
                                 value={value}
                                 onChange={this.handleChange}
                                 fullWidth
@@ -149,9 +131,14 @@ class Details extends React.Component {
                                 className='tabs'>
                                 <Tab value='Descrição' label="Descrição" />
                                 <Tab value='Como usar' label="Como usar" />
-                            </Tabs>
-                            {value === 'Descrição' && <TabContainer>{this.props.details.descricao}</TabContainer>}
-                            {value === 'Como usar' && <TabContainer class='insideTabHowUse'>
+                            </Tabs> */}
+                            {/* {value === 'Descrição' && <TabContainer>{this.props.details.descricao}</TabContainer>}
+                            {value === 'Como usar' && <TabContainer class='insideTabHowUse'> */}
+                            {/* </TabContainer>} */}
+                            <Grid className='contentTabs'>
+                                <Typography variant='body'>
+                                    {this.props.details.descricao}
+                                </Typography><br />
                                 <Typography variant='subheading'>
                                     COMO USAR:
                                 </Typography>
@@ -165,15 +152,13 @@ class Details extends React.Component {
                                         <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how3 }} /></li>
                                     </ul>
                                 </Typography>
-                                {/* <Typography variant='subheading'>
-                                    BAIXAR APP:
-                                </Typography> */}
                                 <Typography variant='body2'>
                                     {this.props.details.comousar.obs}
                                 </Typography>
-                            </TabContainer>}
+                            </Grid>
                         </Grid>
-                    </Grid>
+
+                    </div>
                 </Grid>
             </div>
         )

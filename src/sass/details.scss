@@ -12,21 +12,29 @@
     transform: translate(-50%, -50%);
     background-color: rgb(255, 255, 255);
     .imgProduto {
-        height: 130px;
+        // height: 130px;
         width: 220px;
         text-align: center;
     }
     .imgProdutoCarousel {
-        width: 220px;
+        width: 170px;
         text-align: center;
     }
     .contentSuperior {
         display: flex;
-        height: 130px;
+        // height: 130px;
         overflow: hidden;
-        margin-top: 10px;
+        margin-top: 20px;
         div {
-            overflow: hidden;
+            // overflow: hidden;
+        }
+        @media screen and (max-width: 620px) {
+            flex-direction: column;
+            .imgProduto {
+                // height: 130px;
+                width: 100%;
+                // text-align: center;
+            }
         }
     }
     .contentInferior {
@@ -41,12 +49,15 @@
             width: 100%;
             padding-left: 15px;
         }
-        @media screen and (max-width: 760px) {
+        @media screen and (max-width: 620px) {
+            flex-direction: column-reverse;
+            margin-top: 0px;
             .contentTabs {
+                padding-left: 0px;
                 &:last-child {
-                    padding: 24px;
-                    overflow: overlay;
-                    max-height: 250px;
+                    // padding-bottom: 5px !important;
+                    // overflow: overlay;
+                    // max-height: 250px;
                 }
             }
         }
@@ -63,12 +74,11 @@
             width: 100%;
         }
     }
-    @media screen and (max-width: 760px) {
+    @media screen and (max-width: 620px) {
         .alice-carousel {
             width: auto;
-            }
         }
-    
+    }
     .contentCard {
         padding: 10px;
         hr {
@@ -78,6 +88,24 @@
             color: $primary;
             text-transform: uppercase;
             margin-bottom: -5px;
+        }
+        .detailsButton {
+            position: relative;
+            color: $primary;
+            border: 1px solid $primary!important;
+            min-height: 30px!important;
+            font-size: 12px;
+            padding: 4px 25px;
+            left: 60%;
+            &:hover {
+                background-color: $primary;
+                color: white;
+            }
+        }
+        @media screen and (max-width: 620px) {
+            &:last-child {
+                padding-bottom: 10px !important;
+            }
         }
     }
     .cardPoints {
@@ -97,7 +125,7 @@
         position: absolute;
         padding: 10px;
         right: 1%;
-        top: -5px;
+        top: 0px;
         cursor: pointer;
         color: rgba(0, 0, 0, 0.54);
 	}
@@ -114,7 +142,7 @@
             letter-spacing: initial;
         }
     }
-    @media screen and (max-width: 760px) {
+    @media screen and (max-width: 620px) {
         .cardPoints {
             padding: 10px;
             margin-top: 0;
@@ -127,21 +155,6 @@
         .points {
             top: -70px;
             left: -3px;
-        }
-    }
-    .contentCard {
-        .detailsButton {
-            position: relative;
-            color: $primary;
-            border: 1px solid $primary!important;
-            min-height: 30px!important;
-            font-size: 12px;
-            padding: 4px 25px;
-            left: 60%;
-            &:hover {
-                background-color: $primary;
-                color: white;
-            }
         }
     }
     .tabs {
@@ -158,38 +171,39 @@
     }
     
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 620px){
 	.details{
 		width: 100% !important;
         height: 100% !important;
         max-height: 100% !important;
         padding: 25px 20px !important;
         .contentInferior {
-            .contentTabs {
-                padding: 0;
-                overflow: overlay;
-                max-height: 250px;
-                position: relative;
-                top: 0px!important;
-                z-index: 9999;
-                width: calc(100% - 160px) !important;
-            }
+            // .contentTabs {
+            //     padding: 0;
+            //     overflow: overlay;
+            //     max-height: 250px;
+            //     position: relative;
+            //     top: 0px!important;
+            //     z-index: 9999;
+            //     width: calc(100% - 160px) !important;
+            // }
             .carousel {
-                width: 160px !important;
+                width: 100% !important;
                 text-align: center;
+                padding-top: 20px;
             }
         }
         .imgProdutoCarousel {
-            width: 160px!important;
+            width: 100%!important;
         }
         .alice-carousel__stage-item {
-            width: 160px!important
+            // width: 160px!important
         }
         .alice-carousel {
-            top: 0px !important;
-            position: initial !important;
-            padding: 0 !important;
-            width: 160px!important;
+            // top: 0px !important;
+            // position: initial !important;
+            // padding: 0 !important;
+            // width: 160px!important;
         }
 	}
 }

@@ -20,20 +20,20 @@ const styles = {
     colorSwitchBase: {
         color: 'white',
         '&$colorChecked': {
-          color: 'white',
-          '& + $colorBar': {
-            backgroundColor: '#e15b1e',
-            opacity: 1,
-          },
+            color: 'white',
+            '& + $colorBar': {
+                backgroundColor: '#e15b1e',
+                opacity: 1,
+            },
         },
-      },
-      colorBar: { 
-          color: '#e15b1e',
-        },
-      colorChecked: { 
-          color: 'purple',
-          opacity: 1
-        },
+    },
+    colorBar: {
+        color: '#e15b1e',
+    },
+    colorChecked: {
+        color: 'purple',
+        opacity: 1
+    },
     card: {
         margin: '10px'
         // maxWidth: 345,
@@ -59,17 +59,17 @@ export class DefaultCard extends React.Component {
             nextDate_full
         )
     }
-    
+
     render() {
         const { classes, id, isSmall } = this.props;
         const data = this.props.products[id];
-        
+
         // calculando total de pontos atual
         let currentPonts = 0;
         this.props.user_products.forEach(element => {
             currentPonts += element.pontos;
         });
-        
+
         let cardPoints = data.pontos;
         let remaningPoints = this.props.pontos - currentPonts;
         let isSelected = false;
@@ -102,7 +102,7 @@ export class DefaultCard extends React.Component {
         return (
             <div>
                 {this.openDetails}
-                <Card className={isSmall?'cardItem-reduzido':'cardItem'} id='cardOriginal'>
+                <Card className={isSmall ? 'cardItem-reduzido' : 'cardItem'} id='cardOriginal'>
                     <div style={styles.canvasContainer}>
                         <CardMedia
                             className={classes.media + ' midiaCard'}
@@ -119,10 +119,12 @@ export class DefaultCard extends React.Component {
                             {data.tags}
                         </Typography>
                         <hr />
-                        <Typography disabled variant="caption" className='caption'>
-                            {data.resumo}
-                        </Typography>
-                        <hr />
+                        <div className='contentCardCaption'>
+                            <Typography disabled variant="caption" className='caption'>
+                                {data.resumo}
+                            </Typography>
+                            <hr />
+                        </div>
                         <Button className='detailsButton'
                             onClick={(() => this.props.selectProduct(data))}>Detalhes</Button>
                     </CardContent>
@@ -130,7 +132,7 @@ export class DefaultCard extends React.Component {
                         <FormGroup>
                             <Tooltip title={tolltipStatusMessage}>
                                 <FormControlLabel
-                                    className={ !isAvailable ? 'invalido' : '' }
+                                    className={!isAvailable ? 'invalido' : ''}
                                     control={
                                         <Switch
                                             onChange={() => {
@@ -150,8 +152,8 @@ export class DefaultCard extends React.Component {
                                                 switchBase: classes.colorSwitchBase,
                                                 checked: classes.colorChecked,
                                                 bar: classes.colorBar,
-                                              }}
-                                        /> 
+                                            }}
+                                        />
                                     }
                                 />
                             </Tooltip>
