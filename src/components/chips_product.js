@@ -8,6 +8,12 @@ import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
 
 const styles = theme => ({
+  root: {
+    // backgoundColor: '#00946E !important',
+  },
+  deletable: {
+    // backgoundColor: '#00946E !important',
+  },
   avatar: {
     width: 40,
     height: 40,
@@ -17,16 +23,18 @@ const styles = theme => ({
   },
   label: {
     // display: 'none',
-    // cursor: inherit;
-    // display: flex;
-    // align-items: center;
-    // white-space: nowrap;
-    // padding-left: 12px;
-    // padding-right: 12px;
+    // cursor: 'inherit',
+    // display: 'flex',
+    // alignItems: 'center',
+    // whiteSpace: 'nowrap',
+    // paddingLeft: 0,
+    // paddingRight: 0,
+    // backgoundColor: '#00946E !important',
     // -webkit-user-select: none;
   },
   deleteIcon: {
-    // display: 'none'
+    // display: 'block'
+    // paddingLeft: 5,
   }
 });
 
@@ -43,11 +51,11 @@ function Chips(props) {
         <Chip
           classes={classes}
           avatar={<Avatar src={props.data.img.icon} />}
-          label={disableTitle?null:props.data.produto}
-          // deleteIcon={isDisabled ? <div /> : null}
-          // onDelete={() => {
-          //   props.onRemove(props.data);
-          // }}
+          label={disableTitle?'':props.data.produto}
+          deleteIcon={isDisabled ? <div /> : null}
+          onDelete={() => {
+            props.onRemove(props.data);
+          }}
           // className={disableTitle?'chipDesk':'chip'}
           // variant="outlined"
         />

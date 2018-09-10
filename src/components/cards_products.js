@@ -21,6 +21,7 @@ export class CardsProducts extends React.Component {
         else {
             let cardToShow = [];
             let totalItensToShow = 0;
+            let isSmall = false;
             // hack pra resolver a questão da largura dos cards
             this.props.products.map((item, i) => {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
@@ -28,14 +29,15 @@ export class CardsProducts extends React.Component {
                 }
             });
             if (totalItensToShow <= 2) {
-                classNameDynamic = "cardItem2";
+                classNameDynamic = "cardItem-reduzido";
+                isSmall = true;
             }
             // montando os cards gerais dos produtos
             this.props.products.map((item, i) => {
                 if (item.tags === this.props.tabTitle || this.props.tabSelected===0) {
                     cardToShow.push(
                         <div key={i} className={classNameDynamic}>
-                            <DefaultCard id={i} />
+                            <DefaultCard isSmall={isSmall} id={i} />
                         </div>
                     );
                 }
@@ -43,16 +45,18 @@ export class CardsProducts extends React.Component {
             return (
                 <div className="cardContainer">
                     <AliceCarousel
-                        mouseDragEnabled
                         infinite
+                        mouseDragEnabled
                         keysControlDisabled
                         items={cardToShow}
-                        dotsDisabled={this.props.toggleFooter }
-                        autoPlayInterval={4000}
+                        dotsDisabled={true}
+                        // autoPlayInterval={4000}
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
-                            0: { items: 1, buttonsDisabled: false },
-                            720: { items: 3, buttonsDisabled: true },
+                            0: { items: 1 },
+                            720: { items: 3 },
+                            // 0: { items: 1, buttonsDisabled: false },
+                            // 720: { items: 3, buttonsDisabled: true },
                             999: { items: 3 },
                             1400: { items: 4 },
                         }}

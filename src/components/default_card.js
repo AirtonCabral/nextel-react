@@ -61,7 +61,7 @@ export class DefaultCard extends React.Component {
     }
     
     render() {
-        const { classes, id } = this.props;
+        const { classes, id, isSmall } = this.props;
         const data = this.props.products[id];
         
         // calculando total de pontos atual
@@ -102,7 +102,7 @@ export class DefaultCard extends React.Component {
         return (
             <div>
                 {this.openDetails}
-                <Card className={classes.card} id='cardOriginal'>
+                <Card className={isSmall?'cardItem-reduzido':'cardItem'} id='cardOriginal'>
                     <div style={styles.canvasContainer}>
                         <CardMedia
                             className={classes.media + ' midiaCard'}
@@ -119,7 +119,7 @@ export class DefaultCard extends React.Component {
                             {data.tags}
                         </Typography>
                         <hr />
-                        <Typography variant="caption" className='caption'>
+                        <Typography disabled variant="caption" className='caption'>
                             {data.resumo}
                         </Typography>
                         <hr />

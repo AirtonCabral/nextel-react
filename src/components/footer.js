@@ -20,7 +20,7 @@ import Hidden from '@material-ui/core/Hidden';
 // import IconButton from '@material-ui/core/IconButton';
 // import FolderIcon from '@material-ui/icons/Folder';
 // import DeleteIcon from '@material-ui/icons/Delete';
-import ChipsProduct from './chips_product';
+import ChipsProduct from './chips_product_footer';
 import SalvarControl from './salvar_control';
 
 export class Footer extends React.Component {
