@@ -36,15 +36,26 @@
 	width: 70% !important;
 	min-height: 60% !important;
 	height: auto !important;
+	background-color: #FFFFFF;
+	position: absolute;
+	// width: 600px;
+	// height: 400px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	// boxShadow: theme.shadows[5];
+	padding: 10;
 	.fa-times {
 		font-size: 30px;
 		height: 30px;
 		position: absolute;
-		right: 1%;
+		top: 1%;
+		right: 2%;
 		cursor: pointer;
 	}
 	.header {
 		margin-bottom: 10px;
+		margin-top: 20px;
 		.title {
 			color: $primary;
 			font-weight: normal;
@@ -70,7 +81,18 @@
 		flex-wrap: wrap;
 		margin-bottom: 15px;
 	}
+	@media screen and (max-width: 620px) {
+		.boxChips {
+			overflow-y: hidden;
+			max-height: 100%;
+			flex-wrap: wrap;
+			margin-bottom: 15px;
+		}
+	}
 	.controlPoints {
+		@media screen and (max-width: 620px) {
+			height: 180px;
+		}
 		border-right: 1px solid #87878726;
 		height: 245px;
 		margin-bottom: 15px;
@@ -154,6 +176,8 @@
 @media screen and (max-width: 620px){
 	.modalStart {
 		width: 100% !important;
+		height: 100% !important;
+		overflow: auto;
 	}
 }
 
@@ -193,7 +217,7 @@
 	}
 }
 .cardsConteiner {
-	background-color: rgba(242, 232, 222, 0.28);
+	// background-color: rgba(242, 232, 222, 0.28);
 }
 .cardContainer {
 	// display: flex;

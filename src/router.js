@@ -10,9 +10,10 @@ import { loadPage } from './actions/a_dom'
 // Páginas do Site
 import Login from './pages/login'
 import Home from './pages/home'
+import Loading from './pages/loading'
 import { parseGetParams } from './lib/url';
 
-export const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => {
+export const PrivateRoute = ({ component: Component, auth: auth, redirect: redirect, ...rest }) => {
     let authenticated = false
 
     if (typeof auth.expiresOn === 'string') {
@@ -24,12 +25,17 @@ export const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => {
 
     if (Boolean(auth.token) && expiresOn - new Date() > 0) authenticated = true
 
+    // if (!authenticated) {
+    //     console.log('passou por aqui');
+    //     return redirect();
+    // }
+
     return (
         <Route { ...rest } render={(props) => (
             // TODO: Deveríamos não apenas ver token, mas também ver idade do token.
             authenticated
             ? <Component {...props} />
-            : <Redirect to='/login' />
+            : <Redirect to='/404' />
         )} />
     )
 }
@@ -45,33 +51,103 @@ PrivateRoute.propTypes = {
     })
 }
 
+//////////////////////////
+//  BASE NAME ////////////
+//////////////////////////
+const basename_root = '/';
+const basename_client = '/cliente';
+const basename_home = '/home';
+const basename_client_home = '/cliente/home';
+//////////////////////////
+
 export class SiteRouter extends React.Component {
-    // Cria um callback ao evento onLoad do DOM
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: 'Loading...'
+        }
+    }
+    
     componentDidMount() {
+        // console.log('didmont', this.props.auth.token);
+        // Cria um callback ao evento onLoad do DOM
         window.addEventListener('load', () => {
-            let params = parseGetParams(window.location)
-            // console.log('didmount-parseGetParams', params);
-            this.props.loadPage(window.location.pathname, params)
-        })
+            const params = parseGetParams(window.location);
+            const path = window.location.pathname;
+
+            // controle de acesso 'cliente x central'
+            if (path === basename_root) {
+                // console.log('Origem: central de atendimento');
+                if ('msisdn' in params && params.msisdn !== '') {
+                    // console.log('MSISDN Ok: ', params.msisdn);
+                    this.props.loadPage(path, params);
+                }
+                else {
+                    // console.log('MSISDN Missing :(');
+                    this.setState({
+                        message: 'Msisdn não encontrado'
+                    });
+                }
+            }
+            else if (path === basename_client) {
+                // console.log('Origem: acesso cliente');
+                if ('msisdn' in params && params.msisdn !== '') {
+                    // console.log('MSISDN Ok: ', params.msisdn);
+                    this.props.loadPage(path, params)
+                }
+                else {
+                    // console.log('MSISDN Missing :(');
+                    this.setState({
+                        message: 'Msisdn não encontrado'
+                    });
+                }
+            }
+            else if (path === basename_home || path === basename_client_home) {
+                if ('token' in this.props.auth && this.props.auth.token === null) {
+                    this.setState({
+                        message: 'Acesso negado'
+                    });
+                }
+                else {
+                    this.props.loadPage(path, params)
+                }
+            }
+            else {
+                this.setState({
+                    message: '404  Not found'
+                });
+            }
+        });
     }
 
     render() {
-        // console.log('router render()');
-        return (
-            // <Router history={history}>
-            <Router basename={'/'}>
-                <Switch>
-                    <Route exact path="/login" component={Login} />
-                    <PrivateRoute exact path="/*" component={Home} auth={this.props.auth} />
-                </Switch>
-            </Router>
-        )
+        // console.log('router render()', this.props.page);
+        if (this.props.page === null) {
+            return (
+                <Loading status={this.state.message} />
+            )
+        }
+        else {
+            return (
+                <Router basename_root={basename_root}>
+                    <Switch>
+                        <Route exact path={basename_root} component={Login} />
+                        <Route exact path={basename_client} component={Login} />
+                        <PrivateRoute exact path={basename_home} component={Home} auth={this.props.auth} />
+                        <PrivateRoute exact path={basename_client_home} component={Home} auth={this.props.auth} />
+                    </Switch>
+                </Router>
+            )
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        page: state.dom.page,
+        params: state.dom.params,
     }
 }
 

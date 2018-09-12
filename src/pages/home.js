@@ -15,6 +15,7 @@ import Details from './../components/details';
 import WelcomeModal from './../components/welcome';
 import NewsModal from './../components/news_modal';
 import ConfirmModal from './../components/confirm_modal';
+import { clearState } from './../lib/storage';
 
 
 function rand() {
@@ -127,6 +128,16 @@ export class Home extends React.Component {
         this.setState({ toggleFooter: !toggleFooterAtual});
     }
 
+    handleLogout = () => {
+        clearState();
+        let param = '';
+        if ('msisdn' in this.props.params && this.props.params.msisdn !== '') {
+            param = '?msisdn='+this.props.params.msisdn;
+        }
+        this.props.history.push('/'+param);
+        window.location.reload();
+    };
+
     renderSwitch(param) {
         switch(param) {
             case 0:
@@ -222,7 +233,7 @@ export class Home extends React.Component {
                     </Modal> 
 
                     <div className='masterContainer'>
-                        <div className='barContainer'><MenuAppBar title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} title="PERSONALIZE SEUS SERVIÇOS" /></div>
                         <div className='cardsConteiner'><CardsProducts toggleFooter={this.state.toggleFooter }/></div>
                         <div className='tabContainer'><TabContainer /></div>
                         <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>
@@ -248,6 +259,7 @@ const mapStateToProps = state => ({
     user_products: state.user.user_products,
     user_message_history: state.user.user_message_history,
     user_total_points: state.user.pontos,
+    params: state.dom.params,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

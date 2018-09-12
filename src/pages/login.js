@@ -49,27 +49,108 @@ const styles = theme => ({
   },
 });
 
+
+//////////////////////////
+//  BASE NAME ////////////
+//////////////////////////
+const basename_root = '/';
+const basename_home = '/home';
+const basename_client = '/cliente';
+const basename_client_home = '/cliente/home';
+//////////////////////////
+
 export class Login extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.state = {
-          msisdn: '5521998526556',
-          login: '',
-          password: '',
-          isProcessing: false,
-          buttonColorState: 'primary',
-          buttonValueState: 'Entrar',
-        };
+      super(props);
+      this.state = {
+        login: '',
+        password: '',
+        isProcessing: false,
+        buttonColorState: 'primary',
+        buttonValueState: 'Entrar',
+      };
     }
 
-    // componentDidMount() {
-    //   clearState();
-    // }
+    loginApplication() {
 
+      clearState();
+      
+      let { login, password } = this.state;
+      let msisdn = this.props.params.msisdn
+      this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
+
+        // this.props.startConnection(login, password, msisdn).then(()=>{
+        // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
+        this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
+
+          let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
+          let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
+          this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
+
+          
+          this.props.getProducts().then(() => {
+            this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
+            
+            this.props.signIn().then(() => {
+              // START PROJECT
+              if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+                this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
+                  setTimeout(() => {
+                    if (this.props.pageLoaded === basename_root) {
+                      this.props.history.push(basename_home)
+                    }
+                    else {
+                      this.props.history.push(basename_client_home)
+                    }
+                  }, 300);
+                });
+              }
+              else {
+                this.setState({
+                  isProcessing: false, 
+                  buttonValueState: 'Ups, MSISDN Inválido.'
+                });
+              }
+            });
+          });
+        })
+        .catch((error)=>{
+          this.setState({
+            isProcessing: false, 
+            buttonValueState: 'Ups, houve alguma coisa. Recarregue a tela.'
+          });
+        });
+      });
+
+    }
+
+    componentDidMount() {
+      if (this.props.pageLoaded === basename_client) {
+        return this.loginApplication();
+      }
+    }
+
+    // componentDidUpdate() {
+    //   console.log('updated', this.state.isProcessing);
+    //   if (!this.state.isProcessing && this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+    //     console.log('perigo, passou aqui.');
+    //     // this.props.history.push('/home')
+    //   }
+    // }
+    
     render() {
       const { classes } = this.props;
       const errorResultMessage = 'Error  :(  Recarregue a página.';
+      let messageOut = 'Verificando Msisdn...';
+      if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+        messageOut = 'Logado!'
+      }
+      if (this.props.pageLoaded === basename_client) {
+        return (<div>
+          {messageOut}
+        </div>)
+      }
       return (
         <React.Fragment>
           <CssBaseline />
@@ -78,69 +159,17 @@ export class Login extends React.Component {
               <Avatar className={classes.avatar}>
                 <LockIcon />
               </Avatar>
-              <Typography variant="headline">Entrar</Typography>
+              <Typography variant="headline">Central Atendimento</Typography>
+              <Typography>MSISDN: {this.props.params.msisdn}</Typography>
               <form
                 className={classes.form}
                 action="/"
                 method="POST"
                 onSubmit={(event) => {
-                  
-                  clearState();
                   event.preventDefault();
-                  let { msisdn, login, password } = this.state;
-                  this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
-
-                    // this.props.startConnection(login, password, msisdn).then(()=>{
-                    // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
-                    this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
-
-                      let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
-                      let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
-                      this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
-
-                      
-                      this.props.getProducts().then(() => {
-                        this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
-                        
-                        this.props.signIn().then(() => {
-                          // START PROJECT
-                          if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-                            this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
-                              setTimeout(() => { this.props.history.push('/home') }, 300);
-                            });
-                          }
-                          else {
-                            this.setState({
-                              isProcessing: false, 
-                              buttonValueState: 'Ups, MSISDN Inválido.'
-                            });
-                          }
-                        });
-
-                      
-                      });
-
-                    })
-                    .catch((error)=>{
-                      this.setState({ isProcessing: false, buttonValueState: 'Ups, houve alguma coisa. Recarregue a tela.' });
-                    });
-
-                  });
-                }}
-              >
+                  this.loginApplication();
+                }}>
                 <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="email">MSISDN</InputLabel>
-                  <Input
-                    id="msisdn"
-                    name="msisdn"
-                    autoComplete="msisdn"
-                    value={this.state.msisdn}
-                    autoFocus
-                    onChange={event=>{
-                      this.setState({ msisdn: event.target.value });
-                    }} />
-                </FormControl>
-                {/* <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">Login</InputLabel>
                   <Input
                     id="email"
@@ -150,9 +179,9 @@ export class Login extends React.Component {
                     onChange={event=>{
                       this.setState({ login: event.target.value });
                     }} />
-                </FormControl> */}
-                {/* <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="password">Password</InputLabel>
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="password">Senha</InputLabel>
                   <Input
                     name="password"
                     type="password"
@@ -162,7 +191,7 @@ export class Login extends React.Component {
                     onChange={event=>{
                       this.setState({ password: event.target.value });
                     }} />
-                </FormControl> */}
+                </FormControl>
                 <Button
                   type="submit"
                   fullWidth
@@ -187,6 +216,8 @@ Login.propTypes = {
 const mapStateToProps = state => ({
     online: state.auth.online,
     assinantesID: state.user.assinantesID,
+    pageLoaded: state.dom.page,
+    params: state.dom.params,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -199,3 +230,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(withStyles(styles)(Login))
+
