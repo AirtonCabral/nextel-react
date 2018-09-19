@@ -8,6 +8,12 @@ export const getProducts = () => (dispatch, getState) => {
     // Força signout antes de signin novamente.
     dispatch(resetPortfolio());
 
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const bearer = 'Bearer ' +getState().auth.token
+    const server = new API(remoteApi, bearer, null, headers);
+    
     // const server = getState().auth.api;
 
     // if ('get' in getState().auth.api) { // verifica se já foi inicializada anteriormente
@@ -20,11 +26,11 @@ export const getProducts = () => (dispatch, getState) => {
         // const headers = {
             // 'Content-Type': 'application/x-www-form-urlencoded'
         // }
-        const server = new API('https://www.mocky.io/v2');
+        // const server = new API('https://www.mocky.io/v2');
         // server.auth = 'Bearer ' +token;
     // }
-    // return server.get(endpoints.nextel.products)
-    return server.get('/5b96b76630000070000bd3c3') // doctorweb api mocked
+    return server.get(endpoints.nextel.products)
+    // return server.get('/5b96b76630000070000bd3c3') // doctorweb api mocked
     // return server.get('/5b8c9c442f0000750cceec3c') // ales api mocked
 
 
