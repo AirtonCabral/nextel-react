@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 
-class AlertDialog extends React.Component {
+class SaveControl extends React.Component {
   state = {
     open: false,
   };
@@ -18,19 +18,36 @@ class AlertDialog extends React.Component {
 
   render() {
     let isActive = false;
-    let countCheck = this.props.userProducts.length;
+    let countCheck = 0; //this.props.userProducts.length;
     let tolltipMessage = '';
+
     // verifica status dos produtos
-    this.props.userProducts.forEach(element => {
-      this.props.svaProdutosId.forEach(compare => {
-        if (element.id === compare) { countCheck--; };
-      });
-    });
     // ajusta variável de estado
-    if (countCheck>0) {
+    // if (countCheck!==this.props.svaProdutosId.length) {
+      //   isActive = true;
+      // }
+      
+    if (this.props.userProducts.length === this.props.svaProdutosId.length) {
+      this.props.userProducts.forEach(element => {
+        this.props.svaProdutosId.forEach(compare => {
+          if (element.id === compare) { countCheck++; };
+        });
+      });
+      if (countCheck !== this.props.svaProdutosId.length) {
+        isActive = true;
+      }
+    }
+    else {
       isActive = true;
     }
+    
     isActive ? tolltipMessage = 'ATUALIZAR MEU PORTFÓLIO' : tolltipMessage = 'Tudo salvo!';
+    
+    if (this.props.userProducts.length === 0) {
+      tolltipMessage = 'Impossível salvar vazio';
+      isActive = false;
+    }
+
     return (
       <div>
         <Tooltip title={tolltipMessage} placement="top">
@@ -68,4 +85,4 @@ class AlertDialog extends React.Component {
   }
 }
 
-export default AlertDialog;
+export default SaveControl;

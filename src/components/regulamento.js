@@ -12,8 +12,8 @@ class Regulamento extends Component {
     render() {
         return (
           <Dialog
-            open={this.props.openRegulamento}
-            onClose={this.props.handleCloseRegulamento}
+            open={this.props.onOpen}
+            onClose={this.props.handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">{"REGULAMENTO"}</DialogTitle>
@@ -119,7 +119,7 @@ Esta promoção é comercializada pela NEXTEL TELECOMUNICAÇÕES Ltda., prestado
 
 </p>          
 <p>
-          Para mais informações, regulamento do plano pertencente a esta promoção acesse <a href="http://www.nextel.com.br" target="_blank">
+          Para mais informações, regulamento do plano pertencente a esta promoção acesse <a href="https://www.nextel.com.br" target="_blank">
 www.nextel.com.br
 </a>.
 
@@ -127,7 +127,7 @@ www.nextel.com.br
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={this.props.handleCloseRegulamento} autoFocus>
+        <Button onClick={this.props.handleClose}>
           ENTENDI
         </Button>
       </DialogActions>

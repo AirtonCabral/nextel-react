@@ -92,6 +92,10 @@ export class SiteRouter extends React.Component {
                 message_output = 'Acesso Cliente, Msisdn, ok.';
                 isReadyToLogin = true;
             }
+            else if (this.props.auth.token !== null) {
+                message_output = 'Acesso direto: localStorage';
+                return this.props.loadPage(basename_home, params);
+            }
             else {
                 message_output = 'Msisdn não encontrado';
             }

@@ -67,9 +67,8 @@ export class Home extends React.Component {
     componentDidMount() {
         // console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
-            this.props.sva_produtos_id.length === 0 ||
-            this.props.user_products.length === 0 ) {
-                setTimeout(() => { this.props.history.push('/login') }, 100);
+            this.props.sva_produtos_id.length === 0 ) {
+                setTimeout(() => { this.props.history.push('/') }, 100);
         }
         // else {
         //     if (this.props.user_message_history === null) {

@@ -47,19 +47,6 @@ const styles = {
 
 export class DefaultCard extends React.Component {
 
-    renderNextDateAvailable() {
-        let nextDate_month = new Date().getMonth() + 2;
-        let nextDate_year = "/" + new Date().getFullYear();
-        if (nextDate_month < 10) {
-            nextDate_month = "0" + nextDate_month;
-        }
-        let nextDate_day = "01/";
-        let nextDate_full = nextDate_day + nextDate_month + nextDate_year;
-        return (
-            nextDate_full
-        )
-    }
-
     render() {
         const { classes, id, isSmall } = this.props;
         const data = this.props.products[id];
@@ -69,13 +56,14 @@ export class DefaultCard extends React.Component {
         this.props.user_products.forEach(element => {
             currentPonts += element.pontos;
         });
-
         let cardPoints = data.pontos;
         let remaningPoints = this.props.pontos - currentPonts;
+
         let isSelected = false;
         let isAvailable = true;
+
         let tolltipStatusMessage = "";
-        let nextDateAvailable = this.renderNextDateAvailable();
+        let nextDateAvailable = this.props.nextDateAvailable;
 
         // verifica se este card é um produto já seleciondo
         this.props.user_products.forEach(element => {
@@ -86,7 +74,7 @@ export class DefaultCard extends React.Component {
                     this.props.sva_produtos_id.forEach(element => {
                         if (element === data.id) {
                             isAvailable = false;
-                            tolltipStatusMessage = "Altere a partir de " + nextDateAvailable;
+                            tolltipStatusMessage = nextDateAvailable;
                         }
                     });
                 }
@@ -97,7 +85,7 @@ export class DefaultCard extends React.Component {
         // hora de verificar se tem saldo para este item
         if (!isSelected) {
             isAvailable = remaningPoints >= cardPoints ? true : false;
-            tolltipStatusMessage = isAvailable ? "" : "Pontos insuficientes";
+            tolltipStatusMessage = isAvailable ? "" : this.props.missingUserPointsMessage;
         }
         return (
             <div>
@@ -155,6 +143,11 @@ export class DefaultCard extends React.Component {
                                             }}
                                         />
                                     }
+                                    onClick={()=>{
+                                        if (!isAvailable) {
+                                            return this.props.switchButtonClickCallback(data.produto, isSelected);
+                                        }
+                                    }}
                                 />
                             </Tooltip>
                         </FormGroup>
