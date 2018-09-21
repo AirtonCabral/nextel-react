@@ -76,7 +76,7 @@ export class Login extends React.Component {
 
       clearState();
       
-      let { login, password } = this.state;
+      // let { login, password } = this.state;
       let msisdn = this.props.params.msisdn
       this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
 
@@ -97,12 +97,12 @@ export class Login extends React.Component {
               if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
                 this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
                   setTimeout(() => {
-                    if (this.props.pageLoaded === basename_root) {
-                      this.props.history.push(basename_home)
-                    }
-                    else {
-                      this.props.history.push(basename_client_home)
-                    }
+                    this.props.history.push(basename_home)
+                    // if (this.props.pageLoaded === basename_root) {
+                    // }
+                    // else {
+                    //   this.props.history.push(basename_client_home)
+                    // }
                   }, 300);
                 });
               }
@@ -126,41 +126,41 @@ export class Login extends React.Component {
     }
 
     componentDidMount() {
-      if (this.props.pageLoaded === basename_client) {
-        return this.loginApplication();
-      }
+      return this.loginApplication();
     }
-
-    // componentDidUpdate() {
-    //   console.log('updated', this.state.isProcessing);
-    //   if (!this.state.isProcessing && this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-    //     console.log('perigo, passou aqui.');
-    //     // this.props.history.push('/home')
-    //   }
-    // }
     
     render() {
+      
       const { classes } = this.props;
-      const errorResultMessage = 'Error  :(  Recarregue a página.';
-      let messageOut = 'Verificando Msisdn...';
-      if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-        messageOut = 'Logado!'
-      }
-      if (this.props.pageLoaded === basename_client) {
-        return (<div>
-          {messageOut}
-        </div>)
-      }
+      
+      // const errorResultMessage = 'Error  :(  Recarregue a página.';
+      // let messageOut = 'Verificando Msisdn...';
+      
+      // if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+      //   messageOut = 'Logado!'
+      // }
+      
+      // if (this.props.pageLoaded === basename_client) {
+      //   return (<div>
+      //     {messageOut}
+      //   </div>)
+      // }
+
       return (
         <React.Fragment>
+          
           <CssBaseline />
+
           <main className={classes.layout}>
             <Paper className={classes.paper}>
+              
               <Avatar className={classes.avatar}>
                 <LockIcon />
               </Avatar>
+
               <Typography variant="headline">Central Atendimento</Typography>
               <Typography>MSISDN: {this.props.params.msisdn}</Typography>
+              
               <form
                 className={classes.form}
                 action="/"
@@ -169,7 +169,8 @@ export class Login extends React.Component {
                   event.preventDefault();
                   this.loginApplication();
                 }}>
-                <FormControl margin="normal" required fullWidth>
+
+                {/* <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">Login</InputLabel>
                   <Input
                     id="email"
@@ -191,7 +192,8 @@ export class Login extends React.Component {
                     onChange={event=>{
                       this.setState({ password: event.target.value });
                     }} />
-                </FormControl>
+                </FormControl> */}
+
                 <Button
                   type="submit"
                   fullWidth
@@ -201,9 +203,12 @@ export class Login extends React.Component {
                   className={classes.submit}>
                     {this.state.buttonValueState}
                 </Button>
+
               </form>
+
             </Paper>
           </main>
+
         </React.Fragment>
       )
     }

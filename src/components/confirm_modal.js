@@ -54,7 +54,7 @@ const ConfirmModal = (props) => {
                 onClick={props.onSubmit}>CONFIRMAR</Button>
             </Grid>
             <Grid item xs={12}>
-                <Button variant="outlined" className='backButton' color="white" size="large"
+                <Button variant="outlined" className='backButton' size="large"
                 onClick={props.handleClose} >VOLTAR</Button>
             </Grid>
         </Grid>

@@ -109,7 +109,9 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
             [i+1]: v.id.toString()
         };
     });
+    const atendente = 'atendente' in getState().dom.params ? getState().dom.params.atendente:''
     const bodyPost = {
+        // "atendente": atendente,
         "assinantesID": getState().user.assinantesID,
         "msisdn": getState().auth.msisdn,
         "portfolioID": getState().user.portfolioID,

@@ -128,11 +128,24 @@ export class Home extends React.Component {
         this.setState({ toggleFooter: !toggleFooterAtual});
     }
 
-    handleLogout = () => {
+    handleReload = () => {
         clearState();
         let param = '';
         if ('msisdn' in this.props.params && this.props.params.msisdn !== '') {
             param = '?msisdn='+this.props.params.msisdn;
+        }
+        if ('atendente' in this.props.params && this.props.params.atendente !== '') {
+            param += '&atendente='+this.props.params.atendente;
+        }
+        this.props.history.push('/'+param);
+        window.location.reload();
+    };
+
+    handleLogout = () => {
+        clearState();
+        let param = '';
+        if ('atendente' in this.props.params && this.props.params.atendente !== '') {
+            param = '?atendente='+this.props.params.atendente;
         }
         this.props.history.push('/'+param);
         window.location.reload();
@@ -233,7 +246,7 @@ export class Home extends React.Component {
                     </Modal> 
 
                     <div className='masterContainer'>
-                        <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div>
                         <div className='cardsConteiner'><CardsProducts toggleFooter={this.state.toggleFooter }/></div>
                         <div className='tabContainer'><TabContainer /></div>
                         <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>

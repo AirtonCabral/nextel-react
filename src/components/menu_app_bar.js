@@ -96,6 +96,7 @@ class MenuAppBar extends React.Component {
                     this.handleClose();
                   }}>{'Regulamento'}</MenuItem>
                   <MenuItem onClick={this.handleClose}>{'Ajuda'}</MenuItem>
+                  <MenuItem onClick={this.props.handleReload}>{'Reload'}</MenuItem>
                   <MenuItem onClick={this.props.handleLogout}>{'Logout'}</MenuItem>
                 </Menu>
               </div>
