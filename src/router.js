@@ -54,9 +54,10 @@ PrivateRoute.propTypes = {
 ////////////////////////////////////////////////////
 //  BASE NAME //////////////////////////////////////
 ////////////////////////////////////////////////////
+// const basename_root = '/servicosvas.aspx';
 const basename_root = '/';
-const basename_login = '/login';
-const basename_home = '/home';
+const basename_login = basename_root+'login';
+const basename_home = basename_root+'home';
 ////////////////////////////////////////////////////
 
 export class SiteRouter extends React.Component {
@@ -72,6 +73,8 @@ export class SiteRouter extends React.Component {
         // Cria um callback ao evento onLoad do DOM
         // window.addEventListener('load', () => {
             // console.log('window addEventListener load OK !!!');
+            
+            console.log('window.location --->>>', window.location);
 
             let message_output = this.state.message;
             let isReadyToLogin = false;
@@ -81,15 +84,15 @@ export class SiteRouter extends React.Component {
 
             if ('atendente' in params && params.atendente !== '') {
                 if ('msisdn' in params && params.msisdn !== '') {
-                    message_output = 'Acesso Central, Msisdn, ok.';
+                    message_output = 'Acesso Central, msisdn, ok.';
                     isReadyToLogin = true;
                 }
                 else {
-                    message_output = 'Central: Msisdn não encontrado';
+                    message_output = 'Central: msisdn não encontrado';
                 }
             }
             else if ('msisdn' in params && params.msisdn !== '') {
-                message_output = 'Acesso Cliente, Msisdn, ok.';
+                message_output = 'Acesso Cliente, msisdn, ok.';
                 isReadyToLogin = true;
             }
             else if (this.props.auth.token !== null) {
@@ -97,7 +100,7 @@ export class SiteRouter extends React.Component {
                 return this.props.loadPage(basename_home, params);
             }
             else {
-                message_output = 'Msisdn não encontrado';
+                message_output = 'msisdn não encontrado';
             }
 
             console.log(message_output);
@@ -112,6 +115,9 @@ export class SiteRouter extends React.Component {
     }
 
     render() {
+        
+        console.log('render() props', this.props);
+
         if (this.props.page === null) {
             return (
                 <Loading status={this.state.message} />
