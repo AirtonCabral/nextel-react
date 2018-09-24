@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { loadPage } from '../actions/a_dom'
 import { startConnection } from '../actions/a_auth'
 import { getProducts } from '../actions/a_products'
 import { signIn } from '../actions/a_user'
@@ -38,7 +39,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#FF5722',
   },
   form: {
     width: '100%', // Fix IE11 issue.
@@ -46,6 +47,7 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
+    backgroundColor: '#FF5722'
   },
 });
 
@@ -53,10 +55,7 @@ const styles = theme => ({
 //////////////////////////
 //  BASE NAME ////////////
 //////////////////////////
-const basename_root = '/';
-const basename_home = '/home';
-const basename_client = '/cliente';
-const basename_client_home = '/cliente/home';
+const basename_home = 'home';
 //////////////////////////
 
 export class Login extends React.Component {
@@ -70,6 +69,7 @@ export class Login extends React.Component {
         buttonColorState: 'primary',
         buttonValueState: 'Entrar',
       };
+      console.log('-->> login builded');
     }
 
     loginApplication() {
@@ -97,7 +97,7 @@ export class Login extends React.Component {
               if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
                 this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
                   setTimeout(() => {
-                    this.props.history.push(basename_home)
+                    this.props.loadPage(basename_home)
                     // if (this.props.pageLoaded === basename_root) {
                     // }
                     // else {
@@ -126,12 +126,15 @@ export class Login extends React.Component {
     }
 
     componentDidMount() {
+      console.log('-->> login mounted');
       return this.loginApplication();
     }
     
     render() {
       
-      const { classes } = this.props;
+      const { classes, params } = this.props;
+      const isCentral = 'atendente' in params && params.atendente !== '' ? true:false;
+      const loginPageTitle = isCentral ? 'Central Serviços VAS' : 'Nextel Serviços VAS'
       
       // const errorResultMessage = 'Error  :(  Recarregue a página.';
       // let messageOut = 'Verificando Msisdn...';
@@ -158,7 +161,8 @@ export class Login extends React.Component {
                 <LockIcon />
               </Avatar>
 
-              <Typography variant="headline">Central Atendimento</Typography>
+              <Typography variant="headline">{ loginPageTitle }</Typography>
+              {isCentral && <Typography>Atendente: {this.props.params.atendente}</Typography>}
               <Typography>MSISDN: {this.props.params.msisdn}</Typography>
               
               <form
@@ -229,6 +233,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     startConnection,
     signIn,
     getProducts,
+    loadPage,
 }, dispatch)
 
 export default connect(

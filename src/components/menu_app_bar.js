@@ -106,8 +106,8 @@ class MenuAppBar extends React.Component {
                   this.setState({ openAjuda: true });
                   this.handleClose();
                 }}>{'Ajuda'}</MenuItem>
-                {/* <MenuItem onClick={this.props.handleReload}>{'Reload'}</MenuItem>
-                <MenuItem onClick={this.props.handleLogout}>{'Logout'}</MenuItem> */}
+                <MenuItem onClick={this.props.handleReload}>{'Reload (debug-mode)'}</MenuItem>
+                {/* <MenuItem onClick={this.props.handleLogout}>{'Logout'}</MenuItem> */}
               </Menu>
             </div>
 
