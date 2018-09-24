@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi } from '../actions/a_user'
 import { selectProduct } from '../actions/a_products'
+import { loadPage } from './../actions/a_dom'
 import './../sass/home.scss'
 
 import Modal from '@material-ui/core/Modal';
@@ -52,7 +53,6 @@ const styles = {
 export class Home extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             forceModalClose: false,
             toggleFooter: false,
@@ -62,13 +62,15 @@ export class Home extends React.Component {
             messages: 'Iniciando',
             errors: null,
         };
+        console.log('-->> home builded');
     }
 
     componentDidMount() {
+        console.log('-->> home mounted');
         // console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
             this.props.sva_produtos_id.length === 0 ) {
-                setTimeout(() => { this.props.history.push('/') }, 100);
+                return this.props.loadPage('login');
         }
         // else {
         //     if (this.props.user_message_history === null) {
@@ -129,24 +131,24 @@ export class Home extends React.Component {
 
     handleReload = () => {
         clearState();
-        let param = '';
-        if ('msisdn' in this.props.params && this.props.params.msisdn !== '') {
-            param = '?msisdn='+this.props.params.msisdn;
-        }
-        if ('atendente' in this.props.params && this.props.params.atendente !== '') {
-            param += '&atendente='+this.props.params.atendente;
-        }
-        this.props.history.push('/'+param);
+        // let param = '';
+        // if ('msisdn' in this.props.params && this.props.params.msisdn !== '') {
+        //     param = '?msisdn='+this.props.params.msisdn;
+        // }
+        // if ('atendente' in this.props.params && this.props.params.atendente !== '') {
+        //     param += '&atendente='+this.props.params.atendente;
+        // }
+        // this.props.history.push('/'+param);
         window.location.reload();
     };
 
     handleLogout = () => {
         clearState();
-        let param = '';
-        if ('atendente' in this.props.params && this.props.params.atendente !== '') {
-            param = '?atendente='+this.props.params.atendente;
-        }
-        this.props.history.push('/'+param);
+        // let param = '';
+        // if ('atendente' in this.props.params && this.props.params.atendente !== '') {
+        //     param = '?atendente='+this.props.params.atendente;
+        // }
+        // this.props.history.push('/'+param);
         window.location.reload();
     };
 
@@ -256,7 +258,6 @@ export class Home extends React.Component {
                                 toggleFooter={this.state.toggleFooter}/>
                         </div>
                     </div>
-
                 </div>
             )
         }
@@ -280,6 +281,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     selectProduct,
     setMessageSaw,
     sendPortfolioToApi,
+    loadPage,
 }, dispatch)
 
 export default connect(

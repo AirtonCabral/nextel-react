@@ -55,7 +55,7 @@ PrivateRoute.propTypes = {
 //  BASE NAME //////////////////////////////////////
 ////////////////////////////////////////////////////
 // const basename_root = '/servicosvas.aspx';
-const basename_root = '/';
+const basename_root = '';
 const basename_login = basename_root+'login';
 const basename_home = basename_root+'home';
 ////////////////////////////////////////////////////
@@ -104,35 +104,47 @@ export class SiteRouter extends React.Component {
             }
 
             console.log(message_output);
-            this.setState({
-                message: message_output
-            });
-
+            
             if (isReadyToLogin) {
                 this.props.loadPage(basename_login, params);
+            }
+            else{
+                this.setState({
+                    message: message_output
+                });
             }
         // });
     }
 
     render() {
         
-        console.log('render() props', this.props);
+        console.log('render() props.page', this.props.page);
 
-        if (this.props.page === null) {
+        if (this.props.page === 'login') {
             return (
-                <Loading status={this.state.message} />
+                <Login />
+            )
+        }
+        if (this.props.page === 'home') {
+            return (
+                <Home />
             )
         }
         else {
             return (
-                <Router basename={basename_root}>
-                    <Switch>
-                        <Route          exact path={basename_root} component={Login} />
-                        <PrivateRoute   exact path={basename_home}  component={Home} auth={this.props.auth} />
-                    </Switch>
-                </Router>
+                <Loading status={this.state.message} />
             )
         }
+        // else {
+        //     return (
+        //         <Router basename={basename_root}>
+        //             <Switch>
+        //                 <Route          exact path={basename_root} component={Login} />
+        //                 <PrivateRoute   exact path={basename_home}  component={Home} auth={this.props.auth} />
+        //             </Switch>
+        //         </Router>
+        //     )
+        // }
     }
 }
 
