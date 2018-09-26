@@ -80,8 +80,6 @@ export class SiteRouter extends React.Component {
             let isReadyToLogin = false;
             const params = parseGetParams(window.location);
             
-            console.log('params --->>>', params);
-
             if ('atendente' in params && params.atendente !== '') {
                 if ('msisdn' in params && params.msisdn !== '') {
                     message_output = 'Acesso Central, msisdn, ok.';
@@ -118,8 +116,6 @@ export class SiteRouter extends React.Component {
 
     render() {
         
-        console.log('render() props.page', this.props.page);
-
         if (this.props.page === 'login') {
             return (
                 <Login />

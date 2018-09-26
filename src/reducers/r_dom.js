@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
             // console.log('reducer------', action);
             return {
                 page: action.page,
-                params: action.params===null? state.params : action.params,
+                params: action.params,
             }
         default:
             return state
