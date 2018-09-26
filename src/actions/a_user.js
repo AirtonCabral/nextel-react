@@ -15,18 +15,19 @@ export const signIn = () => (dispatch, getState) => {
     const server = new API(remoteApi, bearer, null, headers);
     return server.get(endpoints.nextel.user, {msisdn})
     .then((data) => {
-        if ('svaProdutosID' in data) {
+        // console.log('##### --->', data['54e286e93a0318e95e8']);
+        if ('54e286e93a0318e95e8' in data) {
             var arr_svaProdutosID = [];
-            for (var key in data.svaProdutosID) {
-                const index = Number(data.svaProdutosID[key]);
+            for (var key in data['54e286e93a0318e95e8']) {
+                const index = Number(data['54e286e93a0318e95e8'][key]);
                 arr_svaProdutosID.push(index);
             }
             dispatch({
                 type: SIGNIN,
-                assinantesID: data.assinantesID,
+                assinantesID: data['3ad2a9b37c6070e374c'],
                 mensagem: data.mensagem,
                 msisdn: data.msisdn,
-                portfolioID: data.portfolioID,
+                portfolioID: data['7a8c508fe20ca86b6ed'],
                 pontos: data.pontos,
                 renovar: data.renovar,
                 sva_produtos_id: arr_svaProdutosID,
@@ -112,10 +113,10 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
     const atendente = 'atendente' in getState().dom.params ? getState().dom.params.atendente:''
     const bodyPost = {
         // "atendente": atendente,
-        "assinantesID": getState().user.assinantesID,
+        "3ad2a9b37c6070e374c": getState().user.assinantesID,
         "msisdn": getState().auth.msisdn,
-        "portfolioID": getState().user.portfolioID,
-        "svaProdutosID": userProducts,
+        "7a8c508fe20ca86b6ed": getState().user.portfolioID,
+        "54e286e93a0318e95e8": userProducts,
     }
     return server.post(endpoints.nextel.save, bodyPost)
     .then((data) => {

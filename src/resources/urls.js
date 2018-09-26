@@ -10,7 +10,7 @@ if (DEBUG) {
 
 const nextel_mock = {
     auth: '/5b691543330000173e32de04',
-    user: '/5b918fc83100007000939a2f',
+    user: '/5babb8a53100004d006544de',
     products: '/5b8c9c442f0000750cceec3c',
     save: '/5b8715ff340000db018b586f',
 };
