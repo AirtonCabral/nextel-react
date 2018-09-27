@@ -19,7 +19,8 @@ export const signIn = () => (dispatch, getState) => {
         if ('54e286e93a0318e95e8' in data) {
             var arr_svaProdutosID = [];
             for (var key in data['54e286e93a0318e95e8']) {
-                const index = Number(data['54e286e93a0318e95e8'][key]);
+                // const index = Number(data['54e286e93a0318e95e8'][key]);
+                const index = data['54e286e93a0318e95e8'][key];
                 arr_svaProdutosID.push(index);
             }
             dispatch({

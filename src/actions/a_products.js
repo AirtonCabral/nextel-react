@@ -44,11 +44,12 @@ export const getProducts = () => (dispatch, getState) => {
 
     .then((data) => {
         var arr = [];
-        if ('svaProdutosID' in data) {
-            for (var key in data.svaProdutosID) {
+        if ('54e286e93a0318e95e8' in data) {
+            for (var key in data['54e286e93a0318e95e8']) {
                 const objchild = {
-                    id: Number(key),
-                    ...data.svaProdutosID[key]
+                    // id: Number(key),
+                    id: key,
+                    ...data['54e286e93a0318e95e8'][key]
                 }
                 arr.push(objchild);
             }
