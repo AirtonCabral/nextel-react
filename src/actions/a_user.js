@@ -113,7 +113,7 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
     });
     const atendente = 'atendente' in getState().dom.params ? getState().dom.params.atendente:''
     const bodyPost = {
-        // "atendente": atendente,
+        "atendente": atendente,
         "3ad2a9b37c6070e374c": getState().user.assinantesID,
         "msisdn": getState().auth.msisdn,
         "7a8c508fe20ca86b6ed": getState().user.portfolioID,
