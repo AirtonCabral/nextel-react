@@ -7,6 +7,7 @@
 	width: 80% !important;
 	min-height: 40% !important;
 	height: auto !important;
+	padding: 15px;
 	.fa-times {
 		font-size: 30px;
 		height: 30px;
@@ -20,11 +21,11 @@
 			color: $primary;
 			font-weight: normal;
 			margin-bottom: 5px;
-			font-size: 36px;
+			font-size: 30px;
 		}
 		.subtitle {
 			margin: 0;
-			font-size: 24px;
+			font-size: 20px;
 		}
 	}
 	button {
@@ -52,17 +53,19 @@
             color: $primary;
 			font-weight: normal;
             margin: -10px;
-            font-size: 48px;
+			font-size: 36px;
+			padding: 10px;
         }
         .subtitle {
 			margin: 0;
-			font-size: 24px;
+			font-size: 20px;
 		}
     }
     .yourServices {
         margin-top: 10px;
         margin-bottom: 10px;
-        max-height: 300px;
+		max-height: 300px;
+		overflow: overlay;
     }
 	.myservices {
 		display: flex;

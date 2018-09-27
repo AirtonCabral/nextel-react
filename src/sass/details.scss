@@ -48,6 +48,13 @@
         .contentTabs {
             width: 100%;
             padding-left: 15px;
+            color: #878787!important;
+            font-weight: lighter!important;
+            font-size: 14px;
+            h3, aside{
+                color: #878787!important;
+                font-weight: lighter!important;
+            }
         }
         @media screen and (max-width: 620px) {
             flex-direction: column-reverse;

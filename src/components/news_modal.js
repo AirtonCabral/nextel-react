@@ -15,7 +15,6 @@ const styles = {
         transform: 'translate(-50%, -50%)',
         backgroundColor: '#FFFFFF',
         //   boxShadow: theme.shadows[5],
-        padding: 10,
     },
 };
 const NewsModal = (props) => {
@@ -39,14 +38,15 @@ const NewsModal = (props) => {
         {/* <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> */}
             <Grid item xs={12} className='header'>
                 <label className='title'>TEM NOVIDADE POR AQUI...</label><br/>
-                <label>Você alterou seu plano Nextel, por isso sua qunatidade de pontos mudou.</label>
+                <label>Você alterou seu plano Nextel, por isso sua qunatidade de pontos mudou.</label><br />
+                <br /> 
+                <label>{texto1}</label><br />
+                <label>{texto2}</label><br />
+                <label>{texto3}</label>
             </Grid>
             <Grid container xs={12} className='yourServices'>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={10}>
-                    <label>{texto1}</label><br />
-                    <label>{texto2}</label><br />
-                    <label>{texto3}</label>
                     { ChipsToShow }
                 </Grid>
                 <Grid item xs={1}></Grid>

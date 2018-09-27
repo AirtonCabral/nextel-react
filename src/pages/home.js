@@ -247,7 +247,7 @@ export class Home extends React.Component {
                     </Modal> 
 
                     <div className='masterContainer'>
-                        <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div>
+                        {/*<div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div>*/}
                         <div className='cardsConteiner'><CardsProducts toggleFooter={this.state.toggleFooter }/></div>
                         <div className='tabContainer'><TabContainer /></div>
                         <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>

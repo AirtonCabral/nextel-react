@@ -20,9 +20,9 @@ class Ajuda extends Component {
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
             <h2>Ficou com dúvidas sobre como usar seus pontos?</h2>
-            <h3>
+            <label>
             Acesse o atendimento pelo site ou ligue 1050 e fale conosco
-            </h3>
+            </label>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

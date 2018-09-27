@@ -30,7 +30,7 @@ const styles = theme => ({
     // alignItems: 'center',
     // whiteSpace: 'nowrap',
     // paddingLeft: 0,
-    // paddingRight: 0,
+    paddingRight: 48,
     // backgoundColor: '#00946E !important',
     // -webkit-user-select: none;
   },

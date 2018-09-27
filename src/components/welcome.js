@@ -35,6 +35,7 @@ const WelcomeModal = (props) => {
         ChipsToShow.push(
             <div style={{ marginTop: 10 }} key={i}>
                 <ChipsProduct
+                    className= 'Bleh'
                     data={v}
                     isDisabled={true}
                     alert={''} />
@@ -56,9 +57,8 @@ const WelcomeModal = (props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} className='controlPoints'>
-                    <label>{textoPontos1}</label><br />
-                    <label>{textoPontos2}</label><br />
-                    <label>{textoPontos3}</label>
+                    <label>{textoPontos1 +' '}{textoPontos2 +' '} 
+                    {textoPontos3}</label>
                     <div className='boxCircular'>
                         <CircularProgress className='circularProgress' variant="static" value={current_points_percent} />
                         <Grid item className="pointsProgress">
@@ -73,9 +73,7 @@ const WelcomeModal = (props) => {
                 sua seleção, separamos alguns<br />
                 serviços que podem interessar você.</label> */}
                     <div style={{ marginBottom: 20 }}>
-                        <label>{textoPacotes1}</label><br />
-                        <label>{textoPacotes2}</label><br />
-                        <label>{textoPacotes3}</label>
+                        <label>{textoPacotes1 +' '} {textoPacotes2 +' '}{textoPacotes3}</label>
                     </div>
                     {ChipsToShow}
                 </Grid>
