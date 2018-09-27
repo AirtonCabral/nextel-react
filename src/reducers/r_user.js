@@ -1,4 +1,4 @@
-import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SIGNOUT, MESSAGE_SAW } from '../actions/types';
+import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SIGNOUT, MESSAGE_SAW, SAVE_PORTFOLIO } from '../actions/types';
 
 const initialState = {
     assinantesID: null,
@@ -9,6 +9,7 @@ const initialState = {
     sva_produtos_id: [],
     user_products: [],
     user_message_history: null,
+    protocolo: '',
 }
 
 export default (state = initialState, action) => {
@@ -40,6 +41,11 @@ export default (state = initialState, action) => {
                 ...state,
                 mensagem: 2,
                 user_message_history: action.payload,
+            }
+        case SAVE_PORTFOLIO:
+            return {
+                ...state,
+                protocolo: action.protocolo,
             }
         case PRODUCTS_RESETED:
             return {

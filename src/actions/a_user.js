@@ -119,11 +119,18 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
         "7a8c508fe20ca86b6ed": getState().user.portfolioID,
         "54e286e93a0318e95e8": userProducts,
     }
+    console.log('body Post', bodyPost);
     return server.post(endpoints.nextel.save, bodyPost)
     .then((data) => {
+        let protocolo_in = '';
         if (data.mensagem === 'OK') {
+            if ('protocolo' in data && data.protocolo !== '') {
+                protocolo_in = data.protocolo;
+                alert('Salvo com sucesso! Protocolo: '+protocolo_in);
+            }
             dispatch({
                 type: SAVE_PORTFOLIO,
+                protocolo: protocolo_in
             })
             dispatch(signIn());
         } else {
