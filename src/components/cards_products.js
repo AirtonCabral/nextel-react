@@ -106,8 +106,8 @@ export class CardsProducts extends React.Component {
                         // autoPlayInterval={4000}
                         startIndex={this.props.tabSelected}
                         responsive={{ // valores representam "acima de:"
-                            0: { items: 2 },
-                            // 620: { items: 2 },
+                            0: { items: 1 },
+                            620: { items: 2 },
                             // 999: { items: 3 },
                             // 1400: { items: 4 },
                             // 0: { items: 1, buttonsDisabled: false },
