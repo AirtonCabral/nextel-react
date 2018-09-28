@@ -24,6 +24,11 @@ const styles = {
             '& + $colorBar': {
                 backgroundColor: '#e15b1e',
                 opacity: 1,
+                height: 28,
+                position: 'absolute',
+                top: 17,
+                left: 25,
+                width: 46,
             },
         },
     },
