@@ -16,6 +16,7 @@ import Details from './../components/details';
 import WelcomeModal from './../components/welcome';
 import NewsModal from './../components/news_modal';
 import ConfirmModal from './../components/confirm_modal';
+import AlertDialog from './../components/alert';
 import { clearState } from './../lib/storage';
 
 
@@ -61,22 +62,41 @@ export class Home extends React.Component {
             ready: true,
             messages: 'Iniciando',
             errors: null,
+            alert: false,
+            alertProccess: false,
+            alertData: '',
         };
-        console.log('-->> home builded');
+        this.handleAlertDialog = this.handleAlertDialog.bind(this);
+        // console.log('-->> home builded');
     }
 
     componentDidMount() {
-        console.log('-->> home mounted');
+        // console.log('-->> home mounted');
         // console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
             this.props.sva_produtos_id.length === 0 ) {
                 return this.props.loadPage('login');
         }
-        // else {
-        //     if (this.props.user_message_history === null) {
-        //         this.props.setMessageSaw(2);
-        //     }
-        // }
+    }
+
+    componentDidUpdate() {
+        if (this.props.save_status === 'done' && !this.state.alertProccess) {
+            this.setState({
+                alert:true,
+                alertProccess:true,
+                alertData: {
+                    title: 'SALVO COM SUCESSO',
+                    content: 'Protocolo: '+this.props.protocolo
+                },
+            });
+        }
+    }
+
+    handleAlertDialog() {
+        this.setState({
+            alert:false,
+            alertProccess:false,
+        });
     }
 
     renderNextDateAvailable() {
@@ -244,7 +264,12 @@ export class Home extends React.Component {
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
                             {this.renderSwitch(typeContent)}
-                    </Modal> 
+                    </Modal>
+
+                    <AlertDialog
+                        data={this.state.alertData}
+                        onOpen={this.state.alert}
+                        handleClose={this.handleAlertDialog} />
 
                     <div className='masterContainer'>
                         {/* <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div> */}
@@ -269,6 +294,8 @@ const mapStateToProps = state => ({
     products: state.products.list,
     product_selected: state.products.product_selected,
     mensagem: state.user.mensagem,
+    save_status: state.user.save_status,
+    protocolo: state.user.protocolo,
     user_products: state.user.user_products,
     user_message_history: state.user.user_message_history,
     user_total_points: state.user.pontos,

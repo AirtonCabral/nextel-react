@@ -6,6 +6,7 @@ if (DEBUG) {
     url = 'https://www.mocky.io/v2'
 } else {
     url = 'https://apidev.nextel.n3r.com.br'
+    // url = 'https://api.nextel.n3r.com.br'
 }
 
 const nextel_mock = {
@@ -13,6 +14,13 @@ const nextel_mock = {
     user: '/5babb8a53100004d006544de',
     products: '/5b8c9c442f0000750cceec3c',
     save: '/5b8715ff340000db018b586f',
+};
+
+const nextel_homolog = {
+    auth:       '/vas/token',
+    user:       '/feppn/getportfolio/{msisdn}',
+    products:   '/feppn/catalogo',
+    save:       '/feppn/newportfolio',
 };
 
 const nextel_production = {

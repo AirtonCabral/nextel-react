@@ -10,6 +10,7 @@ const initialState = {
     user_products: [],
     user_message_history: null,
     protocolo: '',
+    save_status: '',
 }
 
 export default (state = initialState, action) => {
@@ -35,6 +36,7 @@ export default (state = initialState, action) => {
                 sva_produtos_id: [],
                 user_products: [],
                 user_message_history: null,
+                save_status: '',
             }
             case MESSAGE_SAW:
             return {
@@ -46,6 +48,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 protocolo: action.protocolo,
+                save_status: action.save_status,
             }
         case PRODUCTS_RESETED:
             return {

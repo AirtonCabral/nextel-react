@@ -74,7 +74,7 @@ export class SiteRouter extends React.Component {
         // window.addEventListener('load', () => {
             // console.log('window addEventListener load OK !!!');
             
-            console.log('window.location --->>>', window.location);
+            // console.log('window.location --->>>', window.location);
 
             let message_output = this.state.message;
             let isReadyToLogin = false;
@@ -101,7 +101,7 @@ export class SiteRouter extends React.Component {
                 message_output = 'msisdn não encontrado';
             }
 
-            console.log(message_output);
+            // console.log(message_output);
             
             if (isReadyToLogin) {
                 this.props.loadPage(basename_login, params);

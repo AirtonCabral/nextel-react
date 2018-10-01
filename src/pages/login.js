@@ -6,15 +6,9 @@ import { loadPage } from '../actions/a_dom'
 import { startConnection } from '../actions/a_auth'
 import { getProducts } from '../actions/a_products'
 import { signIn } from '../actions/a_user'
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import orange from '@material-ui/core/colors/orange';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { clearState } from './../lib/storage';
 
@@ -69,7 +63,7 @@ export class Login extends React.Component {
         buttonColorState: 'primary',
         buttonValueState: 'Entrar',
       };
-      console.log('-->> login builded');
+      // console.log('-->> login builded');
     }
 
     loginApplication() {
@@ -83,6 +77,7 @@ export class Login extends React.Component {
         // this.props.startConnection(login, password, msisdn).then(()=>{
         // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
         this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
+        // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => {
 
           let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
           let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
@@ -126,7 +121,7 @@ export class Login extends React.Component {
     }
 
     componentDidMount() {
-      console.log('-->> login mounted');
+      // console.log('-->> login mounted');
       return this.loginApplication();
     }
     
@@ -152,27 +147,28 @@ export class Login extends React.Component {
       return (
         <React.Fragment>
           
+          <CircularProgress style={{ color: orange[600] }} />
           <CssBaseline />
 
           <main className={classes.layout}>
-            <Paper className={classes.paper}>
+            {/* <Paper className={classes.paper}> */}
               
-              <Avatar className={classes.avatar}>
+              {/* <Avatar className={classes.avatar}>
                 <LockIcon />
-              </Avatar>
+              </Avatar> */}
 
-              <Typography variant="headline">{ loginPageTitle }</Typography>
+              {/* <Typography variant="headline">{ loginPageTitle }</Typography>
               {isCentral && <Typography>Atendente: {this.props.params.atendente}</Typography>}
-              <Typography>MSISDN: {this.props.params.msisdn}</Typography>
+              <Typography>MSISDN: {this.props.params.msisdn}</Typography> */}
               
-              <form
+              {/* <form
                 className={classes.form}
                 action="/"
                 method="POST"
                 onSubmit={(event) => {
                   event.preventDefault();
                   this.loginApplication();
-                }}>
+                }}> */}
 
                 {/* <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">Login</InputLabel>
@@ -198,7 +194,7 @@ export class Login extends React.Component {
                     }} />
                 </FormControl> */}
 
-                <Button
+                {/* <Button
                   type="submit"
                   fullWidth
                   disabled={this.state.isProcessing}
@@ -206,11 +202,11 @@ export class Login extends React.Component {
                   color={this.state.buttonColorState}
                   className={classes.submit}>
                     {this.state.buttonValueState}
-                </Button>
+                </Button> */}
 
-              </form>
+              {/* </form> */}
 
-            </Paper>
+            {/* </Paper> */}
           </main>
 
         </React.Fragment>
