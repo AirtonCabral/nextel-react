@@ -97,7 +97,7 @@ export class TabContainer extends React.Component {
     const { classes } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    return(<Menu
+    return (<Menu
       id="menu-appbar"
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -133,19 +133,21 @@ export class TabContainer extends React.Component {
       <div style={styles.root}>
 
         <AppBar position="sticky" color="default">
-        
-          <Tabs
-            value={this.state.tabSelected}
-            onChange={this.handleChange}
-            scrollable
-            scrollButtons="on"
-            className='tabs'>
-            {this.state.titleTabs.map((item, i) => {
-              return <Tab key={i} label={item} />
-            })}
-          </Tabs>
-        
-          <div style={{position:'absolute'}}>
+
+          <div style={{ marginLeft:48 }}>
+            <Tabs
+              value={this.state.tabSelected}
+              onChange={this.handleChange}
+              scrollable
+              scrollButtons="on"
+              className='tabs'>
+              {this.state.titleTabs.map((item, i) => {
+                return <Tab key={i} label={item} />
+              })}
+            </Tabs>
+          </div>
+
+          <div style={{ position: 'absolute' }}>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
               aria-haspopup="true"
@@ -153,11 +155,11 @@ export class TabContainer extends React.Component {
               color="inherit">
               <MenuIcon />
             </IconButton>
-            { this.renderMenuDrop() }
+            {this.renderMenuDrop()}
           </div>
 
         </AppBar>
-        
+
         <Regulamento handleClose={this.handleCloseRegulamento} onOpen={this.state.openRegulamento} />
         <ComoFunciona handleClose={this.handleCloseComoFunciona} onOpen={this.state.openComoFunciona} />
         <Ajuda handleClose={this.handleCloseAjuda} onOpen={this.state.openAjuda} />
@@ -180,7 +182,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch)
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(withStyles(styles)(TabContainer))
 
