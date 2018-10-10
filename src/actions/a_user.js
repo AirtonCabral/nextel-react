@@ -13,13 +13,13 @@ export const signIn = () => (dispatch, getState) => {
     }
     const bearer = 'Bearer ' +getState().auth.token
     const server = new API(remoteApi, bearer, null, headers);
+    
     return server.get(endpoints.nextel.user, {msisdn})
     .then((data) => {
-        // console.log('##### --->', data['54e286e93a0318e95e8']);
+        // console.log('signIn data', data);
         if ('54e286e93a0318e95e8' in data) {
             var arr_svaProdutosID = [];
             for (var key in data['54e286e93a0318e95e8']) {
-                // const index = Number(data['54e286e93a0318e95e8'][key]);
                 const index = data['54e286e93a0318e95e8'][key];
                 arr_svaProdutosID.push(index);
             }
@@ -54,6 +54,7 @@ export const signIn = () => (dispatch, getState) => {
                 pontos: null,
                 renovar: null,
                 sva_produtos_id: [],
+                error: 'signin'
             })
         }
     })
@@ -69,6 +70,7 @@ export const signIn = () => (dispatch, getState) => {
             pontos: null,
             renovar: null,
             sva_produtos_id: [],
+            error: 'signin'
         })
     })
 }
@@ -99,6 +101,11 @@ export const saveToPortfolio = () => (dispatch, getState) => {
 
 export const sendPortfolioToApi = () => (dispatch, getState) => {
 
+    dispatch({
+        type: SAVE_PORTFOLIO,
+        save_status: 'start',
+    })
+
     const headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -123,31 +130,39 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
     return server.post(endpoints.nextel.save, bodyPost)
     .then((data) => {
         let protocolo_in = '';
-        if (data.mensagem === 'OK') {
-            if ('protocolo' in data && data.protocolo !== '') {
-                protocolo_in = data.protocolo;
-                // alert('Salvo com sucesso! Protocolo: '+protocolo_in);
-            }
-            dispatch({
-                type: SAVE_PORTFOLIO,
-                protocolo: protocolo_in,
-                save_status: 'done',
-            })
-            dispatch(signIn());
-        } else {
-            // Joga o erro para o handler a baixo.
-            const error = 'Objeto não encontrado.'
-            console.log('error', error)
-            dispatch({
-                type: SAVE_PORTFOLIO,
-            })
+        if ('protocolo' in data && data.protocolo !== '') {
+            protocolo_in = data.protocolo;
         }
-    })
-    .catch((error) => {
-        console.log('error', error);
-        // Avisa o usuário que login não eu certo.
+        let output_msg_in = '';
+        if ('mensagem' in data) {
+            output_msg_in = data.mensagem;
+        }
         dispatch({
             type: SAVE_PORTFOLIO,
+            protocolo: protocolo_in,
+            save_msg: output_msg_in,
+            save_status: 'done',
+        })
+        dispatch(signIn());
+        // if (data.mensagem === 'OK') {
+            // } else {
+                //     // Joga o erro para o handler a baixo.
+                //     const error = 'Objeto não encontrado.'
+                //     console.log('error', error)
+                //     dispatch({
+                    //         type: SAVE_PORTFOLIO,
+                    //     })
+                    // }
+                })
+    .catch((error) => {
+        let output_msg_error = '';
+        if ('mensagem' in error) {
+            output_msg_error = error.mensagem;
+        }
+        dispatch({
+            type: SAVE_PORTFOLIO,
+            save_msg: output_msg_error,
+            save_status: 'done',    
         })
     })
 }
@@ -156,5 +171,12 @@ export const setMessageSaw = (value) => (dispatch) => {
     dispatch({
         type: MESSAGE_SAW,
         payload: value
+    })
+}
+
+export const sendPortfolioDone = () => (dispatch) => {
+    dispatch({
+        type: SAVE_PORTFOLIO,
+        save_status: '',
     })
 }

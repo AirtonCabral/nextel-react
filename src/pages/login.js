@@ -72,52 +72,59 @@ export class Login extends React.Component {
       
       // let { login, password } = this.state;
       let msisdn = this.props.params.msisdn
-      this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' }, () => {
 
-        // this.props.startConnection(login, password, msisdn).then(()=>{
-        // this.props.startConnection('drweb', 'c62J3rZovtw', '5521998526556').then(() => {
-        this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
-        // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => {
 
-          let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
-          let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
-          this.setState({ buttonColorState: buttonColorResult, buttonValueState: buttonValueResult });
+      this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' });
 
-          
-          this.props.getProducts().then(() => {
-            this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
-            
-            this.props.signIn().then(() => {
-              // START PROJECT
-              if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-                this.setState({ buttonValueState: 'Tudo ok, Redirecionando...' }, ()=>{
-                  setTimeout(() => {
-                    this.props.loadPage(basename_home)
-                    // if (this.props.pageLoaded === basename_root) {
-                    // }
-                    // else {
-                    //   this.props.history.push(basename_client_home)
-                    // }
-                  }, 300);
-                });
-              }
-              else {
-                this.setState({
-                  isProcessing: false, 
-                  buttonValueState: 'Ups, MSISDN Inválido.'
-                });
-              }
-            });
-          });
-        })
-        .catch((error)=>{
-          this.setState({
-            isProcessing: false, 
-            buttonValueState: 'Ups, houve alguma coisa. Recarregue a tela.'
-          });
+      // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => {
+      this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
+
+        let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
+        let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
+        
+        this.setState({
+          buttonColorState: buttonColorResult, 
+          buttonValueState: buttonValueResult
         });
+        
+        this.props.getProducts().then(() => {
+          this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
+          
+          this.props.signIn().then(() => {
+            
+            // START PROJECT
+            if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+              setTimeout(() => {
+                this.props.loadPage(basename_home)
+              }, 300);
+              this.setState({ buttonValueState: 'Tudo ok, iniciando...' });
+            }
+            else {
+              this.updateStateOut('Ups, MSISDN Inválido.');
+            }
+
+          }) // end success signIn()
+          .catch((error)=>{
+            this.updateStateOut('Ups, usuário indisponível ou instável. Recarregue a tela.');
+          });
+
+        }) // end success getProducts()
+        .catch((error)=>{
+          this.updateStateOut('Ups, produtos insdisponíveis para este número "msisdn".');
+        });
+
+      }) // end success startConnection()
+      .catch((error)=>{
+        this.updateStateOut('Ups, erro ao tentar se conectar. Recarregue a tela.');
       });
 
+    }
+
+    updateStateOut(msg) {
+      this.setState({
+        isProcessing: false, 
+        buttonValueState: msg
+      });
     }
 
     componentDidMount() {
@@ -130,19 +137,19 @@ export class Login extends React.Component {
       const { classes, params } = this.props;
       const isCentral = 'atendente' in params && params.atendente !== '' ? true:false;
       const loginPageTitle = isCentral ? 'Central Serviços VAS' : 'Nextel Serviços VAS'
+      const messageOut = this.state.buttonValueState;
       
       // const errorResultMessage = 'Error  :(  Recarregue a página.';
-      // let messageOut = 'Verificando Msisdn...';
       
       // if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
       //   messageOut = 'Logado!'
       // }
       
-      // if (this.props.pageLoaded === basename_client) {
-      //   return (<div>
-      //     {messageOut}
-      //   </div>)
-      // }
+      if (this.props.userError !== '') {
+        return (<div>
+          {this.state.buttonValueState}
+        </div>)
+      }
 
       return (
         <React.Fragment>
@@ -223,6 +230,7 @@ const mapStateToProps = state => ({
     assinantesID: state.user.assinantesID,
     pageLoaded: state.dom.page,
     params: state.dom.params,
+    userError: state.user.error,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

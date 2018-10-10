@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi } from '../actions/a_user'
+import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi, sendPortfolioDone } from '../actions/a_user'
 import { selectProduct } from '../actions/a_products'
 import { loadPage } from './../actions/a_dom'
 import './../sass/home.scss'
@@ -81,12 +81,18 @@ export class Home extends React.Component {
 
     componentDidUpdate() {
         if (this.props.save_status === 'done' && !this.state.alertProccess) {
+            let output_msg = 'SALVO COM SUCESSO';
+            let output_cont = 'Protocolo: '+this.props.protocolo;
+            if (this.props.save_msg !== "OK") {
+                output_msg = 'Erro ao salvar';
+                output_cont = this.props.save_msg;
+            }
             this.setState({
                 alert:true,
                 alertProccess:true,
                 alertData: {
-                    title: 'SALVO COM SUCESSO',
-                    content: 'Protocolo: '+this.props.protocolo
+                    title: output_msg,
+                    content: output_cont,
                 },
             });
         }
@@ -97,6 +103,7 @@ export class Home extends React.Component {
             alert:false,
             alertProccess:false,
         });
+        this.props.sendPortfolioDone();
     }
 
     renderNextDateAvailable() {
@@ -172,7 +179,7 @@ export class Home extends React.Component {
         window.location.reload();
     };
 
-    renderSwitch(param) {
+    renderSwitchModal(param) {
         switch(param) {
             case 0:
                 return <WelcomeModal
@@ -195,6 +202,7 @@ export class Home extends React.Component {
                     remainPoints={this.getRemainPoints()}
                     currentPoints={this.getCurrentPoints()}
                     renderNextDateAvailable={this.renderNextDateAvailable()}
+                    savingProcess={this.props.save_status}
                     onSubmit={()=>{
                         this.props.sendPortfolioToApi().then(()=>{
                             this.handleClose();
@@ -263,12 +271,12 @@ export class Home extends React.Component {
                         open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
-                            {this.renderSwitch(typeContent)}
+                            {this.renderSwitchModal(typeContent)}
                     </Modal>
 
                     <AlertDialog
                         data={this.state.alertData}
-                        onOpen={this.state.alert}
+                        open={this.state.alert}
                         handleClose={this.handleAlertDialog} />
 
                     <div className='masterContainer'>
@@ -280,7 +288,7 @@ export class Home extends React.Component {
                                 renderNextDateAvailable={this.renderNextDateAvailable()}
                                 currentPoints={this.getCurrentPoints()} 
                                 handleFooter={this.handleFooter}
-                                toggleFooter={this.state.toggleFooter}/>
+                                toggleFooter={this.state.toggleFooter} />
                         </div>
                     </div>
                 </div>
@@ -295,6 +303,7 @@ const mapStateToProps = state => ({
     product_selected: state.products.product_selected,
     mensagem: state.user.mensagem,
     save_status: state.user.save_status,
+    save_msg: state.user.save_msg,
     protocolo: state.user.protocolo,
     user_products: state.user.user_products,
     user_message_history: state.user.user_message_history,
@@ -309,6 +318,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     setMessageSaw,
     sendPortfolioToApi,
     loadPage,
+    sendPortfolioDone,
 }, dispatch)
 
 export default connect(

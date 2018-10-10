@@ -94,8 +94,8 @@ export class DefaultCard extends React.Component {
         }
         return (
             <div>
-                {this.openDetails}
                 <Card className={isSmall ? 'cardItem-reduzido' : 'cardItem'} id='cardOriginal'>
+                    
                     <div style={styles.canvasContainer}>
                         <CardMedia
                             className={classes.media + ' midiaCard'}
@@ -104,6 +104,7 @@ export class DefaultCard extends React.Component {
                             style={styles.canvas}
                         />
                     </div>
+
                     <CardContent className='contentCard'>
                         <Typography gutterBottom variant="subheading">
                             {data.produto}
@@ -121,6 +122,7 @@ export class DefaultCard extends React.Component {
                         <Button className='detailsButton'
                             onClick={(() => this.props.selectProduct(data))}>Detalhes</Button>
                     </CardContent>
+
                     <CardActions className="cardPoints">
                         <FormGroup>
                             <Tooltip title={tolltipStatusMessage}>

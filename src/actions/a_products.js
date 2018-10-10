@@ -14,40 +14,13 @@ export const getProducts = () => (dispatch, getState) => {
     const bearer = 'Bearer ' +getState().auth.token
     const server = new API(remoteApi, bearer, null, headers);
     
-    // const server = getState().auth.api;
-
-    // if ('get' in getState().auth.api) { // verifica se já foi inicializada anteriormente
-        // console.log('if <<<<<<<');
-    // }
-    // else { // caso contrário inicializa-se agora
-        // console.log('else >>>>>>');
-        // return;
-        // const token = getState().auth.token;
-        // const headers = {
-            // 'Content-Type': 'application/x-www-form-urlencoded'
-        // }
-        // const server = new API('https://www.mocky.io/v2');
-        // server.auth = 'Bearer ' +token;
-    // }
     return server.get(endpoints.nextel.products)
-    // return server.get('/5b96b76630000070000bd3c3') // doctorweb api mocked
-    // return server.get('/5b8c9c442f0000750cceec3c') // ales api mocked
-
-
-    // const headers = {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    // }
-    // const bearer = 'Bearer ' +getState().auth.token
-    // const server = new API(remoteApi, bearer, null, headers);
-    // return server.post(endpoints.nextel.products)
-
-
     .then((data) => {
+        // console.log('fetch getProducts', data);
         var arr = [];
         if ('54e286e93a0318e95e8' in data) {
             for (var key in data['54e286e93a0318e95e8']) {
                 const objchild = {
-                    // id: Number(key),
                     id: key,
                     ...data['54e286e93a0318e95e8'][key]
                 }

@@ -86,7 +86,7 @@ export class SiteRouter extends React.Component {
                     isReadyToLogin = true;
                 }
                 else {
-                    message_output = 'Central: msisdn não encontrado';
+                    message_output = 'Central: msisdn não informado';
                 }
             }
             else if ('msisdn' in params && params.msisdn !== '') {
@@ -98,7 +98,7 @@ export class SiteRouter extends React.Component {
                 return this.props.loadPage(basename_home, params);
             }
             else {
-                message_output = 'msisdn não encontrado';
+                message_output = 'Número "msisdn" não informado.';
             }
 
             // console.log(message_output);

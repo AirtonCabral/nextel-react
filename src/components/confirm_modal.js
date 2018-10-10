@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ChipsProduct from './chips_product';
-import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './../sass/modalNews.scss';
 
@@ -34,30 +34,35 @@ const ConfirmModal = (props) => {
     });
     return (
         <div>
-        <Grid container style={styles.paper} className='modalNews'>
-        {/* <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> */}
-            <Grid item xs={12} className='header'>
-                <div style={{marginTop:30}}><label className='title'>SALVAR</label><br/>
-                <label>Tem certeza que deseja salvar as alterações?<br/>
-                Você só poderá alterar os serviços escolhidos na sua seleção em {props.renderNextDateAvailable}</label></div>
+            <Grid container style={styles.paper} className='modalNews'>
+            {/* <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> */}
+                <Grid item xs={12} className='header'>
+                    <div style={{marginTop:30}}><label className='title'>SALVAR</label><br/>
+                    <label>Tem certeza que deseja salvar as alterações?<br/>
+                    Você só poderá alterar os serviços escolhidos na sua seleção em {props.renderNextDateAvailable}</label></div>
+                </Grid>
+                <Grid item xs={12}>
+                    { ChipsToShow }
+                </Grid>
+                
+                <Grid item xs={12} className='extraPoints'>
+                    <label className='subtitle'>{'PONTOS UTILIZADOS: '+props.currentPoints}</label><br/>
+                    <label className='subtitle'>{'PONTOS DISPONÍVEIS: '+props.remainPoints}</label>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="primary" size="large"
+                        onClick={props.onSubmit}>
+                            {props.savingProcess!=='start' && 'CONFIRMAR'}
+                            {props.savingProcess==='start' && 
+                                <CircularProgress size={16} style={{ color:'#FFF' }} />
+                            }
+                        </Button>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="outlined" className='backButton' size="large"
+                    onClick={props.handleClose}>VOLTAR</Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                { ChipsToShow }
-            </Grid>
-            
-            <Grid item xs={12} className='extraPoints'>
-                <label className='subtitle'>{'PONTOS UTILIZADOS: '+props.currentPoints}</label><br/>
-                <label className='subtitle'>{'PONTOS DISPONÍVEIS: '+props.remainPoints}</label>
-            </Grid>
-            <Grid item xs={12}>
-                <Button variant="contained" color="primary" size="large"
-                onClick={props.onSubmit}>CONFIRMAR</Button>
-            </Grid>
-            <Grid item xs={12}>
-                <Button variant="outlined" className='backButton' size="large"
-                onClick={props.handleClose} >VOLTAR</Button>
-            </Grid>
-        </Grid>
         </div>
     )
 };

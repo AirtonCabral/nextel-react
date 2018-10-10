@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class AlertDialog extends Component {
     static defaultProps = {
         data: '',
-        onOpen: false,
+        open: false,
         handleClose: ()=>{console.log('missing callback function')},
     }
     render() {
@@ -19,7 +19,7 @@ class AlertDialog extends Component {
         // const contentProps = 'data' in props ? props.data : '';
         return (
             <Dialog
-                open={props.onOpen}
+                open={props.open}
                 onClose={props.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description">
@@ -30,7 +30,7 @@ class AlertDialog extends Component {
                         </h4>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.handleClose}>
+                    <Button onClick={()=>props.handleClose()}>
                         ENTENDI
                     </Button>
                 </DialogActions>
