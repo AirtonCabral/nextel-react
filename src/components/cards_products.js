@@ -108,8 +108,8 @@ export class CardsProducts extends React.Component {
                         responsive={{ // valores representam "acima de:"
                             0: { items: 1 },
                             620: { items: 2 },
-                            // 999: { items: 3 },
-                            // 1400: { items: 4 },
+                            1000: { items: 3 },
+                            1200: { items: 4 },
                             // 0: { items: 1, buttonsDisabled: false },
                             // 720: { items: 3, buttonsDisabled: true },
                         }}
