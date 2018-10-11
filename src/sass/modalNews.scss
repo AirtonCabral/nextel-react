@@ -31,7 +31,7 @@
 	button {
 		background-color: $primary;
         width: 300px;
-        margin: 10px;
+        //margin: 10px;
 		&:hover {
 			background-color: #a74418;
 		}
@@ -131,8 +131,16 @@
 }
 
 @media screen and (max-width: 500px){
-	.modalNews{
+	.modalNews {
 		width: 100% !important;
-		height: 100% !important;
+		min-height: 100% !important;
+		overflow: scroll;
+		button {
+			width: 100%;
+		}
+		.backButton {
+			margin: 0px;
+			width: 100%
+		}
 	}
 }
