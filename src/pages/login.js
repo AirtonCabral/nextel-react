@@ -76,8 +76,8 @@ export class Login extends React.Component {
 
       this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' });
 
-      // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => {
-      this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => {
+      // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => { // login producao
+      this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => { // login dev homolog
 
         let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
         let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
