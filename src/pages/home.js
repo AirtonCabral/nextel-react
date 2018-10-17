@@ -228,7 +228,7 @@ export class Home extends React.Component {
         else {
 
             let isContentDetailToOpen = false;
-            let typeContent = 2; // 0 = welcome, 1 = downgrade, 2= nothing, 3= Confirm Modal, 4=detalhes-produto
+            let typeContent = 0; // 0 = welcome, 1 = downgrade, 2= nothing, 3= Confirm Modal, 4=detalhes-produto
             
             if (this.props.product_selected !== null) { // aqui precisa fazer ainda uma verificação tal... (vou fazer depois)
                 isContentDetailToOpen = true;

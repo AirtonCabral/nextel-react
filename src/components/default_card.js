@@ -29,11 +29,16 @@ const styles = {
                 top: 17,
                 left: 25,
                 width: 46,
+                height: 28,
             },
         },
     },
     colorBar: {
         color: '#e15b1e',
+        top: 17,
+        left: 25,
+        width: 46,
+        height: 28,
     },
     colorChecked: {
         color: 'purple',
