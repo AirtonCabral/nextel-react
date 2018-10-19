@@ -66,6 +66,11 @@ export class Login extends React.Component {
     // console.log('-->> login builded');
   }
 
+  componentDidMount() {
+    // console.log('-->> login mounted');
+    return this.loginApplication();
+  }
+
   loginApplication() {
 
     clearState();
@@ -127,30 +132,14 @@ export class Login extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // console.log('-->> login mounted');
-    return this.loginApplication();
-  }
-
   render() {
-
-    const { classes, params } = this.props;
-    const isCentral = 'atendente' in params && params.atendente !== '' ? true : false;
-    const loginPageTitle = isCentral ? 'Central Serviços VAS' : 'Nextel Serviços VAS'
-    const messageOut = this.state.buttonValueState;
-
-    // const errorResultMessage = 'Error  :(  Recarregue a página.';
-
-    // if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-    //   messageOut = 'Logado!'
-    // }
-
+    
+    const stageHeight = window.innerHeight
     if (this.props.userError !== '') {
-      return (<div>
+      return (<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
         {this.state.buttonValueState}
       </div>)
     }
-    const stageHeight = window.innerHeight
     return (
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
         <CircularProgress style={{ color: orange[600] }} />
@@ -166,7 +155,6 @@ Login.propTypes = {
 const mapStateToProps = state => ({
   online: state.auth.online,
   assinantesID: state.user.assinantesID,
-  pageLoaded: state.dom.page,
   params: state.dom.params,
   userError: state.user.error,
 })

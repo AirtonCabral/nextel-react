@@ -151,47 +151,7 @@ export class Home extends React.Component {
         window.location.reload();
     };
 
-    renderSwitchModal(param) {
-        switch(param) {
-            case 0:
-                return <WelcomeModal
-                    userProducts={this.props.user_products}
-                    remainPoints={this.getRemainPoints()}
-                    currentPoints={this.getCurrentPoints()}
-                    totalPoints={this.props.user_total_points}
-                    handleClose={this.handleClose} />;
-            case 1:
-                return <NewsModal
-                    userProducts={this.props.user_products}
-                    remainPoints={this.getRemainPoints()}
-                    currentPoints={this.getCurrentPoints()}
-                    totalPoints={this.props.user_total_points}
-                    handleClose={this.handleClose} />;
-            case 3:
-                return <ConfirmModal
-                    userProducts={this.props.user_products}
-                    handleClose={this.handleClose}
-                    remainPoints={this.getRemainPoints()}
-                    currentPoints={this.getCurrentPoints()}
-                    renderNextDateAvailable={this.renderNextDateAvailable()}
-                    savingProcess={this.props.save_status}
-                    onSubmit={()=>{
-                        this.props.sendPortfolioToApi().then(()=>{
-                            this.handleClose();
-                        });
-                    }} />;
-            case 4:
-                return <Details
-                    details={this.props.product_selected}
-                    handleSwitch={this.handleSwitch}
-                    handleClose={this.handleClose} /> ;
-            default:
-                return <div />;
-         }
-    }
-
     render() {
-        // console.log('render', this.props.me)
         if (!this.state.ready) {
             return (
                 <ConnectionStatus colors={{ main: '#f26522' }} status={this.state.ready} error={this.state.errors} messages={this.state.messages} />
@@ -200,7 +160,7 @@ export class Home extends React.Component {
         else {
 
             let isContentDetailToOpen = false;
-            let typeContent = 0; // 0 = welcome, 1 = downgrade, 2= nothing, 3= Confirm Modal, 4=detalhes-produto
+            let typeContent = 2; // 0 = welcome, 1 = downgrade, 2= nothing, 3= Confirm Modal, 4=detalhes-produto
             
             if (this.props.product_selected !== null) { // aqui precisa fazer ainda uma verificação tal... (vou fazer depois)
                 isContentDetailToOpen = true;
@@ -238,7 +198,7 @@ export class Home extends React.Component {
                         open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
-                            {this.renderSwitchModal(3)}
+                            {this.renderSwitchModal(typeContent)}
                     </Modal>
 
                     <AlertControl />
@@ -263,6 +223,45 @@ export class Home extends React.Component {
                 </div>
             )
         }
+    }
+
+    renderSwitchModal(param) {
+        switch(param) {
+            case 0:
+                return <WelcomeModal
+                    userProducts={this.props.user_products}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    totalPoints={this.props.user_total_points}
+                    handleClose={this.handleClose} />;
+            case 1:
+                return <NewsModal
+                    userProducts={this.props.user_products}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    totalPoints={this.props.user_total_points}
+                    handleClose={this.handleClose} />;
+            case 3:
+                return <ConfirmModal
+                    userProducts={this.props.user_products}
+                    handleClose={this.handleClose}
+                    remainPoints={this.getRemainPoints()}
+                    currentPoints={this.getCurrentPoints()}
+                    renderNextDateAvailable={this.renderNextDateAvailable()}
+                    savingProcess={this.props.save_status}
+                    onSubmit={()=>{
+                        this.props.sendPortfolioToApi().then(()=>{
+                            this.handleClose();
+                        });
+                    }} />;
+            case 4:
+                return <Details
+                    details={this.props.product_selected}
+                    handleSwitch={this.handleSwitch}
+                    handleClose={this.handleClose} /> ;
+            default:
+                return <div />;
+         }
     }
 }
 

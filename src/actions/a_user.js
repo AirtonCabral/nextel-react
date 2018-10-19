@@ -126,7 +126,6 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
         "7a8c508fe20ca86b6ed": getState().user.portfolioID,
         "54e286e93a0318e95e8": userProducts,
     }
-    // console.log('body Post', bodyPost);
     return server.post(endpoints.nextel.save, bodyPost)
     .then((data) => {
         let protocolo_in = '';
@@ -138,22 +137,13 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
             output_msg_in = data.mensagem;
         }
         dispatch({
-            type: SAVE_PORTFOLIO,
             protocolo: protocolo_in,
             save_msg: output_msg_in,
             save_status: 'done',
-        })
+            type: SAVE_PORTFOLIO,
+        });
         dispatch(signIn());
-        // if (data.mensagem === 'OK') {
-            // } else {
-                //     // Joga o erro para o handler a baixo.
-                //     const error = 'Objeto não encontrado.'
-                //     console.log('error', error)
-                //     dispatch({
-                    //         type: SAVE_PORTFOLIO,
-                    //     })
-                    // }
-                })
+    })
     .catch((error) => {
         let output_msg_error = '';
         if ('mensagem' in error) {

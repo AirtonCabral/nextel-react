@@ -52,13 +52,11 @@ const WelcomeModal = (props) => {
                     <label className='title'>SEJA BEM VINDO!</label>
                     <p className='subtitle'>VAMOS COMEÇAR?</p>
                     <label>
-                        Escolha os serviços que vão fazer parte do seu pacote.
-                </label>
+                        {'Escolha os serviços que vão fazer parte do seu pacote. '+textoPontos1 +' '+textoPontos2+' '+textoPontos3}
+                    </label>
                 </Grid>
 
                 <Grid item xs={12} sm={6} className='controlPoints'>
-                    <label>{textoPontos1 +' '}{textoPontos2 +' '} 
-                    {textoPontos3}</label>
                     <div className='boxCircular'>
                         <CircularProgress className='circularProgress' variant="static" value={current_points_percent} />
                         <Grid item className="pointsProgress">
@@ -69,9 +67,6 @@ const WelcomeModal = (props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} className='boxChips'>
-                    {/* <label style={{fontSize:14}}>Enquanto você não personaliza<br />
-                sua seleção, separamos alguns<br />
-                serviços que podem interessar você.</label> */}
                     <div style={{ marginBottom: 20 }}>
                         <label>{textoPacotes1 +' '} {textoPacotes2 +' '}{textoPacotes3}</label>
                     </div>

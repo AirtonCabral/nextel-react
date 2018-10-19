@@ -45,8 +45,6 @@ export default (state = initialState, action) => {
                 save_status: '',
                 protocolo: '',
                 save_msg: '',
-                alert: false,
-                alertData: {},
                 error: '',
             }
         case MESSAGE_SAW:
@@ -64,8 +62,8 @@ export default (state = initialState, action) => {
         case SAVE_PORTFOLIO:
             return {
                 ...state,
-                save_msg: 'save_msg' in action ? action.save_msg : '', 
                 protocolo: 'protocolo' in action ? action.protocolo : '', // action.protocolo,
+                save_msg: 'save_msg' in action ? action.save_msg : '', 
                 save_status: 'save_status' in action ? action.save_status : '', // action.save_status,
                 error: 'error' in action ? action.error : '',
             }
