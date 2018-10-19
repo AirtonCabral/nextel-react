@@ -46,7 +46,18 @@ class SaveControl extends React.Component {
     return (
       <div>
         <Tooltip title={tolltipMessage} placement="top">
-          <div>
+          <div
+            onClick={()=>{
+              if (!isActive) {
+                return this.props.alertMessage({
+                  alert:true,
+                  alertData: {
+                    title: '',
+                    content: tolltipMessage,
+                  }
+                });
+              }
+          }}>
             <Button
               disabled={!isActive}
               variant="contained"

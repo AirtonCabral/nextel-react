@@ -1,4 +1,4 @@
-import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SIGNOUT, MESSAGE_SAW, SAVE_PORTFOLIO } from '../actions/types';
+import { SIGNIN, ADD_PRODUCT, REMOVE_PRODUCT, PRODUCTS_RESETED, SIGNOUT, MESSAGE_SAW, SAVE_PORTFOLIO, ALERT_MESSAGE } from '../actions/types';
 
 const initialState = {
     assinantesID: null,
@@ -9,9 +9,11 @@ const initialState = {
     sva_produtos_id: [],
     user_products: [],
     user_message_history: null,
-    protocolo: '',
     save_status: '',
+    protocolo: '',
     save_msg: '',
+    alert: false,
+    alertData: {},
     error: '',
 }
 
@@ -41,6 +43,10 @@ export default (state = initialState, action) => {
                 user_products: [],
                 user_message_history: null,
                 save_status: '',
+                protocolo: '',
+                save_msg: '',
+                alert: false,
+                alertData: {},
                 error: '',
             }
         case MESSAGE_SAW:
@@ -48,6 +54,12 @@ export default (state = initialState, action) => {
                 ...state,
                 mensagem: 2,
                 user_message_history: action.payload,
+            }
+        case ALERT_MESSAGE:
+            return {
+                ...state,
+                alert: action.alert,
+                alertData: action.alertData,
             }
         case SAVE_PORTFOLIO:
             return {

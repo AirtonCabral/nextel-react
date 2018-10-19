@@ -54,171 +54,109 @@ const basename_home = 'home';
 
 export class Login extends React.Component {
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        login: '',
-        password: '',
-        isProcessing: false,
-        buttonColorState: 'primary',
-        buttonValueState: 'Entrar',
-      };
-      // console.log('-->> login builded');
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: '',
+      password: '',
+      isProcessing: false,
+      buttonColorState: 'primary',
+      buttonValueState: 'Entrar',
+    };
+    // console.log('-->> login builded');
+  }
 
-    loginApplication() {
+  loginApplication() {
 
-      clearState();
-      
-      // let { login, password } = this.state;
-      let msisdn = this.props.params.msisdn
+    clearState();
+
+    // let { login, password } = this.state;
+    let msisdn = this.props.params.msisdn
 
 
-      this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' });
+    this.setState({ isProcessing: true, buttonValueState: 'Iniciando conexão' });
 
-      // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => { // login producao
-      this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => { // login dev homolog
+    // this.props.startConnection('drweb', 'n)CJL^?r4p#rYaG/R8A_', msisdn).then(() => { // login producao
+    this.props.startConnection('drweb', 'c62J3rZovtw', msisdn).then(() => { // login dev homolog
 
-        let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
-        let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
-        
-        this.setState({
-          buttonColorState: buttonColorResult, 
-          buttonValueState: buttonValueResult
-        });
-        
-        this.props.getProducts().then(() => {
-          this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
-          
-          this.props.signIn().then(() => {
-            
-            // START PROJECT
-            if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-              setTimeout(() => {
-                this.props.loadPage(basename_home)
-              }, 300);
-              this.setState({ buttonValueState: 'Tudo ok, iniciando...' });
-            }
-            else {
-              this.updateStateOut('Ups, MSISDN Inválido.');
-            }
+      let buttonColorResult = this.props.online ? 'secondary' : this.state.buttonColorState;
+      let buttonValueResult = this.props.online ? 'Seja bem vindo, Carregando Produtos...' : errorResultMessage;
 
-          }) // end success signIn()
-          .catch((error)=>{
+      this.setState({
+        buttonColorState: buttonColorResult,
+        buttonValueState: buttonValueResult
+      });
+
+      this.props.getProducts().then(() => {
+        this.setState({ buttonValueState: 'Baixando dados do Usuário...' });
+
+        this.props.signIn().then(() => {
+
+          // START PROJECT
+          if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+            setTimeout(() => {
+              this.props.loadPage(basename_home)
+            }, 300);
+            this.setState({ buttonValueState: 'Tudo ok, iniciando...' });
+          }
+          else {
+            this.updateStateOut('Ups, MSISDN Inválido.');
+          }
+
+        }) // end success signIn()
+          .catch((error) => {
             this.updateStateOut('Ups, usuário indisponível ou instável. Recarregue a tela.');
           });
 
-        }) // end success getProducts()
-        .catch((error)=>{
+      }) // end success getProducts()
+        .catch((error) => {
           this.updateStateOut('Ups, produtos insdisponíveis para este número "msisdn".');
         });
 
-      }) // end success startConnection()
-      .catch((error)=>{
+    }) // end success startConnection()
+      .catch((error) => {
         this.updateStateOut('Ups, erro ao tentar se conectar. Recarregue a tela.');
       });
 
+  }
+
+  updateStateOut(msg) {
+    this.setState({
+      isProcessing: false,
+      buttonValueState: msg
+    });
+  }
+
+  componentDidMount() {
+    // console.log('-->> login mounted');
+    return this.loginApplication();
+  }
+
+  render() {
+
+    const { classes, params } = this.props;
+    const isCentral = 'atendente' in params && params.atendente !== '' ? true : false;
+    const loginPageTitle = isCentral ? 'Central Serviços VAS' : 'Nextel Serviços VAS'
+    const messageOut = this.state.buttonValueState;
+
+    // const errorResultMessage = 'Error  :(  Recarregue a página.';
+
+    // if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
+    //   messageOut = 'Logado!'
+    // }
+
+    if (this.props.userError !== '') {
+      return (<div>
+        {this.state.buttonValueState}
+      </div>)
     }
-
-    updateStateOut(msg) {
-      this.setState({
-        isProcessing: false, 
-        buttonValueState: msg
-      });
-    }
-
-    componentDidMount() {
-      // console.log('-->> login mounted');
-      return this.loginApplication();
-    }
-    
-    render() {
-      
-      const { classes, params } = this.props;
-      const isCentral = 'atendente' in params && params.atendente !== '' ? true:false;
-      const loginPageTitle = isCentral ? 'Central Serviços VAS' : 'Nextel Serviços VAS'
-      const messageOut = this.state.buttonValueState;
-      
-      // const errorResultMessage = 'Error  :(  Recarregue a página.';
-      
-      // if (this.props.assinantesID !== null && this.props.assinantesID !== undefined) {
-      //   messageOut = 'Logado!'
-      // }
-      
-      if (this.props.userError !== '') {
-        return (<div>
-          {this.state.buttonValueState}
-        </div>)
-      }
-
-      return (
-        <React.Fragment>
-          
-          <CircularProgress style={{ color: orange[600] }} />
-          <CssBaseline />
-
-          <main className={classes.layout}>
-            {/* <Paper className={classes.paper}> */}
-              
-              {/* <Avatar className={classes.avatar}>
-                <LockIcon />
-              </Avatar> */}
-
-              {/* <Typography variant="headline">{ loginPageTitle }</Typography>
-              {isCentral && <Typography>Atendente: {this.props.params.atendente}</Typography>}
-              <Typography>MSISDN: {this.props.params.msisdn}</Typography> */}
-              
-              {/* <form
-                className={classes.form}
-                action="/"
-                method="POST"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  this.loginApplication();
-                }}> */}
-
-                {/* <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="email">Login</InputLabel>
-                  <Input
-                    id="email"
-                    name="email"
-                    autoComplete="email"
-                    value={this.state.login}
-                    onChange={event=>{
-                      this.setState({ login: event.target.value });
-                    }} />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="password">Senha</InputLabel>
-                  <Input
-                    name="password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={this.state.password}
-                    onChange={event=>{
-                      this.setState({ password: event.target.value });
-                    }} />
-                </FormControl> */}
-
-                {/* <Button
-                  type="submit"
-                  fullWidth
-                  disabled={this.state.isProcessing}
-                  variant="raised"
-                  color={this.state.buttonColorState}
-                  className={classes.submit}>
-                    {this.state.buttonValueState}
-                </Button> */}
-
-              {/* </form> */}
-
-            {/* </Paper> */}
-          </main>
-
-        </React.Fragment>
-      )
-    }
+    const stageHeight = window.innerHeight
+    return (
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
+        <CircularProgress style={{ color: orange[600] }} />
+      </div>
+    )
+  }
 }
 
 Login.propTypes = {
@@ -226,22 +164,22 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    online: state.auth.online,
-    assinantesID: state.user.assinantesID,
-    pageLoaded: state.dom.page,
-    params: state.dom.params,
-    userError: state.user.error,
+  online: state.auth.online,
+  assinantesID: state.user.assinantesID,
+  pageLoaded: state.dom.page,
+  params: state.dom.params,
+  userError: state.user.error,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    startConnection,
-    signIn,
-    getProducts,
-    loadPage,
+  startConnection,
+  signIn,
+  getProducts,
+  loadPage,
 }, dispatch)
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(withStyles(styles)(Login))
 

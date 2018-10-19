@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { addToPortfolio, removeToPortfolio } from '../actions/a_user'
+import { addToPortfolio, removeToPortfolio, alertMessage } from '../actions/a_user'
 import { selectProduct } from '../actions/a_products'
 
 import Card from '@material-ui/core/Card';
@@ -55,7 +55,28 @@ const styles = {
     },
 };
 
+const missingUserPointsMessage = "Pontos insuficientes"
+
 export class DefaultCard extends React.Component {
+
+    // this.handleAlertDialog = this.handleAlertDialog.bind(this);
+    // this.renderSwitchButtonClickCallback = this.renderSwitchButtonClickCallback.bind(this);
+
+    renderNextDateAvailable() {
+        let nextDate_month = new Date().getMonth() + 2;
+        const nextDate_year = "/" + new Date().getFullYear();
+        if (nextDate_month < 10) {
+            nextDate_month = "0" + nextDate_month;
+        }
+        const nextDate_day = "01/";
+        const nextDate_full = nextDate_day + nextDate_month + nextDate_year;
+        const output = "Altere a partir de " + nextDate_full;
+        return output;
+    }
+
+    handleAlertDialog() {
+        
+    }
 
     render() {
         const { classes, id, isSmall } = this.props;
@@ -73,7 +94,7 @@ export class DefaultCard extends React.Component {
         let isAvailable = true;
 
         let tolltipStatusMessage = "";
-        let nextDateAvailable = this.props.nextDateAvailable;
+        let nextDateAvailable = this.renderNextDateAvailable();
 
         // verifica se este card é um produto já seleciondo
         this.props.user_products.forEach(element => {
@@ -95,7 +116,7 @@ export class DefaultCard extends React.Component {
         // hora de verificar se tem saldo para este item
         if (!isSelected) {
             isAvailable = remaningPoints >= cardPoints ? true : false;
-            tolltipStatusMessage = isAvailable ? "" : this.props.missingUserPointsMessage;
+            tolltipStatusMessage = isAvailable ? "" : missingUserPointsMessage;
         }
         return (
             <div>
@@ -157,7 +178,14 @@ export class DefaultCard extends React.Component {
                                     }
                                     onClick={()=>{
                                         if (!isAvailable) {
-                                            return this.props.switchButtonClickCallback(data.produto, isSelected);
+                                            const alertMessage = isSelected ? this.renderNextDateAvailable() : missingUserPointsMessage;
+                                            return this.props.alertMessage({
+                                                alert:true,
+                                                alertData: {
+                                                    title: '',
+                                                    content: alertMessage,
+                                                }
+                                            });
                                         }
                                     }}
                                 />
@@ -186,6 +214,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     addToPortfolio,
     removeToPortfolio,
     selectProduct,
+    alertMessage,
 }, dispatch)
 
 export default connect(

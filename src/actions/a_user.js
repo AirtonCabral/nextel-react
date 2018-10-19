@@ -1,6 +1,6 @@
 import { API } from '@doctorweb/endpoints';
 import { remoteApi, endpoints } from '../resources/urls';
-import { SIGNIN, SIGNOUT, ADD_PRODUCT, REMOVE_PRODUCT, SAVE_PORTFOLIO, MESSAGE_SAW } from './types';
+import { SIGNIN, SIGNOUT, ADD_PRODUCT, REMOVE_PRODUCT, SAVE_PORTFOLIO, MESSAGE_SAW, ALERT_MESSAGE } from './types';
 
 export const signIn = () => (dispatch, getState) => {
     
@@ -178,5 +178,13 @@ export const sendPortfolioDone = () => (dispatch) => {
     dispatch({
         type: SAVE_PORTFOLIO,
         save_status: '',
+    })
+}
+
+export const alertMessage = (value) => (dispatch) => {
+    dispatch({
+        type: ALERT_MESSAGE,
+        alert: value.alert,
+        alertData: value.alertData,
     })
 }

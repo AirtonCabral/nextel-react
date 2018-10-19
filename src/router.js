@@ -19,7 +19,7 @@ export const PrivateRoute = ({ component: Component, auth: auth, redirect: redir
     if (typeof auth.expiresOn === 'string') {
         var expiresOn
         try { expiresOn = new Date(JSON.parse(auth.expiresOn)) }
-        catch(e) { expiresOn = new Date(auth.expiresOn) }
+        catch (e) { expiresOn = new Date(auth.expiresOn) }
     }
     else var expiresOn = auth.expiresOn
 
@@ -31,11 +31,11 @@ export const PrivateRoute = ({ component: Component, auth: auth, redirect: redir
     // }
 
     return (
-        <Route { ...rest } render={(props) => (
+        <Route {...rest} render={(props) => (
             // TODO: Deveríamos não apenas ver token, mas também ver idade do token.
             authenticated
-            ? <Component {...props} />
-            : <Redirect to='/' />
+                ? <Component {...props} />
+                : <Redirect to='/' />
         )} />
     )
 }
@@ -56,66 +56,64 @@ PrivateRoute.propTypes = {
 ////////////////////////////////////////////////////
 // const basename_root = '/servicosvas.aspx';
 const basename_root = '';
-const basename_login = basename_root+'login';
-const basename_home = basename_root+'home';
+const basename_login = basename_root + 'login';
+const basename_home = basename_root + 'home';
 ////////////////////////////////////////////////////
 
 export class SiteRouter extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
             message: 'Loading...'
         }
     }
-    
+
     componentDidMount() {
         // Cria um callback ao evento onLoad do DOM
         // window.addEventListener('load', () => {
-            // console.log('window addEventListener load OK !!!');
-            
-            // console.log('window.location --->>>', window.location);
+        // console.log('window addEventListener load OK !!!');
 
-            let message_output = this.state.message;
-            let isReadyToLogin = false;
-            const params = parseGetParams(window.location);
-            
-            if ('atendente' in params && params.atendente !== '') {
-                if ('msisdn' in params && params.msisdn !== '') {
-                    message_output = 'Acesso Central, msisdn, ok.';
-                    isReadyToLogin = true;
-                }
-                else {
-                    message_output = 'Central: msisdn não informado';
-                }
-            }
-            else if ('msisdn' in params && params.msisdn !== '') {
-                message_output = 'Acesso Cliente, msisdn, ok.';
+        // console.log('window.location --->>>', window.location);
+
+        let message_output = this.state.message;
+        let isReadyToLogin = false;
+        const params = parseGetParams(window.location);
+
+        if ('atendente' in params && params.atendente !== '') {
+            if ('msisdn' in params && params.msisdn !== '') {
+                message_output = 'Acesso Central, msisdn, ok.';
                 isReadyToLogin = true;
             }
-            else if (this.props.auth.token !== null) {
-                message_output = 'Acesso direto: localStorage';
-                return this.props.loadPage(basename_home, params);
-            }
             else {
-                message_output = 'Número "msisdn" não informado.';
+                message_output = 'Central: msisdn não informado';
             }
+        }
+        else if ('msisdn' in params && params.msisdn !== '') {
+            message_output = 'Acesso Cliente, msisdn, ok.';
+            isReadyToLogin = true;
+        }
+        else if (this.props.auth.token !== null) {
+            message_output = 'Acesso direto: localStorage';
+            return this.props.loadPage(basename_home, params);
+        }
+        else {
+            message_output = 'Número "msisdn" não informado.';
+        }
 
-            // console.log(message_output);
-            
-            if (isReadyToLogin) {
-                this.props.loadPage(basename_login, params);
-            }
-            else{
-                this.setState({
-                    message: message_output
-                });
-            }
+        if (isReadyToLogin) {
+            this.props.loadPage(basename_login, params);
+        }
+        else {
+            this.setState({
+                message: message_output
+            });
+        }
         // });
     }
 
     render() {
-        
+
         if (this.props.page === 'login') {
             return (
                 <Login />
@@ -127,20 +125,13 @@ export class SiteRouter extends React.Component {
             )
         }
         else {
+            const stageHeight = window.innerHeight
             return (
-                <Loading status={this.state.message} />
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
+                    <Loading status={this.state.message} />
+                </div>
             )
         }
-        // else {
-        //     return (
-        //         <Router basename={basename_root}>
-        //             <Switch>
-        //                 <Route          exact path={basename_root} component={Login} />
-        //                 <PrivateRoute   exact path={basename_home}  component={Home} auth={this.props.auth} />
-        //             </Switch>
-        //         </Router>
-        //     )
-        // }
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi, sendPortfolioDone } from '../actions/a_user'
+import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi, sendPortfolioDone, alertMessage } from '../actions/a_user'
 import { selectProduct } from '../actions/a_products'
 import { loadPage } from './../actions/a_dom'
 import './../sass/home.scss'
@@ -18,6 +18,7 @@ import NewsModal from './../components/news_modal';
 import ConfirmModal from './../components/confirm_modal';
 import AlertDialog from './../components/alert';
 import { clearState } from './../lib/storage';
+import AlertControl from '../components/alert_control';
 
 
 function rand() {
@@ -62,17 +63,10 @@ export class Home extends React.Component {
             ready: true,
             messages: 'Iniciando',
             errors: null,
-            alert: false,
-            alertProccess: false,
-            alertData: '',
         };
-        this.handleAlertDialog = this.handleAlertDialog.bind(this);
-        // console.log('-->> home builded');
     }
 
     componentDidMount() {
-        // console.log('-->> home mounted');
-        // console.log('this.props.user_message_history', this.props.user_message_history);
         if (this.props.products.length === 0 ||
             this.props.sva_produtos_id.length === 0 ) {
                 return this.props.loadPage('login');
@@ -87,23 +81,14 @@ export class Home extends React.Component {
                 output_msg = 'Erro ao salvar';
                 output_cont = this.props.save_msg;
             }
-            this.setState({
+            this.props.alertMessage({
                 alert:true,
-                alertProccess:true,
                 alertData: {
                     title: output_msg,
                     content: output_cont,
-                },
+                }
             });
         }
-    }
-
-    handleAlertDialog() {
-        this.setState({
-            alert:false,
-            alertProccess:false,
-        });
-        this.props.sendPortfolioDone();
     }
 
     renderNextDateAvailable() {
@@ -158,24 +143,11 @@ export class Home extends React.Component {
 
     handleReload = () => {
         clearState();
-        // let param = '';
-        // if ('msisdn' in this.props.params && this.props.params.msisdn !== '') {
-        //     param = '?msisdn='+this.props.params.msisdn;
-        // }
-        // if ('atendente' in this.props.params && this.props.params.atendente !== '') {
-        //     param += '&atendente='+this.props.params.atendente;
-        // }
-        // this.props.history.push('/'+param);
         window.location.reload();
     };
 
     handleLogout = () => {
         clearState();
-        // let param = '';
-        // if ('atendente' in this.props.params && this.props.params.atendente !== '') {
-        //     param = '?atendente='+this.props.params.atendente;
-        // }
-        // this.props.history.push('/'+param);
         window.location.reload();
     };
 
@@ -258,11 +230,6 @@ export class Home extends React.Component {
                             break;
                 }
             }
-            // console.log('this.props.product_selected', this.props.product_selected);
-            // console.log('this.props.mensagem', this.props.mensagem);
-            // console.log('typeContent', typeContent);
-            // console.log('isContentDetailToOpen', isContentDetailToOpen);
-            // console.log('this.props.user_message_history', this.props.user_message_history);
             return (
                 <div>
                     <Modal
@@ -274,15 +241,17 @@ export class Home extends React.Component {
                             {this.renderSwitchModal(typeContent)}
                     </Modal>
 
-                    <AlertDialog
-                        data={this.state.alertData}
-                        open={this.state.alert}
-                        handleClose={this.handleAlertDialog} />
+                    <AlertControl />
 
                     <div className='masterContainer'>
                         {/* <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div> */}
-                        <div className='cardsConteiner'><CardsProducts toggleFooter={this.state.toggleFooter }/></div>
-                        <div className='tabContainer'><TabContainer /></div>
+                        <div className='cardsConteiner'>
+                            <CardsProducts 
+                                toggleFooter={this.state.toggleFooter} />
+                        </div>
+                        <div className='tabContainer'>
+                            <TabContainer />    
+                        </div>
                         <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>
                             <Footer
                                 renderNextDateAvailable={this.renderNextDateAvailable()}
@@ -319,6 +288,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     sendPortfolioToApi,
     loadPage,
     sendPortfolioDone,
+    alertMessage,
 }, dispatch)
 
 export default connect(

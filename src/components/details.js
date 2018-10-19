@@ -76,7 +76,7 @@ class Details extends React.Component {
 
                     <i xs={12} onClick={this.props.handleClose} className="fas fa-times"></i>
 
-                    <div style={{overflow:'auto', marginTop:20}}>
+                    <div style={{overflow:'auto', marginTop:30}}>
                         <Grid item xs={12} className='contentSuperior'>
 
                             <Grid item>
@@ -99,12 +99,6 @@ class Details extends React.Component {
                                 </CardContent>
                             </Grid>
 
-                            {/* <Grid item xs={3}>
-                            <label className='points'>
-                                {this.props.details.pontos} <span>pts</span>
-                            </label>
-                        </Grid> */}
-
                         </Grid>
                         <Grid item xs={12} className='contentInferior'>
                             <Grid item className='carousel'>
@@ -120,21 +114,6 @@ class Details extends React.Component {
                                     responsive={responsive} />
 
                             </Grid>
-                            {/* <Grid className='contentTabs' > */}
-                            {/* <Tabs
-                                value={value}
-                                onChange={this.handleChange}
-                                fullWidth
-                                scrollButtons="on"
-                                indicatorColor="primary"
-                                textColor="primary"
-                                className='tabs'>
-                                <Tab value='Descrição' label="Descrição" />
-                                <Tab value='Como usar' label="Como usar" />
-                            </Tabs> */}
-                            {/* {value === 'Descrição' && <TabContainer>{this.props.details.descricao}</TabContainer>}
-                            {value === 'Como usar' && <TabContainer class='insideTabHowUse'> */}
-                            {/* </TabContainer>} */}
                             <Grid className='contentTabs'>
                                 <Typography variant='body'>
                                     {this.props.details.descricao}
