@@ -35,7 +35,7 @@ const ConfirmModal = (props) => {
     return (
         <div>
             <Grid container style={styles.paper} className='modalNews'>
-            <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> 
+            <i xs={12} onClick={props.handleClose} className="fas fa-times"></i>
                 <Grid item xs={12} className='header'>
                     <div style={{marginTop:30}}><label className='title'>SALVAR</label><br/>
                     <label>Tem certeza que deseja salvar as alterações?<br/>
@@ -49,16 +49,16 @@ const ConfirmModal = (props) => {
                     <label className='subtitle'>{'PONTOS UTILIZADOS: '+props.currentPoints}</label><br/>
                     <label className='subtitle'>{'PONTOS DISPONÍVEIS: '+props.remainPoints}</label>
                 </Grid>
-                <Grid item xs={8} sm={12}>
+                <Grid item xs={12}>
                     <Button variant="contained" color="primary" size="large"
                         onClick={props.onSubmit}>
                             {props.savingProcess!=='start' && 'CONFIRMAR'}
-                            {props.savingProcess==='start' && 
+                            {props.savingProcess==='start' &&
                                 <CircularProgress size={16} style={{ color:'#FFF' }} />
                             }
                         </Button>
                 </Grid>
-                <Grid item xs={4} sm={12}>
+                <Grid item xs={12}>
                     <Button variant="outlined" className='backButton' size="large"
                     onClick={props.handleClose}>VOLTAR</Button>
                 </Grid>

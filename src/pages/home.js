@@ -271,7 +271,7 @@ export class Home extends React.Component {
                         open={isContentDetailToOpen}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description">
-                            {this.renderSwitchModal(typeContent)}
+                            {this.renderSwitchModal(3)}
                     </Modal>
 
                     <AlertDialog
