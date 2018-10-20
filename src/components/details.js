@@ -92,7 +92,7 @@ class Details extends React.Component {
                                         {this.props.details.tags}
                                     </Typography>
                                     <hr />
-                                    <Typography variant="caption">
+                                    <Typography>
                                         {this.props.details.resumo}
                                     </Typography>
                                     <hr />
@@ -115,23 +115,27 @@ class Details extends React.Component {
 
                             </Grid>
                             <Grid className='contentTabs'>
-                                <Typography variant='body'>
+                                <Typography>
                                     {this.props.details.descricao}
-                                </Typography><br />
-                                <Typography variant='subheading'>
+                                </Typography>
+                                <br />
+                                <br />
+                                <Typography>
                                     COMO USAR:
                                 </Typography>
-                                <Typography variant='body2'>
+                                <br />
+                                <Typography>
                                     {this.props.details.comousar.titulo}
-                                </Typography><br />
-                                <Typography variant='body2'>
+                                </Typography>
+                                <br />
+                                <Typography>
                                     <ul>
                                         <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how1 }} /></li>
                                         <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how2 }} /></li>
                                         <li><div dangerouslySetInnerHTML={{ __html: this.props.details.comousar.how3 }} /></li>
                                     </ul>
                                 </Typography>
-                                <Typography variant='body2'>
+                                <Typography>
                                     {this.props.details.comousar.obs}
                                 </Typography>
                             </Grid>

@@ -1,0 +1,214 @@
+{
+    "54e286e93a0318e95e8": {
+        "Zg==": {
+            "comousar": {
+                "titulo": "É simples acionar a assistência:",
+                "how1": "Certifique-se que sua solicitação é uma emergência coberta pela Assistência",
+                "how2": "Ligue 0800 202 0214 a qualquer hora e identifique-se como um cliente Nextel",
+                "how3": "Solicite o serviço e agende a visita do profissional ou orientação do especialista",
+                "obs": "Aproveite esta comodidade!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x1000_01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x1000_02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x1000_03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x1000_04.png",
+                    "5": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x1000_05.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-915x560_01.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/assist_img-560x560_01.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/assistencia/128x128.png"
+            },
+            "parceiro": "ALES",
+            "produto": "Assistência Residencial",
+            "pontos": 15,
+            "tags": "FACILIDADES",
+            "resumo": "Assistência residencial 24 horas para emergências e ajuda de um especialista para configurar seu smartphone",
+            "descricao": "Quem tem a Assistência Residencial Mapfre pode contar com os serviços de chaveiro, encanador e eletricista para resolver as emergências do dia-a-dia. Basta ligar, todos os dias, 24 horas. E se precisar, conte ainda com a ajuda de um especialista para ajudar a configurar seu smartphone."
+        },
+        "Zw==": {
+            "comousar": {
+                "titulo": "Veja com começar a usar o Radar Wi-Fi:",
+                "how1": "Baixe o aplicativo Radar Wi-Fi, disponível para Android e iOS",
+                "how2": "No app, insira seu número Nextel com DDD e clique em Primeiro Acesso para receber a senha por SMS",
+                "how3": "Informe a senha, clique em Entrar e localize o hotspot mais próximo de você",
+                "obs": "Navegue à vontade sem gastar seu pacote de dados"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-560x1000_01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-560x1000_02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-560x1000_03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-560x1000_04.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-915x560_01.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/radarwifi_img-560x560_01.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/wifi/128x128.png"
+            },
+            "parceiro": "ALES",
+            "produto": "Radar WI-FI",
+            "pontos": 16,
+            "tags": "ENTRETENIMENTO",
+            "resumo": "Localize e se conecte facilmente a redes Wi-Fi em milhares de hotspots do Brasil e exterior",
+            "descricao": "O Radar Wi-Fi é um serviço exclusivo para clientes Nextel que permite localizar mais de 6 mil pontos de conexão Wi-Fi no Brasil de mais de 250 mil no exterior. Por meio do aplicativo você se conecta de maneira ilimitada, e pode acessar sites, redes sociais e enviar mensagens sem gastar seu pacote de dados."
+        },
+        "aA==": {
+            "comousar": {
+                "titulo": "Veja com ativar sua assinatura e começar a usar o ChefsClub",
+                "how1": "Visite <a href='http://www.chefsclub.com.br/parceria/nextel' target='_blank'>www.chefsclub.com.br/parceria/nextel</a> e ative sua assinatura completando seu cadastro",
+                "how2": "Baixe o app e comece navegue pelos restaurantes próximos de você. Confira as regras e benefícios de cada um",
+                "how3": "No restaurante, faça o check in pelo aplicativo e informe que você é um cliente ChefsClub",
+                "obs": "Aproveite a refeição. Comer fora começa aqui!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/04.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/915x560.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/560x560.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/chefsclub/128x128.png"
+            },
+            "parceiro": "ALES",
+            "produto": "ChefsClub",
+            "pontos": 39,
+            "tags": "ENTRETENIMENTO",
+            "resumo": "Comer fora começa aqui!  Ganhe descontos e benefícios em restaurantes com o maior clube de gastronomia do Brasil",
+            "descricao": "O ChefsClub é o maior clube de gastronomia do Brasil. Pelo aplicativo você navega pelos mais de 3.000 restaurantes em todo o Brasil e escolhe onde quer almoçar ou jantar. Depois, é só aproveitar seu benefício ou desconto, que pode ser até de 50% e vale para você e pelo menos mais um acompanhante."
+        },
+        "aQ==": {
+            "comousar": {
+                "titulo": "Veja como começar a aproveitar o Esporte Interativo Plus",
+                "how1": "Acesse <a href='http://www.eiplus.com.br/nextel' target='_blank'>www.eiplus.com.br/nextel</a>",
+                "how2": "Informe o número do seu Nextel e faça seu cadastro",
+                "how3": "Pronto! Você já pode começar a curtir o melhor em esportes",
+                "obs": "Aproveite e não perca nenhum jogo!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/place-holder-03-01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/place-holder-03-02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/place-holder-03-04.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/place-holder-01.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/place-holder-02.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/eiplus/128x128.png"
+            },
+            "parceiro": "TURNER",
+            "produto": "Esporte Interativo",
+            "pontos": 29,
+            "tags": "CONTEÚDO DE TV",
+            "resumo": "Assista ao vivo ao melhor conteúdo do mundo dos esportes através do celular, tablet ou computador. Não perca!",
+            "descricao": "O Esporte Interativo Plus é um serviço digital que dá acesso ao melhor do conteúdo de esportes. No aplicativo, o usuário pode assistir a todos os jogos da Champions League, Copa do Nordeste, Europa League, Copa Verde, Nations League, Brasileirão série C e D, basquete, eventos de luta e muito mais!"
+        },
+        "ag==": {
+            "comousar": {
+                "titulo": "Veja como começar a aproveitar o CN Já!",
+                "how1": "Acesse <a href='http://www.cnja.com.br/nextel' target='_blank'>www.cnja.com.br/nextel</a>",
+                "how2": "Informe o número do seu Nextel e faça seu cadastro",
+                "how3": "Pronto! Você já pode começar a curtir seus desenhos e séries",
+                "obs": "Aproveite todas as séries e desenhos do Cartoon Network, 24 horas por dia"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_print01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_print02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_print03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_print04.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_banner.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/app_nextel_logo_cnJA_ext.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/cnja/128x128.png"
+            },
+            "parceiro": "TURNER",
+            "produto": "Cartoon Network",
+            "pontos": 9,
+            "tags": "CONTEÚDO DE TV",
+            "resumo": "Acesse muitos desenhos infantis para você e seu filho assistirem 24 horas por dia, quando e onde quiser. Não perca!",
+            "descricao": "O Cartoon Network Já! é um aplicativo de streaming com conteúdo original do Cartoon Network. Ali, o usuário tem acesso a episódios, desde clássicos como Johnny Bravo e O Laboratório de Dexter até os mais novos desenhos de sucesso, como Steven Universo, As Meninas Superpoderosas, Ben 10, Hora de Aventura e muitos mais. Acompanhe e se divirta!"
+        },
+        "aw==": {
+            "comousar": {
+                "titulo": "Veja como começar a aproveitar o Mumo",
+                "how1": "Insira o número do seu Nextel com DDD para receber um código por SMS",
+                "how2": "No app, insira seu número Nextel com DDD e clique em Primeiro Acesso para receber a senha por SMS",
+                "how3": "Insira o código e comece a ouvir suas músicas a qualquer momento e qualquer lugar",
+                "obs": "Escolha uma estação para ser a trilha do seu dia!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/ss01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/ss02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/ss03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/ss04.png",
+                    "5": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/ss05.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/915x560.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/560x560.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/mumo/128x128.png"
+            },
+            "parceiro": "SUPERPLAYER",
+            "produto": "Mumo",
+            "pontos": 10,
+            "tags": "ENTRETENIMENTO",
+            "resumo": "O aplicativo ideal para você ouvir suas músicas, a qualquer momento, em qualquer lugar",
+            "descricao": "Ouça músicas online com o Mumo. São 8 estações com diferentes programações, feitas por especialistas em música: World Hits, Top Brasil, Sertanejo, Rock & Indie, Just Chillin, Bossa n Jazz, Gospel e Temática. Ouça 24h de música sem repetições, propaganda ou intervalos."
+        },
+        "ZmRpwpE=": {
+            "comousar": {
+                "titulo": "Veja como é simples aproveitar os descontos e benefícios do Clube",
+                "how1": "Acesse www.clubedescontoamigo.com.br do celular ou computador, clique em 'Primeiro Acesso' e crie sua conta",
+                "how2": "Faça uma busca por palavra-chave ou navegue pelas categorias para encontrar a sua loja",
+                "how3": "Finalize a compra usando o código de cupom ou no site especial da loja, acessível pelo link oferecido",
+                "obs": "Você não vai querer comprar de outra forma! Aproveite as vantagens do Clube Desconto Amigo!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x1000_01.jpg",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x1000_02.jpg",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x1000_03.jpg",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x1000_04.jpg",
+                    "5": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x1000_05.jpg"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-915x560_0103.jpg",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-560x560_0102.jpg",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/amigo/clubeamigo_img-128x128.png"
+            },
+            "parceiro": "ALES",
+            "produto": "Clube Desconto Amigo",
+            "pontos": 5,
+            "tags": "FACILIDADES",
+            "resumo": "Receba descontos e vantagens em compras online, ingressos de cinema, viagens, passeios e muito mais!",
+            "descricao": "Faça parte do Clube Desconto Amigo e ganhe vantagens e benefícios no seu dia a dia. Compre usando o Clube e receba descontos na hora, em milhares de produtos, serviços e opções incríveis de lazer. As melhores lojas de e-commerce estão aqui, além de cinemas, teatros e muitos outros. Aproveite!"
+        },
+        "ZmRpwpU=": {
+            "comousar": {
+                "titulo": "Para ativar seu bem.care é muito simples!",
+                "how1": "Acesse https://bem.care/download e faça o download do aplicativo",
+                "how2": "No aplicativo insira e verifique seu número Nextel",
+                "how3": "Complete seu cadastro",
+                "obs": "Depois disso é só usar! Pode nos chamar no chat que tiramos todas as suas dúvidas!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-560x1000_01.png",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-560x1000_02.png",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-560x1000_03.png",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-560x1000_04.png"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-915x560.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-560x560.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/bemcare/bemcare_img-128x128.png"
+            },
+            "parceiro": "BEMCARE",
+            "produto": "Bem.care",
+            "pontos": 25,
+            "tags": "FACILIDADES",
+            "resumo": "Toda assistência que você precisa para cuidar da sua saúde, tudo em um único app!",
+            "descricao": "Acreditamos que é possível cuidar da saúde de outro jeito. Por isso, juntamos a mais completa oferta de assistências de saúde à uma equipe de atendimento que quer entender de verdade aquilo que você precisa, com total privacidade e praticidade. Tudo entregue nesse aparelho que você carrega no seu bolso."
+        }
+    }
+}

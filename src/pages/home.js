@@ -215,7 +215,6 @@ export class Home extends React.Component {
                         <div className={this.state.toggleFooter ? ' extendFooter' : ' footerContainer'}>
                             <Footer
                                 renderNextDateAvailable={this.renderNextDateAvailable()}
-                                currentPoints={this.getCurrentPoints()} 
                                 handleFooter={this.handleFooter}
                                 toggleFooter={this.state.toggleFooter} />
                         </div>

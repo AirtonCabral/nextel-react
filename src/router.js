@@ -115,7 +115,6 @@ export class SiteRouter extends React.Component {
     render() {
 
         if (this.props.page === 'login') {
-            console.log('router render login');
             return (
                 <Login />
             )

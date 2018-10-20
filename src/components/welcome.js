@@ -52,7 +52,8 @@ const WelcomeModal = (props) => {
                     <label className='title'>SEJA BEM VINDO!</label>
                     <p className='subtitle'>VAMOS COMEÇAR?</p>
                     <label>
-                        {'Escolha os serviços que vão fazer parte do seu pacote. '+textoPontos1 +' '+textoPontos2+' '+textoPontos3}
+                        {'Escolha os serviços que vão fazer parte do seu pacote.  '+textoPontos1 +'  '+textoPontos2+'  '+textoPontos3}
+                        {'  '+textoPacotes1 +'  '} {textoPacotes2 +'  '}{textoPacotes3}
                     </label>
                 </Grid>
 
@@ -67,9 +68,9 @@ const WelcomeModal = (props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} className='boxChips'>
-                    <div style={{ marginBottom: 20 }}>
-                        <label>{textoPacotes1 +' '} {textoPacotes2 +' '}{textoPacotes3}</label>
-                    </div>
+                    {/* <div style={{ marginBottom: 20 }}>
+                        <label></label>
+                    </div> */}
                     {ChipsToShow}
                 </Grid>
 

@@ -49,17 +49,30 @@ function Chips(props) {
   return (
     <div className='chips-root'>
       <Tooltip title={props.alert} placement="top">
-        <Chip
-          classes={classes}
-          avatar={<Avatar src={props.data.img.icon} />}
-          label={disableTitle?'':labelUpdated}
-          deleteIcon={isDisabled ? <div /> : null}
-          onDelete={() => {
-            props.onRemove(props.data);
-          }}
+        <div
+          onClick={()=>{
+            if (props.alert !== '') {
+                return props.alertMessage({
+                    alert:true,
+                    alertData: {
+                        title: '',
+                        content: props.alert,
+                    }
+                });
+            }
+          }}>
+          <Chip
+            classes={classes}
+            avatar={<Avatar src={props.data.img.icon} />}
+            label={disableTitle ? '' : labelUpdated}
+            deleteIcon={isDisabled ? <div /> : null}
+            onDelete={() => {
+              props.onRemove(props.data);
+            }}
           // className={disableTitle?'chipDesk':'chip'}
           // variant="outlined"
-        />
+          />
+        </div>
       </Tooltip>
     </div>
   );

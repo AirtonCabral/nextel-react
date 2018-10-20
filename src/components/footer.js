@@ -13,11 +13,25 @@ import SalvarControl from './salvar_control';
 
 export class Footer extends React.Component {
 
+    getCurrentPoints() {
+        let current_points = 0;
+        this.props.user_products.forEach(element => {
+            current_points += element.pontos;
+        });
+        return current_points;
+    }
+
+    getRemainPoints() {
+        return this.props.user_total_points-this.getCurrentPoints();
+    }
+
     render() {
-
-        let current_points_percent = 0;
-        current_points_percent = (this.props.currentPoints / this.props.pontos) * 100;
-
+        
+        const current_points_percent = (this.getCurrentPoints() / this.props.pontos) * 100;
+        const current_points_remain = this.props.pontos - this.getCurrentPoints();
+        const isPlurall = current_points_remain > 1 ? true : false;
+        const status_points_remain = 'MEUS SERVIÇOS: ' + current_points_remain + ' PONTO'+(isPlurall?'S':'')+' RESTANTE'+(isPlurall?'S':'');
+        
         // montagem dos thumbs
         let cardToShow = [];
         this.props.user_products.map((v, i) => {
@@ -38,16 +52,18 @@ export class Footer extends React.Component {
                     disableTitle
                     isDisabled={isDisabled}
                     alert={tolltipStatusMessage}
+                    alertMessage={(data) => {
+                        this.props.alertMessage(data);
+                    }}
                     onRemove={(item) => {
                         this.props.removeToPortfolio(item);
                     }} />
             );
         });
-        let currentPoints = this.props.pontos-this.props.currentPoints;
         return (
             <div className='footer' >
 
-                <label  className='switchLabel desktop'>{'MEUS SERVIÇOS'}: {this.props.pontos-this.props.currentPoints} PONTOS RESTANTES </label>
+                <label  className='switchLabel desktop'>{status_points_remain}</label>
 
                 <AppBar className='controlPoints' position="static" color="default">
                     <div className='footerContainer'>
@@ -58,7 +74,7 @@ export class Footer extends React.Component {
                                 <div className='boxCircular'>
                                     <CircularProgress className='circularProgress' variant="static" value={current_points_percent} />
                                     <Grid item className="pointsProgress">
-                                        <label>{this.props.currentPoints}/<span>{this.props.pontos}</span><br /></label>
+                                        <label>{this.getCurrentPoints()}/<span>{this.props.pontos}</span><br /></label>
                                         <label className='points'>pontos</label>
                                     </Grid>
                                 </div>
@@ -79,7 +95,7 @@ export class Footer extends React.Component {
                             <div className='footerRightContainer2 mobiletoshow'>
                                 <Button
                                     onClick={this.props.handleFooter}>
-                                    {currentPoints+' PONTOS RESTANTES'}
+                                    {current_points_remain+' PONTOS RESTANTES'}
                                 </Button>
                             </div>
                             <div className='footerRightContainer'>
