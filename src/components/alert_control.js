@@ -6,6 +6,10 @@ import { alertMessage } from './../actions/a_user'
 
 export class AlertControl extends React.Component {
 
+    static defaultProps = {
+        callbackOnClose: ()=>{console.log('Missing callback function()');}
+    }
+    
     constructor(props) {
         super(props);
         this.handleCloseAlertDialog = this.handleCloseAlertDialog.bind(this);
@@ -19,6 +23,7 @@ export class AlertControl extends React.Component {
                 content: '',
             }
         });
+        return this.props.callbackOnClose();
     }
 
     render() {

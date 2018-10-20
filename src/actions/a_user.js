@@ -142,7 +142,7 @@ export const sendPortfolioToApi = () => (dispatch, getState) => {
             save_status: 'done',
             type: SAVE_PORTFOLIO,
         });
-        dispatch(signIn());
+        // dispatch(signIn());
     })
     .catch((error) => {
         let output_msg_error = '';

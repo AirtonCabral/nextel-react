@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi, sendPortfolioDone, alertMessage } from '../actions/a_user'
+import { signIn, addToPortfolio, removeToPortfolio, setMessageSaw, sendPortfolioToApi, sendPortfolioDone, alertMessage } from '../actions/a_user'
 import { selectProduct } from '../actions/a_products'
 import { loadPage } from './../actions/a_dom'
 import './../sass/home.scss'
@@ -201,7 +201,12 @@ export class Home extends React.Component {
                             {this.renderSwitchModal(typeContent)}
                     </Modal>
 
-                    <AlertControl />
+                    <AlertControl
+                        callbackOnClose={()=>{
+                            if (this.props.save_status === "done") {
+                                this.props.signIn();
+                            }
+                        }} />
 
                     <div className='masterContainer'>
                         {/* <div className='barContainer'><MenuAppBar handleLogout={this.handleLogout} handleReload={this.handleReload} title="PERSONALIZE SEUS SERVIÇOS" /></div> */}
@@ -287,6 +292,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     loadPage,
     sendPortfolioDone,
     alertMessage,
+    signIn,
 }, dispatch)
 
 export default connect(
