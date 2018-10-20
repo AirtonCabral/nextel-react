@@ -209,6 +209,58 @@
             "tags": "FACILIDADES",
             "resumo": "Toda assistência que você precisa para cuidar da sua saúde, tudo em um único app!",
             "descricao": "Acreditamos que é possível cuidar da saúde de outro jeito. Por isso, juntamos a mais completa oferta de assistências de saúde à uma equipe de atendimento que quer entender de verdade aquilo que você precisa, com total privacidade e praticidade. Tudo entregue nesse aparelho que você carrega no seu bolso."
+        },
+        "ZmRpwpU=": {
+            "comousar": {
+                "titulo": "Saiba como é fácil utilizar e aproveitar:",
+                "how1": "Baixe o aplicativo Missão Carreira, disponível para Android.",
+                "how2": "Na área de login, coloque seu número Nextel com DDD e clique em “Entrar”.",
+                "how3": "Agora é só aproveitar e se preparar para o mercado de trabalho!",
+                "obs": "Buscar vagas, fazer cursos e ter as melhores orientações do mercado de trabalho, é só com o Missão Carreira!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/1.jpg",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/2.jpg",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/3.jpg",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/4.jpg"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/missao-carreira.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/launchIcon-560.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/missaocarreira/launchIcon-128.png"
+            },
+            "parceiro": "NEXTEL",
+            "produto": "Missão Carreira",
+            "pontos": 25,
+            "tags": "FACILIDADES",
+            "resumo": "O melhor lugar para se atualizar profissionalmente com cursos, testes e orientações comportamentais diárias!",
+            "descricao": "O Missão Carreira é ideal para quem gosta de acompanhar de perto, as novidades sobre o mercado de trabalho! Temos orientações de como conquistar a melhor vaga, uma promoção no trabalho ou mudar de emprego. Além dos cursos pofissionais para concurso público, renda extra e profissionalizante. Incrível né?"
+        },
+        "ZmRpwpU=": {
+            "comousar": {
+                "titulo": "Saiba como é fácil utilizar e aproveitar:",
+                "how1": "Baixe o aplicativo Partiu Viagem, disponível para Android.",
+                "how2": "Na área de login, coloque seu número Nextel com DDD e clique em “Entrar”.",
+                "how3": "Agora é só aproveitar e planejar sua viagem dos sonhos!",
+                "obs": "Conhecer o mundo, sem sair de casa, é só com o Partiu Viagem!"
+            },
+            "img": {
+                "howto": {
+                    "1": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/1.jpg",
+                    "2": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/2.jpg",
+                    "3": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/3.jpg",
+                    "4": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/4.jpg"
+                },
+                "display": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/partiu-viagem.png",
+                "logo": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/nextel_viagem_icone_560.png",
+                "icon": "https://s3-us-west-2.amazonaws.com/n3r-ales-nxtlppn-appimg/partiuviagens/nextel_viagem_icone_128.png"
+            },
+            "parceiro": "NEXTEL",
+            "produto": "Partiu Viagens",
+            "pontos": 25,
+            "tags": "FACILIDADES",
+            "resumo": "Um jeito fantástico de descobrir e planejar sua próxima viagem, com preços incríveis e em qualquer momento do seu dia.",
+            "descricao": "O Partiu Viagem é perfeito para quem gosta de viajar e se aventurar com amigos ou família! Aqui, vai ser possível descobrir novos destinos, comprar passagens aéreas em oferta, reservar os melhores hotéis e explorar os melhores lugares para comer e beber em qualquer lugar do mundo, em um só lugar! Demais né?"
         }
     }
 }
