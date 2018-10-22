@@ -125,7 +125,8 @@ export class SiteRouter extends React.Component {
             )
         }
         else {
-            const stageHeight = window.innerHeight
+            const stageWidth = window.innerWidth;
+            const stageHeight = stageWidth < 500 ? window.innerHeight : null;
             return (
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
                     <Loading status={this.state.message} />

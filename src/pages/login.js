@@ -134,7 +134,8 @@ export class Login extends React.Component {
 
   render() {
     
-    const stageHeight = window.innerHeight
+    const stageWidth = window.innerWidth;
+    const stageHeight = stageWidth < 500 ? window.innerHeight : null;
     if (this.props.userError !== '') {
       return (<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: stageHeight}}>
         {this.state.buttonValueState}

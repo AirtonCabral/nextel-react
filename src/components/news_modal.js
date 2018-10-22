@@ -38,7 +38,7 @@ const NewsModal = (props) => {
         {/* <i xs={12} onClick={props.handleClose} className="fas fa-times"></i> */}
             <Grid item xs={12} className='header'>
                 <label className='title'>TEM NOVIDADE POR AQUI...</label><br/>
-                <label>Você alterou seu plano Nextel, por isso sua qunatidade de pontos mudou.</label><br />
+                <label>Você alterou seu plano Nextel, por isso sua quantidade de pontos mudou.</label><br />
                 <br /> 
                 <label>{texto1}</label><br />
                 <label>{texto2}</label><br />
