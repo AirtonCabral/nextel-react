@@ -1,6 +1,9 @@
 // Configura aqui se estamos em modo de produção ou debug
 const DEBUG = false
 
+// há também na tela "login.js" 
+// há também nas fontes "global.scss.js" 
+
 let url
 if (DEBUG) {
     url = 'https://www.mocky.io/v2'
