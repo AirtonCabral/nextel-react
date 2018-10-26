@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'babel-polyfill';
 import { Provider } from 'react-redux'
 import store from './store'
 import SiteRouter from './router';

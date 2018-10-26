@@ -46,6 +46,10 @@ module.exports = {
             }
         ]
     },
+    entry: [
+        'babel-polyfill',
+        './src/index'
+    ],
     devServer: {
         historyApiFallback: true
     },
